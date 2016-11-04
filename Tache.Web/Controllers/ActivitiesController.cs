@@ -13,15 +13,6 @@ namespace Tache.Controllers {
             this.durationRepo = durationRepo;
         }
 
-        public ActionResult Index(string id) {
-            if (id == null)
-                return View(new ActivityAndDurationsViewModel(activityRepo, durationRepo));
-            else {
-                int result;
-                return int.TryParse(id, out result) ?
-                    View(new ActivityAndDurationsViewModel(activityRepo, durationRepo, result)) :
-                    View(new ActivityAndDurationsViewModel(activityRepo, durationRepo, id.ToLower()));
-            }
-        }
+        public ActionResult Index(string id) => Json(new ActivityAndDurationsViewModel(activityRepo, durationRepo, id), JsonRequestBehavior.AllowGet);
     }
 }
