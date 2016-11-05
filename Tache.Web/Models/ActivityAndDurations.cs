@@ -5,36 +5,32 @@ using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
 namespace Tache.Models {
-    public class ActivityAndDurationsViewModel {
+    public class ActivityAndDurationsRepository {
 
         private IActivityRepository activityRepo;
         private IDurationRepository durationRepo;
 
-        private Func<Activity, bool> ActivityById(int activityId) => a => a.Id == activityId;
-        private Func<Activity, bool> ActivityByName(string activityName) => a => a.Name == activityName;
+        public IList<ActivityAndDurationsViewModel> Activities { get; set; } = new List<ActivityAndDurationsViewModel>();
 
-        public IList<Tuple<Activity, IQueryable<Duration>>> Activities { get; set; } = new List<Tuple<Activity, IQueryable<Duration>>>();
-
-        public ActivityAndDurationsViewModel(IActivityRepository activityRepo, IDurationRepository durationRepo, string activity) {
-
+        public ActivityAndDurationsRepository(IActivityRepository activityRepo, IDurationRepository durationRepo, string activity) {
             this.activityRepo = activityRepo;
             this.durationRepo = durationRepo;
 
-            if (activity == null) {
+            if (activity == null)
                 AllActivities();
-            } else {
+            else {
                 int result;
                 if (int.TryParse(activity, out result))
-                    FindActivity(ActivityById(result));
+                    FindActivity(a => a.Id == result);
                 else
-                    FindActivity(ActivityByName(activity));
+                    FindActivity(a => a.Name == activity.ToLower());
             }
         }
 
         private void FindActivity(Func<Activity, bool> method) {
             var activity = activityRepo.Activities.Where(method).FirstOrDefault();
             var durations = durationRepo.Durations.Where(d => d.ActivityId == activity.Id);
-            Activities.Add(new Tuple<Activity, IQueryable<Duration>>(activity, durations));
+            Activities.Add(new ActivityAndDurationsViewModel(activity, durations));
         }
 
         private void AllActivities() {
@@ -43,9 +39,19 @@ namespace Tache.Models {
 
             activitiesList.ForEach(
                 activity => Activities.Add(
-                    new Tuple<Activity, IQueryable<Duration>>(
-                        activity, durations.Where(
+                    new ActivityAndDurationsViewModel(activity, durations.Where(
                             d => d.ActivityId == activity.Id))));
+        }
+
+    }
+
+    public class ActivityAndDurationsViewModel {
+        public Activity Activity { get; set; }
+        public IQueryable<Duration> Durations { get; set; }
+
+        public ActivityAndDurationsViewModel(Activity activity, IQueryable<Duration> durations) {
+            Activity = activity;
+            Durations = durations;
         }
     }
 }

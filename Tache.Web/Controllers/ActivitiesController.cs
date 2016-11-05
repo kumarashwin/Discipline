@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Newtonsoft.Json;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Models;
@@ -13,6 +13,6 @@ namespace Tache.Controllers {
             this.durationRepo = durationRepo;
         }
 
-        public ActionResult Index(string id) => Json(new ActivityAndDurationsViewModel(activityRepo, durationRepo, id), JsonRequestBehavior.AllowGet);
+        public ActionResult Index(string id) => Json(new ActivityAndDurationsRepository(activityRepo, durationRepo, id).Activities, JsonRequestBehavior.AllowGet);
     }
 }
