@@ -1,18 +1,15 @@
-﻿using Newtonsoft.Json;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Models;
 
 namespace Tache.Controllers {
     public class ActivitiesController : Controller {
-        private IActivityRepository activityRepo;
-        private IDurationRepository durationRepo;
+        private IActivityAndDurationsRepository activityAndDurationsRepository;
 
-        public ActivitiesController(IActivityRepository activityRepo, IDurationRepository durationRepo) {
-            this.activityRepo = activityRepo;
-            this.durationRepo = durationRepo;
+        public ActivitiesController(IActivityAndDurationsRepository activityAndDurationsRepository) {
+            this.activityAndDurationsRepository = activityAndDurationsRepository;
         }
 
-        public ActionResult Index(string id) => Json(new ActivityAndDurationsRepository(activityRepo, durationRepo, id).Activities, JsonRequestBehavior.AllowGet);
+        public ActionResult Index(string id) => Json(activityAndDurationsRepository.For(id).Model(), JsonRequestBehavior.AllowGet);
     }
 }

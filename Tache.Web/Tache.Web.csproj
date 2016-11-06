@@ -130,7 +130,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="Models\ActivityAndDurations.cs" />
+    <Compile Include="Models\ActivityAndDurationsRepository.cs" />
+    <Compile Include="Models\ViewModels\ActivityAndDurationsViewModel.cs" />
+    <Compile Include="Models\Abstract\IActivityAndDurationsRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
