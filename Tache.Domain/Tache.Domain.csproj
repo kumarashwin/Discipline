@@ -52,11 +52,12 @@
     <Compile Include="Abstract\IBudgetRepository.cs" />
     <Compile Include="Abstract\IDurationRepository.cs" />
     <Compile Include="Abstract\IActivityRepository.cs" />
-    <Compile Include="Concrete\EFBudgetRepository.cs" />
+    <Compile Include="Concrete\BudgetRepository.cs" />
+    <Compile Include="Concrete\CurrentActivityRepository.cs" />
     <Compile Include="Entities\CurrentActivity.cs" />
-    <Compile Include="Concrete\EFActivityRepository.cs" />
-    <Compile Include="Concrete\EFDbContext.cs" />
-    <Compile Include="Concrete\EFDurationRepository.cs" />
+    <Compile Include="Concrete\ActivityRepository.cs" />
+    <Compile Include="Concrete\DbContext.cs" />
+    <Compile Include="Concrete\DurationRepository.cs" />
     <Compile Include="Entities\Budget.cs" />
     <Compile Include="Entities\Duration.cs" />
     <Compile Include="Entities\Activity.cs" />
@@ -67,6 +68,10 @@
     <Compile Include="Migrations\201611041648187_Added TimeSpent in Duration.cs" />
     <Compile Include="Migrations\201611041648187_Added TimeSpent in Duration.Designer.cs">
       <DependentUpon>201611041648187_Added TimeSpent in Duration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201611071926067_Modified Duration &amp; CurrentActivity.cs" />
+    <Compile Include="Migrations\201611071926067_Modified Duration &amp; CurrentActivity.Designer.cs">
+      <DependentUpon>201611071926067_Modified Duration &amp; CurrentActivity.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,6 +86,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611041648187_Added TimeSpent in Duration.resx">
       <DependentUpon>201611041648187_Added TimeSpent in Duration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611071926067_Modified Duration &amp; CurrentActivity.resx">
+      <DependentUpon>201611071926067_Modified Duration &amp; CurrentActivity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

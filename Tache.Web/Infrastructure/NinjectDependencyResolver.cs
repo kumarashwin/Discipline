@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using Tache.Domain.Abstract;
 using Tache.Domain.Concrete;
 using Tache.Models;
+using Ninject.Web.Common;
 
 namespace Tache.Infrastructure {
     public class NinjectDependencyResolver : IDependencyResolver {
@@ -19,10 +20,10 @@ namespace Tache.Infrastructure {
         public IEnumerable<object> GetServices(Type serviceType) => kernel.GetAll(serviceType);
 
         private void AddBindings() {
-            kernel.Bind<IActivityAndDurationsRepository>().To<ActivityAndDurationsRepository>();
-            kernel.Bind<IActivityRepository>().To<EFActivityRepository>();
-            kernel.Bind<IBudgetRepository>().To<EFBudgetRepository>();
-            kernel.Bind<IDurationRepository>().To<EFDurationRepository>();
+            kernel.Bind<IActivityAndDurationsRepository>().To<ActivityAndDurationsRepository>().InRequestScope();
+            kernel.Bind<IActivityRepository>().To<ActivityRepository>().InRequestScope();
+            kernel.Bind<IBudgetRepository>().To<BudgetRepository>().InRequestScope();
+            kernel.Bind<IDurationRepository>().To<DurationRepository>().InRequestScope();
         }
     }
 }

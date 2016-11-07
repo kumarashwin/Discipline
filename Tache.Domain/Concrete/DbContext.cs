@@ -2,10 +2,10 @@
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
-    public class EFDbContext : DbContext {
+    public class DbContext : System.Data.Entity.DbContext {
 
-        public EFDbContext() : base("Tache") {
-            Database.SetInitializer(new MigrateDatabaseToLatestVersion<EFDbContext, Tache.Domain.Migrations.Configuration>("Tache"));
+        public DbContext() : base("Tache") {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbContext, Migrations.Configuration>("Tache"));
         }
 
         public DbSet<Activity> Activities { get; set; }

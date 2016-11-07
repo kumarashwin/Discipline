@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
@@ -7,12 +8,9 @@ namespace Tache.Domain.Concrete {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
         public int ActivityId { get; set; }
-        public int DurationId { get; set; }
+        public DateTime Start { get; set; }
 
         [ForeignKey("ActivityId")]
         public Activity Activity { get; set; }
-
-        [ForeignKey("DurationId")]
-        public Duration Duration { get; set; }
     }
 }

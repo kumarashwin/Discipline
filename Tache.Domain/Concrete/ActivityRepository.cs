@@ -5,8 +5,8 @@ using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
-    public class EFActivityRepository : IActivityRepository {
-        private EFDbContext context = new EFDbContext();
+    public class ActivityRepository : IActivityRepository {
+        private DbContext context = new DbContext();
 
         public IQueryable<Activity> Activities {
             get {
