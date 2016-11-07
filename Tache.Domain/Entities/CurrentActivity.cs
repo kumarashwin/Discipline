@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Tache.Domain.Entities;
 
-namespace Tache.Domain.Concrete {
+namespace Tache.Domain.Entities {
     public class CurrentActivity {
 
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

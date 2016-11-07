@@ -8,9 +8,9 @@ namespace Tache.Domain.Concrete {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<DbContext, Migrations.Configuration>("Tache"));
         }
 
-        public DbSet<Activity> Activities { get; set; }
-        public DbSet<Duration> Durations { get; set; }
-        public DbSet<CurrentActivity> CurrentActivities { get; set; }
-        public DbSet<Budget> Budgets { get; set; }
+        public virtual DbSet<Activity> Activities { get; set; }
+        public virtual DbSet<Duration> Durations { get; set; }
+        public virtual DbSet<CurrentActivity> CurrentActivities { get; set; }
+        public virtual DbSet<Budget> Budgets { get; set; }
     }
 }
