@@ -6,7 +6,11 @@ using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
     public class DurationRepository : IDurationRepository {
-        private DbContext context = new DbContext();
+        private AbstractDbContext context;
+
+        public DurationRepository(AbstractDbContext context) {
+            this.context = context;
+        }
 
         public IQueryable<Duration> Durations { get { return context.Durations; } }
 

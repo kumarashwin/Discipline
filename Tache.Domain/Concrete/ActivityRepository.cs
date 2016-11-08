@@ -6,7 +6,11 @@ using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
     public class ActivityRepository : IActivityRepository {
-        private DbContext context = new DbContext();
+        private AbstractDbContext context;
+
+        public ActivityRepository(AbstractDbContext context) {
+            this.context = context;
+        }
 
         public IQueryable<Activity> Activities {
             get {

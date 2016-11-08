@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,9 +17,8 @@ namespace Tache
 
             routes.MapRoute(
                 name: null,
-                url: "Activities/{id}",
-                defaults: new { controller = "Activities", action = "Index", id = UrlParameter.Optional },
-                constraints: new { id = new OptionalRouteConstraint(new RegexRouteConstraint("\\w"))});
+                url: "Day/{id}",
+                defaults: new { controller = "Day", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",

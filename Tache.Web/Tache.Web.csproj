@@ -124,15 +124,18 @@
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ActivitiesController.cs" />
+    <Compile Include="Controllers\DayController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
-    <Compile Include="Models\ActivityAndDurationsRepository.cs" />
-    <Compile Include="Models\ViewModels\ActivityAndDurationsViewModel.cs" />
-    <Compile Include="Models\Abstract\IActivityAndDurationsRepository.cs" />
+    <Compile Include="Models\Concrete\ActivityViewModelRepository.cs" />
+    <Compile Include="Models\Concrete\DayViewModelRepository.cs" />
+    <Compile Include="Models\Abstract\IDayViewModelRepository.cs" />
+    <Compile Include="Models\Abstract\IActivityViewModelRepository.cs" />
+    <Compile Include="Models\ViewModels\ActivityViewModel.cs" />
+    <Compile Include="Models\ViewModels\DayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Day\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Tache.Domain\Tache.Domain.csproj">
