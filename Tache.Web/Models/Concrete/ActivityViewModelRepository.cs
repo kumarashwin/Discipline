@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.SqlServer;
 using System.Linq;
 using Tache.Domain.Abstract;
 using Tache.Models.Abstract;
@@ -26,8 +27,8 @@ namespace Tache.Models.Concrete {
                         Duration = duration.Id,
                         Name = activity.Name,
                         Description = activity.Description,
-                        From = duration.From,
-                        To = duration.To
+                        From = (SqlFunctions.DateName("hh", duration.From) + ":" + SqlFunctions.DateName("mi", duration.From) + ":" + SqlFunctions.DateName("ss", duration.From)),
+                        To = (SqlFunctions.DateName("hh", duration.To) + ":" + SqlFunctions.DateName("mi", duration.To) + ":" + SqlFunctions.DateName("ss", duration.To))
                     }).OrderBy(vm => vm.From);
         }
     }
