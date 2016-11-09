@@ -131,11 +131,14 @@
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\Concrete\ActivityViewModelRepository.cs" />
-    <Compile Include="Models\Concrete\DayViewModelRepository.cs" />
-    <Compile Include="Models\Abstract\IDayViewModelRepository.cs" />
+    <Compile Include="Models\Concrete\DaysViewModelRepository.cs" />
+    <Compile Include="Models\_notUsing\DayViewModelRepository.cs" />
+    <Compile Include="Models\_notUsing\IDayViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IActivityViewModelRepository.cs" />
+    <Compile Include="Models\Abstract\IDaysViewModelRepository.cs" />
     <Compile Include="Models\ViewModels\ActivityViewModel.cs" />
-    <Compile Include="Models\ViewModels\DayViewModel.cs" />
+    <Compile Include="Models\ViewModels\DaysViewModel.cs" />
+    <Compile Include="Models\_notUsing\DayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
