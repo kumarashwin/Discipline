@@ -27,7 +27,7 @@ namespace Tache.Infrastructure {
             kernel.Bind<IDayViewModelRepository>().To<DayViewModelRepository>().InRequestScope();
 
             // Domain
-            kernel.Bind<AbstractDbContext>().To<DbContext>().InSingletonScope();
+            kernel.Bind<AbstractDbContext>().To<DbContext>().InRequestScope();
             kernel.Bind<IActivityRepository>().To<ActivityRepository>().InRequestScope();
             kernel.Bind<IBudgetRepository>().To<BudgetRepository>().InRequestScope();
             kernel.Bind<IDurationRepository>().To<DurationRepository>().InRequestScope();
