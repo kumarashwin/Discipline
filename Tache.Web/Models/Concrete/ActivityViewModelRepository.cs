@@ -16,20 +16,22 @@ namespace Tache.Models.Concrete {
             this.durationRepo = durationRepository;
         }
 
-        public IQueryable<ActivityViewModel> Activities(DateTime dayParam) {
-            var durations = durationRepo.Durations.Where(d => DbFunctions.TruncateTime(d.To) == dayParam.Date);
+        public IQueryable<ActivityViewModel> Activities(DateTime dayParam) =>
+            (from duration in durationRepo.Durations.Where(d => DbFunctions.TruncateTime(d.To) == dayParam.Date)
+             join activity in activityRepo.Activities
+             on duration.ActivityId equals activity.Id
+             select new {
+                 Activity = activity,
+                 Duration = duration
+             }).OrderBy(vm => vm.Duration.To).Select(vm => new ActivityViewModel {
+                 Activity = vm.Activity.Id,
+                 Duration = vm.Duration.Id,
+                 Name = vm.Activity.Name,
+                 Description = vm.Activity.Description,
+                 From = (SqlFunctions.DateName("hh", vm.Duration.From) + ":" + SqlFunctions.DateName("mi", vm.Duration.From) + ":" + SqlFunctions.DateName("ss", vm.Duration.From)),
+                 To = (SqlFunctions.DateName("hh", vm.Duration.To) + ":" + SqlFunctions.DateName("mi", vm.Duration.To) + ":" + SqlFunctions.DateName("ss", vm.Duration.To))
+             });
 
-            return (from duration in durations
-                    join activity in activityRepo.Activities
-                    on duration.ActivityId equals activity.Id
-                    select new ActivityViewModel {
-                        Activity = activity.Id,
-                        Duration = duration.Id,
-                        Name = activity.Name,
-                        Description = activity.Description,
-                        From = (SqlFunctions.DateName("hh", duration.From) + ":" + SqlFunctions.DateName("mi", duration.From) + ":" + SqlFunctions.DateName("ss", duration.From)),
-                        To = (SqlFunctions.DateName("hh", duration.To) + ":" + SqlFunctions.DateName("mi", duration.To) + ":" + SqlFunctions.DateName("ss", duration.To))
-                    }).OrderBy(vm => vm.From);
-        }
+        //private DateTime SQLDateAndTimeToDateTime(DateTime day, string time) => DateTime.Parse($"{day} {time}");
     }
 }

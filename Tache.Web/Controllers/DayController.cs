@@ -12,6 +12,8 @@ namespace Tache.Controllers {
             this.daysViewModelRepository = daysViewModelRepository;
         }
 
-        public ActionResult Index(string id) => Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(id)), "application/json");
+        public ViewResult Index(string id) => View(model: JsonConvert.SerializeObject(daysViewModelRepository.Days(id)));
+
+        //public ActionResult Index(string id) => Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(id)), "application/json");
     }
 }
