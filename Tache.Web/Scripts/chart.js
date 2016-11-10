@@ -1,8 +1,8 @@
 ﻿var ActivityColor = {
-    2007 : "pink",
-    2006 : "yellow",
-    2005 : "purple",
-    2004 : "blue"
+    2007: "#99CCCC",
+    2006: "#666666",
+    2005: "#6600FF",
+    2004: "#6699CC"
 };
 
 function TimeSpan(hours, minutes) {
@@ -10,25 +10,74 @@ function TimeSpan(hours, minutes) {
     this.hours = hours;
 }
 
-function Chart(canvas, activities) {
-    this.context = canvas.getContext("2d");
-    this.day = new Day(activities);
+function Chart(svg, days) {
+    this.svg = svg;
+    this.days = days;
     this.draw();
 };
 
-Chart.prototype.draw = function () {
-    var width = 50;
-    var height = 0;
-    var x = 10;
-    var y = this.context.canvas.height;
+// e.g.: From - 8:5:00; To - 10:20:00
+function calcDiffInMinutes(from, to) {
+    from = calcMinutesRegex(from);
+    to = calcMinutesRegex(to);
 
-    this.day.bars.forEach(function (bar) {
-        height = bar.span * 0.5;
-        y -= height;
-        this.context.fillStyle = bar.color;
-        this.context.fillRect(x, y, width, height);
-    }, this);
+    return to - from;
 }
+
+function calcMinutesRegex(time) {
+    var match = /(\d{1,2}):(\d{1,2}):(\d{1,2})/.exec(time);
+    return ((Number(match[1]) * 60) + Number(match[2]) + (Number(match[3]) > 30 ? 1 : 0));
+}
+
+Chart.prototype.draw = function () {
+    var width = 70;
+    var leftPadding = 15;
+    var x = leftPadding;
+
+    Object.keys(this.days).forEach(function (key, index) {
+        
+        var height = 0;
+        var y = this.svg.height.baseVal.value;
+        
+        var xmlns = "http://www.w3.org/2000/svg"
+        var bar = this.days[key];
+
+        bar.forEach(function (activity) {
+            height = calcDiffInMinutes(activity["From"], activity["To"]) * 0.5;
+            y -= height;
+            var svgElem = document.createElementNS(xmlns, "rect");
+            svgElem.setAttributeNS(null, "x", x);
+            svgElem.setAttributeNS(null, "y", y);
+            svgElem.setAttributeNS(null, "width", width);
+            svgElem.setAttributeNS(null, "height", height);
+            svgElem.setAttributeNS(null, "fill", ActivityColor[activity["Activity"]] );
+            
+            this.svg.appendChild(svgElem);
+        }, this);
+
+        x += leftPadding + width;
+    }, this);
+
+    // var width = 50;
+    //    var height = 0;
+    //    var x = 10;
+    //    var y = this.context.canvas.height;
+};
+
+
+//Chart.prototype.draw = function () {
+//    var width = 50;
+//    var height = 0;
+//    var x = 10;
+//    var y = this.context.canvas.height;
+
+//    this.day.bars.forEach(function (bar) {
+//        height = bar.span * 0.5;
+//        y -= height;
+//        this.context.fillStyle = bar.color;
+//        this.context.fillRect(x, y, width, height);
+//    }, this);
+//}
 
 
 function Day(activities) {
@@ -36,7 +85,7 @@ function Day(activities) {
     this.date = ticksToDate(activities[0]["To"]);
     this.bars = [];
 
-    this.activities.forEach(function(activity) {
+    this.activities.forEach(function (activity) {
         this.bars.push(new Bar(activity));
     }, this);
 }
@@ -58,70 +107,106 @@ function ticksToDate(ticks) {
     return new Date(parseTicks(ticks));
 }
 
-function parseTicks(ticks){
+function parseTicks(ticks) {
     return parseInt(/\d+/.exec(ticks));
 }
 
 // === MAIN ===
-var activities = [
+
+var activities = {
+    "2016-10-23": [],
+    "2016-10-24": [],
+    "2016-10-25": [],
+    "2016-10-26": [
+        {
+            "Activity": 2007,
+            "Duration": 3006,
+            "Name": "reading",
+            "Description": "*...page flip*",
+            "From": "21:0:0",
+            "To": "23:59:59"
+        }
+    ],
+    "2016-10-27": [
         {
             "Activity": 2007,
             "Duration": 3007,
             "Name": "reading",
             "Description": "*...page flip*",
-            "From": "/Date(1477540800000)/",
-            "To": "/Date(1477544400000)/"
+            "From": "0:0:0",
+            "To": "1:0:0"
         },
         {
             "Activity": 2004,
             "Duration": 3008,
             "Name": "sleeping",
             "Description": "I love sleeping!",
-            "From": "/Date(1477544401000)/",
-            "To": "/Date(1477573200000)/"
-        },
-        {
-            "Activity": 2006,
-            "Duration": 3009,
-            "Name": "coding",
-            "Description": "*klik klak klik klik*",
-            "From": "/Date(1477573201000)/",
-            "To": "/Date(1477584000000)/"
+            "From": "1:0:1",
+            "To": "9:0:0"
         },
         {
             "Activity": 2005,
             "Duration": 3010,
             "Name": "eating",
             "Description": "*chomp chomp mnggff!*",
-            "From": "/Date(1477584001000)/",
-            "To": "/Date(1477587600000)/"
+            "From": "12:0:1",
+            "To": "13:0:0"
         },
         {
             "Activity": 2006,
             "Duration": 3011,
             "Name": "coding",
             "Description": "*klik klak klik klik*",
-            "From": "/Date(1477587601000)/",
-            "To": "/Date(1477605600000)/"
+            "From": "13:0:1",
+            "To": "18:0:0"
         },
         {
             "Activity": 2005,
             "Duration": 3012,
             "Name": "eating",
             "Description": "*chomp chomp mnggff!*",
-            "From": "/Date(1477605601000)/",
-            "To": "/Date(1477609200000)/"
+            "From": "18:0:1",
+            "To": "19:0:0"
         },
         {
             "Activity": 2007,
             "Duration": 3013,
             "Name": "reading",
             "Description": "*...page flip*",
-            "From": "/Date(1477609201000)/",
-            "To": "/Date(1477627199000)/"
-        }];
+            "From": "19:0:1",
+            "To": "23:59:59"
+        },
+        {
+            "Activity": 2006,
+            "Duration": 3009,
+            "Name": "coding",
+            "Description": "*klik klak klik klik*",
+            "From": "9:0:1",
+            "To": "12:0:0"
+        }
+    ],
+    "2016-10-28": [
+        {
+            "Activity": 2007,
+            "Duration": 3014,
+            "Name": "reading",
+            "Description": "*...page flip*",
+            "From": "0:0:0",
+            "To": "0:30:0"
+        },
+        {
+            "Activity": 2004,
+            "Duration": 3015,
+            "Name": "sleeping",
+            "Description": "I love sleeping!",
+            "From": "0:30:1",
+            "To": "8:30:0"
+        }
+    ],
+    "2016-10-29": []
+};
 
-var chart = new Chart(document.getElementById("canvas"), activities);
+var chart = new Chart(document.getElementsByTagName("svg")[0], activities);
 
 //function findTimeSpan(fromTicks, toTicks) {
 //    var differenceInTicks = toTicks - fromTicks;
