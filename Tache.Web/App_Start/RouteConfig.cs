@@ -17,8 +17,14 @@ namespace Tache
 
             routes.MapRoute(
                 name: null,
-                url: "Day/{id}",
-                defaults: new { controller = "Day", action = "Index", id = UrlParameter.Optional });
+                url: "{year}/{month}/{day}",
+                defaults: new { controller = "Day", action = "Index" },
+                constraints: new { year = new RangeRouteConstraint(2000, 2999), month = new RangeRouteConstraint(1,12), day = new RangeRouteConstraint(1, 31) });
+            
+            //routes.MapRoute(
+            //    name: null,
+            //    url: "Day/{id}",
+            //    defaults: new { controller = "Day", action = "Index", id = UrlParameter.Optional });
 
             routes.MapRoute(
                 name: "Default",

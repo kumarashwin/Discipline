@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Globalization;
 using System.Web.Mvc;
 using Tache.Models.Abstract;
 
@@ -12,7 +11,7 @@ namespace Tache.Controllers {
             this.daysViewModelRepository = daysViewModelRepository;
         }
 
-        public ViewResult Index(string id) => View(model: JsonConvert.SerializeObject(daysViewModelRepository.Days(id)));
+        public ViewResult Index(int year, int month, int day) => View(model: JsonConvert.SerializeObject(daysViewModelRepository.Days(new DateTime(year, month, day))));
 
         //public ActionResult Index(string id) => Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(id)), "application/json");
     }

@@ -4,6 +4,6 @@ using Tache.Models.ViewModels;
 
 namespace Tache.Models.Abstract {
     public interface IDaysViewModelRepository {
-        IDictionary<string, ICollection<ActivityViewModel>> Days(string dayParam);
+        IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate);
     }
 }

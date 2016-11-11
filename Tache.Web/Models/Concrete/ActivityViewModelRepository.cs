@@ -29,9 +29,8 @@ namespace Tache.Models.Concrete {
                  Name = vm.Activity.Name,
                  Description = vm.Activity.Description,
                  From = (SqlFunctions.DateName("hh", vm.Duration.From) + ":" + SqlFunctions.DateName("mi", vm.Duration.From) + ":" + SqlFunctions.DateName("ss", vm.Duration.From)),
-                 To = (SqlFunctions.DateName("hh", vm.Duration.To) + ":" + SqlFunctions.DateName("mi", vm.Duration.To) + ":" + SqlFunctions.DateName("ss", vm.Duration.To))
+                 To = (SqlFunctions.DateName("hh", vm.Duration.To) + ":" + SqlFunctions.DateName("mi", vm.Duration.To) + ":" + SqlFunctions.DateName("ss", vm.Duration.To)),
+                 Color = vm.Activity.Color
              });
-
-        //private DateTime SQLDateAndTimeToDateTime(DateTime day, string time) => DateTime.Parse($"{day} {time}");
     }
 }

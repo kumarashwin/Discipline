@@ -3,7 +3,6 @@ using System.Linq;
 using System.Collections.Generic;
 using Tache.Models.ViewModels;
 using Tache.Models.Abstract;
-using System.Globalization;
 
 namespace Tache.Models.Concrete {
     public class DaysViewModelRepository : IDaysViewModelRepository {
@@ -13,16 +12,11 @@ namespace Tache.Models.Concrete {
             this.activityViewModelRepo = activityViewModelRepo;
         }
 
-        private DateTime ParseDateString(string dayParam) {
-            DateTime dateTime;
-            string[] format = new string[] { "MM-dd-yy", "MM-dd-yyyy", "dd-MM-yy", "dd-MM-yyyy" };
+        public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate) {
 
-            return DateTime.TryParseExact(dayParam, format, CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out dateTime) ? dateTime : DateTime.Now;
-        }
-
-        public IDictionary<string, ICollection<ActivityViewModel>> Days(string dayParam) {
-            DateTime startDate = ParseDateString(dayParam);
+            if (startDate > DateTime.Now.AddDays(-4))
+                startDate = DateTime.Now.AddDays(-4);
+            
             var days = new Dictionary<string, ICollection<ActivityViewModel>>();
 
             for (int i = -3; i <= 3; i++) {

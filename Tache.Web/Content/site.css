@@ -1,0 +1,47 @@
+﻿body, #dates, svg, #svgDiv {
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    padding-top: 40px;
+    padding-left: 40px;
+}
+
+#svgDiv{
+    opacity: 1;
+}
+
+#dates li{
+    display: inline;
+    float: left;
+}
+
+#dates li span {
+    display: block;
+    margin-left: 15px;
+    text-align:center;
+    width: 70px;
+    font-size: small;
+}
+
+.minus-three, .plus-three{
+    opacity: 0.7;
+}
+
+.minus-two, .plus-two{
+    opacity: 0.8;
+}
+
+.plus-one, .minus-one{
+    opacity: 0.9;
+}
+
+rect:hover {
+    opacity: 0.4;
+}
+
+
+
+
+

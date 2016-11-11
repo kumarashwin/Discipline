@@ -7,5 +7,15 @@
 <script type="text/javascript">
     var activities = @Html.Raw(Model);
 </script>
-
-<svg width="610px" height="360px" style="border: 1px solid black" xmlns="http://www.w3.org/2000/svg"></svg>
+<div id="svgDiv">
+    <svg width="610px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
+</div>
+<ul id="dates">
+    <li class="minus-three"><span></span></li>
+    <li class="minus-two"><span></span></li>
+    <li class="minus-one"><span></span></li>
+    <li class="current"><span></span></li>
+    <li class="plus-one"><span></span></li>
+    <li class="plus-two"><span></span></li>
+    <li class="plus-three"><span></span></li>
+</ul>

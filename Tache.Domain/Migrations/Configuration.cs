@@ -17,11 +17,11 @@ namespace Tache.Domain.Migrations
         protected override void Seed(Tache.Domain.Concrete.DbContext context)
         {
             context.Activities.AddOrUpdate(p => p.Name,
-                new Activity { Name = "sleeping", Description = "I love sleeping!" },
-                new Activity { Name = "eating", Description = "*chomp chomp mnggff!*" },
-                new Activity { Name = "coding", Description = "*klik klak klik klik*" },
-                new Activity { Name = "reading", Description = "*...page flip*"},
-                new Activity { Name = "gaming", Description = "*pew pew pew!*" });
+                new Activity { Name = "sleeping", Description = "I love sleeping!", Color = "#0099ff" },
+                new Activity { Name = "eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
+                new Activity { Name = "coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
+                new Activity { Name = "reading", Description = "*...page flip*", Color = "#333300" },
+                new Activity { Name = "gaming", Description = "*pew pew pew!*", Color = "#6600cc" });
 
             context.SaveChanges();
 
@@ -34,18 +34,19 @@ namespace Tache.Domain.Migrations
             var durations = context.Durations;
             durations.RemoveRange(durations);
 
+            int lastMinute;
             var result = new List<Duration>() { };
-            for (int day = 20; day < 30; day++) {
-                result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(2016, 10, day, 0, 0, 0), To = new DateTime(2016, 10, day, 8, 0, 0) } );
-                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 10, day, 8, 0, 1), To = new DateTime(2016, 10, day, 10, 0, 0) });
-                result.Add(new Duration { ActivityId = eatingID, From = new DateTime(2016, 10, day, 10, 0, 1), To = new DateTime(2016, 10, day, 11, 0, 0) });
-                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 10, day, 11, 0, 1), To = new DateTime(2016, 10, day, 15, 0, 0) });
-                result.Add(new Duration { ActivityId = gamingID, From = new DateTime(2016, 10, day, 15, 0, 1), To = new DateTime(2016, 10, day, 17, 0, 0) });
-                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 10, day, 17, 0, 1), To = new DateTime(2016, 10, day, 19, 0, 0) });
-                result.Add(new Duration { ActivityId = eatingID, From = new DateTime(2016, 10, day, 19, 0, 1), To = new DateTime(2016, 10, day, 20, 0, 0) });
-                result.Add(new Duration { ActivityId = gamingID, From = new DateTime(2016, 10, day, 20, 0, 1), To = new DateTime(2016, 10, day, 22, 0, 0) });
-                result.Add(new Duration { ActivityId = readingID, From = new DateTime(2016, 10, day, 22, 0, 1), To = new DateTime(2016, 10, day, 23, 0, 0) });
-                result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(2016, 10, day, 23, 0, 1), To = new DateTime(2016, 10, day, 23, 59, 59) });
+            for (int day = 1; day < 10; day++) {
+                result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(2016, 11, day, 0, 0, 0), To = new DateTime(2016, 11, day, 8, minuteRandomizer(out lastMinute), 0) } );
+                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 11, day, 8, lastMinute, 1), To = new DateTime(2016, 11, day, 10, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = eatingID, From = new DateTime(2016, 11, day, 10, lastMinute, 1), To = new DateTime(2016, 11, day, 11, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 11, day, 11, lastMinute, 1), To = new DateTime(2016, 11, day, 15, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = gamingID, From = new DateTime(2016, 11, day, 15, lastMinute, 1), To = new DateTime(2016, 11, day, 17, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 11, day, 17, lastMinute, 1), To = new DateTime(2016, 11, day, 19, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = eatingID, From = new DateTime(2016, 11, day, 19, lastMinute, 1), To = new DateTime(2016, 11, day, 20, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = gamingID, From = new DateTime(2016, 11, day, 20, lastMinute, 1), To = new DateTime(2016, 11, day, 22, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = readingID, From = new DateTime(2016, 11, day, 22, lastMinute, 1), To = new DateTime(2016, 11, day, 23, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(2016, 11, day, 23, lastMinute, 1), To = new DateTime(2016, 11, day, 23, 59, 59) });
             }
 
             durations.AddRange(result);
@@ -56,6 +57,9 @@ namespace Tache.Domain.Migrations
                 new Budget { ActivityId = codingID, Period = Period.perWeek, TimeInTicks = TimeSpan.FromHours(35).Ticks },
                 new Budget { ActivityId = gamingID, Period = Period.perWeek, TimeInTicks = TimeSpan.FromHours(25).Ticks });
         }
+
+        private Random random = new Random();
+        private int minuteRandomizer(out int lastMinute) => lastMinute = this.random.Next(0, 59);
 
     }
 }

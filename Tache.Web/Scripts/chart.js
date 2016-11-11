@@ -1,10 +1,40 @@
-﻿var ActivityColor = {
-    2007: "#99CCCC",
-    2006: "#666666",
-    2005: "#6600FF",
-    2004: "#6699CC",
-    3004: "yellow"
-};
+﻿function rectClickHandler(event) {
+    var timeInterval = 15;
+    if (!chart.activityId) {
+        if (event.target.nodeName == "rect") {
+            var opacity = 1;
+            var interval = setInterval(function () {
+                chart.svg.parentElement.style.opacity = opacity -= 0.1;
+                if (opacity <= 0) {
+                    chart.clear();
+                    chart.draw(event.target.getAttribute("data-activity-id"));
+                    var interval2 = setInterval(function () {
+                        chart.svg.parentElement.style.opacity = opacity += 0.1;
+                        if (opacity >= 1)
+                            clearInterval(interval2);
+                    }, timeInterval);
+                    clearInterval(interval);
+                }
+            }, timeInterval);
+        }
+    } else {
+        var opacity = 1;
+        var interval = setInterval(function () {
+            chart.svg.parentElement.style.opacity = opacity -= 0.1;
+            if (opacity <= 0) {
+                chart.clear();
+                chart.draw(null);
+                chart.activityId = null;
+                var interval2 = setInterval(function () {
+                    chart.svg.parentElement.style.opacity = opacity += 0.1;
+                    if (opacity >= 1)
+                        clearInterval(interval2);
+                }, timeInterval);
+                clearInterval(interval);
+            }
+        }, timeInterval);
+    }
+}
 
 function TimeSpan(hours, minutes) {
     this.minutes = minutes;
@@ -12,10 +42,16 @@ function TimeSpan(hours, minutes) {
 }
 
 function Chart(svg, days) {
+    this.activityId; // Only for redrawing chart
+
     this.svg = svg;
+    svg.addEventListener("click", rectClickHandler);
+
     this.days = days;
+    this.datesList = document.getElementById("dates");
+
     this.draw();
-};
+}
 
 // e.g.: From - 8:5:00; To - 10:20:00
 function calcDiffInMinutes(from, to) {
@@ -27,38 +63,68 @@ function calcDiffInMinutes(from, to) {
 
 function calcMinutesRegex(time) {
     var match = /(\d{1,2}):(\d{1,2}):(\d{1,2})/.exec(time);
-    return ((Number(match[1]) * 60) + Number(match[2]) + (Number(match[3]) > 30 ? 1 : 0));
+    return (Number(match[1]) * 60) + Number(match[2]) + (Number(match[3]) > 30 ? 1 : 0);
 }
 
-Chart.prototype.draw = function () {
+Chart.prototype.clear = function () {
+    while (this.svg.firstChild)
+        this.svg.removeChild(this.svg.firstChild);
+};
+
+Chart.prototype.draw = function (activityId) {
+
+    this.activityId = activityId;
+
     var width = 70;
     var leftPadding = 15;
     var x = leftPadding;
 
-    Object.keys(this.days).forEach(function (key, index) {
-        
+    Object.keys(this.days).forEach(function (day, index) {
+        var currentListElement = this.datesList.children[index];
+        if (typeof (activityId) === 'undefined')
+            currentListElement.firstChild.appendChild(document.createTextNode(day));
+        var className = currentListElement.className;
+
+        var color;
         var height = 0;
         var y = this.svg.height.baseVal.value;
-        
-        var xmlns = "http://www.w3.org/2000/svg"
-        var bar = this.days[key];
+        var bar = this.days[day];
 
-        bar.forEach(function (activity) {
-            height = calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
+        for (var i in bar) {
+            var activity = bar[i];
+
+            if (activityId) {
+                if (activity["Activity"] == activityId) {
+                    if (!color) color = activity["Color"];
+                    height += calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
+                }
+                continue;
+            } else {
+                color = activity["Color"];
+                height = calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
+                y -= height;
+                this.svg.appendChild(svgElemFactory(className, activity["Activity"], x, y, width, height, color));
+            }
+        }
+        if (activityId) {
             y -= height;
-            var svgElem = document.createElementNS(xmlns, "rect");
-            svgElem.setAttributeNS(null, "x", x);
-            svgElem.setAttributeNS(null, "y", y);
-            svgElem.setAttributeNS(null, "width", width);
-            svgElem.setAttributeNS(null, "height", height);
-            svgElem.setAttributeNS(null, "fill", ActivityColor[activity["Activity"]] );
-            
-            this.svg.appendChild(svgElem);
-        }, this);
-
+            this.svg.appendChild(svgElemFactory(className, activity["Activity"], x, y, width, height, color));
+        }
         x += leftPadding + width;
     }, this);
 };
+
+function svgElemFactory(className, activityId, x, y, width, height, fill) {
+    var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    svgElem.setAttributeNS(null, "class", className);
+    svgElem.setAttributeNS(null, "data-activity-id", activityId);
+    svgElem.setAttributeNS(null, "x", x);
+    svgElem.setAttributeNS(null, "y", y);
+    svgElem.setAttributeNS(null, "width", width);
+    svgElem.setAttributeNS(null, "height", height);
+    svgElem.setAttributeNS(null, "fill", fill);
+    return svgElem;
+}
 
 function Day(activities) {
     this.activities = activities;
@@ -92,98 +158,4 @@ function parseTicks(ticks) {
 }
 
 // === MAIN ===
-
-//var activities = {
-//    "2016-10-23": [],
-//    "2016-10-24": [],
-//    "2016-10-25": [],
-//    "2016-10-26": [
-//        {
-//            "Activity": 2007,
-//            "Duration": 3006,
-//            "Name": "reading",
-//            "Description": "*...page flip*",
-//            "From": "21:0:0",
-//            "To": "23:59:59"
-//        }
-//    ],
-//    "2016-10-27": [
-//        {
-//            "Activity": 2007,
-//            "Duration": 3007,
-//            "Name": "reading",
-//            "Description": "*...page flip*",
-//            "From": "0:0:0",
-//            "To": "1:0:0"
-//        },
-//        {
-//            "Activity": 2004,
-//            "Duration": 3008,
-//            "Name": "sleeping",
-//            "Description": "I love sleeping!",
-//            "From": "1:0:1",
-//            "To": "9:0:0"
-//        },
-//        {
-//            "Activity": 2005,
-//            "Duration": 3010,
-//            "Name": "eating",
-//            "Description": "*chomp chomp mnggff!*",
-//            "From": "12:0:1",
-//            "To": "13:0:0"
-//        },
-//        {
-//            "Activity": 2006,
-//            "Duration": 3011,
-//            "Name": "coding",
-//            "Description": "*klik klak klik klik*",
-//            "From": "13:0:1",
-//            "To": "18:0:0"
-//        },
-//        {
-//            "Activity": 2005,
-//            "Duration": 3012,
-//            "Name": "eating",
-//            "Description": "*chomp chomp mnggff!*",
-//            "From": "18:0:1",
-//            "To": "19:0:0"
-//        },
-//        {
-//            "Activity": 2007,
-//            "Duration": 3013,
-//            "Name": "reading",
-//            "Description": "*...page flip*",
-//            "From": "19:0:1",
-//            "To": "23:59:59"
-//        },
-//        {
-//            "Activity": 2006,
-//            "Duration": 3009,
-//            "Name": "coding",
-//            "Description": "*klik klak klik klik*",
-//            "From": "9:0:1",
-//            "To": "12:0:0"
-//        }
-//    ],
-//    "2016-10-28": [
-//        {
-//            "Activity": 2007,
-//            "Duration": 3014,
-//            "Name": "reading",
-//            "Description": "*...page flip*",
-//            "From": "0:0:0",
-//            "To": "0:30:0"
-//        },
-//        {
-//            "Activity": 2004,
-//            "Duration": 3015,
-//            "Name": "sleeping",
-//            "Description": "I love sleeping!",
-//            "From": "0:30:1",
-//            "To": "8:30:0"
-//        }
-//    ],
-//    "2016-10-29": []
-//};
-
 var chart = new Chart(document.getElementsByTagName("svg")[0], activities);

@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\chart.js" />
     <Content Include="Web.config" />
@@ -132,13 +133,9 @@
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\Concrete\ActivityViewModelRepository.cs" />
     <Compile Include="Models\Concrete\DaysViewModelRepository.cs" />
-    <Compile Include="Models\_notUsing\DayViewModelRepository.cs" />
-    <Compile Include="Models\_notUsing\IDayViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IActivityViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IDaysViewModelRepository.cs" />
     <Compile Include="Models\ViewModels\ActivityViewModel.cs" />
-    <Compile Include="Models\ViewModels\DaysViewModel.cs" />
-    <Compile Include="Models\_notUsing\DayViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201611071926067_Modified Duration &amp; CurrentActivity.Designer.cs">
       <DependentUpon>201611071926067_Modified Duration &amp; CurrentActivity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201611102009446_Added colors to activities.cs" />
+    <Compile Include="Migrations\201611102009446_Added colors to activities.Designer.cs">
+      <DependentUpon>201611102009446_Added colors to activities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -90,6 +94,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611071926067_Modified Duration &amp; CurrentActivity.resx">
       <DependentUpon>201611071926067_Modified Duration &amp; CurrentActivity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201611102009446_Added colors to activities.resx">
+      <DependentUpon>201611102009446_Added colors to activities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
