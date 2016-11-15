@@ -120,8 +120,9 @@
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\ajax.js" />
-    <Content Include="Scripts\bar.js" />
+    <Content Include="Scripts\arrows.js" />
     <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\chart-old.js" />
     <Content Include="Scripts\day.js" />
     <Content Include="Scripts\main.js" />
     <Content Include="Scripts\rectClickHandler.js" />
