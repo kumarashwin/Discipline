@@ -119,7 +119,12 @@
   <ItemGroup>
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\ajax.js" />
+    <Content Include="Scripts\bar.js" />
     <Content Include="Scripts\chart.js" />
+    <Content Include="Scripts\day.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\rectClickHandler.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

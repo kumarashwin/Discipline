@@ -1,4 +1,4 @@
-﻿body, #dates, svg, #svgDiv {
+﻿* {
     margin: 0;
     padding: 0;
 }
@@ -9,7 +9,8 @@ body{
 }
 
 #svgDiv{
-    opacity: 1;
+    width:610px;
+    position:relative;
 }
 
 #dates li{
@@ -41,7 +42,35 @@ rect:hover {
     opacity: 0.4;
 }
 
+.arrows {
+    position: absolute;
+    display: inline-block;
+    margin-top:26%;
+}
 
+.arrows div:hover {
+    opacity: 0.8;
+}
 
+#arrow-left {
+    left: 1%;
+}
 
+#arrow-right {
+    right: 1%;
+}
 
+.arrows div {
+    position:relative;
+    top: 45%;
+    border: 20px solid transparent;
+    opacity: 0.4;
+}
+
+#arrow-right div {
+    border-left-color: lawngreen;
+}
+
+#arrow-left div {
+    border-right-color: lawngreen;
+}
