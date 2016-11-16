@@ -8,10 +8,13 @@ document.getElementById("arrow-right")
 function getArrowEventHandler(direction) {
     return function (event) {
         event.stopPropagation();
+
         currentDate = new Date(currentDate);
         currentDate = currentDate.setDate(currentDate.getDate() + direction);
         currentDate = convertToViableDateString(currentDate);
-        chart.clear();
-        chart.draw(returnSevenDaysAroundDate(currentDate, activities));
+        chart.ready(returnSevenDaysAroundDate(currentDate, activities), chart.activity);
+
+        chart.svg.parentElement.addEventListener("transitionend", onTransparentFinish);
+        chart.svg.parentElement.className = "makeTransparent";
     };
 }

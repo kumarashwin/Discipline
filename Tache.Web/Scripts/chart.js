@@ -8,26 +8,32 @@
         this.padding = 15;
         this.labels = document.getElementById("dates");
 
+        this.days = {};
+        this.activity;
         this.mode = "calendar";
     }
+
+    Chart.prototype.ready = function (days, activity) {
+        this.activity = activity;
+        if (days) this.days = Object.keys(days).map(function (day, index, array) {
+            return new Day(day, days[day], this.barWidth, this.height, this.svg);
+        }, this);
+    };
 
     Chart.prototype.clear = function () {
         while (this.svg.firstChild)
             this.svg.removeChild(this.svg.firstChild);
     };
 
-    Chart.prototype.draw = function (days, activity) {
-        if (!days && !this.days) {
+    Chart.prototype.draw = function () {
+        if (!this.days)
             return;
-        } else if (days) {
-            this.days = Object.keys(days).map(function (day, index, array) { return new Day(day, days[day], this.barWidth, this.height, this.svg); }, this);
-        }
 
         this.clearLabels();
         var x = this.padding;
         this.days.forEach(function (day, index) {
             this.drawLabel(day.date);
-            day.draw(x, activity);
+            day.draw(x, this.activity);
             x += this.padding + this.barWidth;
         }, this);
     };

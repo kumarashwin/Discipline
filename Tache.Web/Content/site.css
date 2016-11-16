@@ -18,12 +18,18 @@ body{
     float: left;
 }
 
+@keyframes animatedBackground{
+    from { background-color: royalblue; }
+	to { background-color: white; }
+}
+
 #dates li span {
     display: block;
     margin-left: 15px;
     text-align:center;
     width: 70px;
     font-size: small;
+    animation: animatedBackground 1s linear normal;
 }
 
 .minus-three, .plus-three{
@@ -73,4 +79,14 @@ rect:hover {
 
 #arrow-left div {
     border-right-color: lawngreen;
+}
+
+.makeTransparent{
+    transition: 0.3s;
+    opacity: 0;
+}
+
+.makeOpaque{
+    transition: 0.3s;
+    opacity: 1;
 }
