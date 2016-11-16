@@ -125,6 +125,7 @@
     <Content Include="Scripts\chart-old.js" />
     <Content Include="Scripts\day.js" />
     <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\misc.js" />
     <Content Include="Scripts\rectClickHandler.js" />
     <Content Include="Web.config" />
   </ItemGroup>

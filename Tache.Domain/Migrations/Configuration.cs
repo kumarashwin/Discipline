@@ -36,7 +36,7 @@ namespace Tache.Domain.Migrations
 
             int lastMinute;
             var result = new List<Duration>() { };
-            for (int day = 1; day < 10; day++) {
+            for (int day = 1; day < DateTime.Today.Day; day++) {
                 result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(2016, 11, day, 0, 0, 0), To = new DateTime(2016, 11, day, 8, minuteRandomizer(out lastMinute), 0) } );
                 result.Add(new Duration { ActivityId = codingID, From = new DateTime(2016, 11, day, 8, lastMinute, 1), To = new DateTime(2016, 11, day, 10, minuteRandomizer(out lastMinute), 0) });
                 result.Add(new Duration { ActivityId = eatingID, From = new DateTime(2016, 11, day, 10, lastMinute, 1), To = new DateTime(2016, 11, day, 11, minuteRandomizer(out lastMinute), 0) });

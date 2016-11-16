@@ -1,11 +1,17 @@
-﻿var arrowLeft = document.getElementById("arrow-left");
-arrowLeft.addEventListener("click", function (event) {
-    event.stopPropagation();
-    chart.move(0);
-})
+﻿
+document.getElementById("arrow-left")
+    .addEventListener("click", getArrowEventHandler(-1));
 
-var arrowRight = document.getElementById("arrow-right");
-arrowRight.addEventListener("click", function (event) {
-    event.stopPropagation();
-    chart.move(1);
-})
+document.getElementById("arrow-right")
+     .addEventListener("click", getArrowEventHandler(1));
+
+function getArrowEventHandler(direction) {
+    return function (event) {
+        event.stopPropagation();
+        currentDate = new Date(currentDate);
+        currentDate = currentDate.setDate(currentDate.getDate() + direction);
+        currentDate = convertToViableDateString(currentDate);
+        chart.clear();
+        chart.draw(returnSevenDaysAroundDate(currentDate, activities));
+    };
+}
