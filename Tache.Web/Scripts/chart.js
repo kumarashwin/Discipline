@@ -46,7 +46,59 @@
         while (this.labels.firstChild) {
             this.labels.removeChild(this.labels.firstChild);
         }
-    }
+    };
+
+    // right: 1
+    // left: 0
+    Chart.prototype.move = function (right) {
+        var x;
+
+        if (right === 1)
+            x = 5;
+        else if (right === 0)
+            x = -5
+        else
+            return;
+
+        var interval = setInterval((function () {
+            for (var i = 0; i < this.svg.childNodes.length; i++) {
+                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
+            }
+            if (right === 1 && x < 85){
+                x += 5;
+            } else if (right === 0 && x > -85){
+                x -= 5;
+            } else {
+                clearInterval(interval);
+            }
+        }).bind(this), 10);
+    };
+
+    Chart.prototype.moveRight = function () {
+        var x = 5;
+        var interval = setInterval((function () {
+            for (var i = 0; i < this.svg.childNodes.length; i++) {
+                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
+            }
+            if (x < 85)
+                x += 5;
+            else
+                clearInterval(interval);
+        }).bind(this), 10);
+    };
+
+    Chart.prototype.moveLeft = function () {
+        var x = 5;
+        var interval = setInterval((function () {
+            for (var i = 0; i < this.svg.childNodes.length; i++) {
+                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
+            }
+            if (x > -85)
+                x -= 5;
+            else
+                clearInterval(interval);
+        }).bind(this), 10);
+    };
 
     return Chart;
 })();

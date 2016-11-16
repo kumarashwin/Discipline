@@ -14,8 +14,8 @@ namespace Tache.Models.Concrete {
 
         public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate) {
 
-            if (startDate > DateTime.Now.AddDays(-4))
-                startDate = DateTime.Now.AddDays(-4);
+            if (startDate > DateTime.Now.AddDays(-7))
+                startDate = DateTime.Now.AddDays(-7);
             
             var days = new Dictionary<string, ICollection<ActivityViewModel>>();
 

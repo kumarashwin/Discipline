@@ -18,11 +18,13 @@
                 y -= height;
                 this.svg.appendChild(svgElemFactory(activity, x, y, this.width, height, activities[0]["Color"]));
             } else {
+                this.gElem = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 activities.forEach(function (activity) {
                     height = calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
                     y -= height;
-                    this.svg.appendChild(svgElemFactory(activity["Activity"], x, y, this.width, height, activity["Color"]));
+                    this.gElem.appendChild(svgElemFactory(activity["Activity"], x, y, this.width, height, activity["Color"]));
                 }, this);
+                this.svg.appendChild(this.gElem);
             }
         }
     };
@@ -37,6 +39,7 @@
     }
 
     function svgElemFactory(activityId, x, y, width, height, fill) {
+        
         var svgElem = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         svgElem.setAttributeNS(null, "data-activity-id", activityId);
         svgElem.setAttributeNS(null, "x", x);
