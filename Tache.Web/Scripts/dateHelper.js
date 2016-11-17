@@ -10,8 +10,9 @@
     }
 
     DateHelper.prototype.addDays = function (day) {
-        var newDate = new Date(new Date().setDate(this.dateObject.getDate() + day));
-        newDate.setHours(0, 0, 0, 0);
+        var newDate = new Date(this.dateObject);
+        newDate = new Date(newDate.setDate(newDate.getDate() + day));
+        
         var result = new DateHelper();
         result.dateObject = newDate;
         result.dateString = convertToViableDateString(newDate);
