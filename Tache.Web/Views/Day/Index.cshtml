@@ -4,25 +4,46 @@
     ViewBag.Title = "Day";
 }
 
-<script type="text/javascript">
+<div id="svgContainer">
+    <script type="text/javascript">
     var activities = @Html.Raw(Model);
-</script>
+    </script>
 
-<div id="svgDiv"><!--
-    --><div id="arrow-left" class="arrows"><!--
-       --><div></div><!--
-    --></div><!--
-    --><div id="arrow-right" class="arrows"><!--
-       --><div></div><!--
-    --></div><!--
-    --><svg width="610px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg><!--
---></div><!--
---><ul id="dates">
-    <li class="minus-three"><span></span></li>
-    <li class="minus-two"><span></span></li>
-    <li class="minus-one"><span></span></li>
-    <li class="current"><span></span></li>
-    <li class="plus-one"><span></span></li>
-    <li class="plus-two"><span></span></li>
-    <li class="plus-three"><span></span></li>
-</ul>
+    <div id="svgDiv">
+        <!--
+        -->
+        <div id="arrow-left" class="arrows">
+            <!--
+            -->
+            <div></div>
+            <!--
+            -->
+        </div>
+        <!--
+        -->
+        <div id="arrow-right" class="arrows">
+            <!--
+            -->
+            <div></div>
+            <!--
+            -->
+        </div>
+        <!--
+        -->
+        <svg width="610px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
+        <!--
+        -->
+    </div>
+    <!--
+    -->
+
+    <ul id="dates">
+        <li class="minus-three"><span></span></li>
+        <li class="minus-two"><span></span></li>
+        <li class="minus-one"><span></span></li>
+        <li class="current"><span></span></li>
+        <li class="plus-one"><span></span></li>
+        <li class="plus-two"><span></span></li>
+        <li class="plus-three"><span></span></li>
+    </ul>
+</div>

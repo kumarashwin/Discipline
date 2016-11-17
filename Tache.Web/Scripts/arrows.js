@@ -9,11 +9,10 @@ function getArrowEventHandler(direction) {
     return function (event) {
         event.stopPropagation();
 
-        currentDate = new Date(currentDate);
-        currentDate = currentDate.setDate(currentDate.getDate() + direction);
-        currentDate = convertToViableDateString(currentDate);
-        chart.ready(returnSevenDaysAroundDate(currentDate, activities), chart.activity);
+        currentDate = currentDate.addDays(direction);
+        
 
+        chart.ready(returnSevenDaysAroundDate(currentDate, activities), chart.activity, true);
         chart.svg.parentElement.addEventListener("transitionend", onTransparentFinish);
         chart.svg.parentElement.className = "makeTransparent";
     };

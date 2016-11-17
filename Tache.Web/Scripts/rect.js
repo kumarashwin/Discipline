@@ -6,10 +6,10 @@
         return;
 
     if (chart.mode == "calendar") {
-        chart.ready(null, event.target.getAttribute("data-activity-id"));
+        chart.ready(null, event.target.getAttribute("data-activity-id"), false);
         chart.mode = "budget";
     } else if (chart.mode == "budget") {
-        chart.ready(null, null);
+        chart.ready(null, null, false);
         chart.mode = "calendar";
     }
 

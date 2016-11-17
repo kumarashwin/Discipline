@@ -10,7 +10,15 @@ body{
 
 #svgDiv{
     width:610px;
+    height: 360px;
     position:relative;
+}
+
+#svgContainer {
+    width: 610px;
+    height: 360px;
+    padding: 10px 30px;
+    padding-left: 0px;
 }
 
 #dates li{
@@ -29,7 +37,9 @@ body{
     text-align:center;
     width: 70px;
     font-size: small;
-    animation: animatedBackground 1s linear normal;
+    font-weight: bold;
+    color: darkblue;
+    animation: animatedBackground 0.5s linear normal;
 }
 
 .minus-three, .plus-three{
@@ -82,11 +92,11 @@ rect:hover {
 }
 
 .makeTransparent{
-    transition: 0.3s;
-    opacity: 0;
+    transition: 0.1s;
+    opacity: 0.5;
 }
 
 .makeOpaque{
-    transition: 0.3s;
+    transition: 0.1s;
     opacity: 1;
 }

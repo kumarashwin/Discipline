@@ -8,13 +8,16 @@
         this.padding = 15;
         this.labels = document.getElementById("dates");
 
-        this.days = {};
+        this.days;
         this.activity;
+        this.redrawLabels;
         this.mode = "calendar";
     }
 
-    Chart.prototype.ready = function (days, activity) {
+    Chart.prototype.ready = function (days, activity, redrawLabels) {
         this.activity = activity;
+        this.redrawLabels = redrawLabels;
+
         if (days) this.days = Object.keys(days).map(function (day, index, array) {
             return new Day(day, days[day], this.barWidth, this.height, this.svg);
         }, this);
@@ -29,10 +32,10 @@
         if (!this.days)
             return;
 
-        this.clearLabels();
+        if (this.redrawLabels) this.clearLabels();
         var x = this.padding;
         this.days.forEach(function (day, index) {
-            this.drawLabel(day.date);
+            if (this.redrawLabels) this.drawLabel(day.date);
             day.draw(x, this.activity);
             x += this.padding + this.barWidth;
         }, this);
@@ -53,58 +56,5 @@
             this.labels.removeChild(this.labels.firstChild);
         }
     };
-
-    // right: 1
-    // left: 0
-    Chart.prototype.move = function (right) {
-        var x;
-
-        if (right === 1)
-            x = 5;
-        else if (right === 0)
-            x = -5
-        else
-            return;
-
-        var interval = setInterval((function () {
-            for (var i = 0; i < this.svg.childNodes.length; i++) {
-                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
-            }
-            if (right === 1 && x < 85){
-                x += 5;
-            } else if (right === 0 && x > -85){
-                x -= 5;
-            } else {
-                clearInterval(interval);
-            }
-        }).bind(this), 10);
-    };
-
-    Chart.prototype.moveRight = function () {
-        var x = 5;
-        var interval = setInterval((function () {
-            for (var i = 0; i < this.svg.childNodes.length; i++) {
-                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
-            }
-            if (x < 85)
-                x += 5;
-            else
-                clearInterval(interval);
-        }).bind(this), 10);
-    };
-
-    Chart.prototype.moveLeft = function () {
-        var x = 5;
-        var interval = setInterval((function () {
-            for (var i = 0; i < this.svg.childNodes.length; i++) {
-                this.svg.childNodes[i].setAttribute("transform", "translate(" + x + ",0)");
-            }
-            if (x > -85)
-                x -= 5;
-            else
-                clearInterval(interval);
-        }).bind(this), 10);
-    };
-
     return Chart;
 })();

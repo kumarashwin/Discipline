@@ -1,7 +1,7 @@
 ﻿var Day = (function () {
     function Day(date, activities, width, height, svg) {
         this.date = date;
-        this.activities = activities;
+        this.activities = activities || [];
         this.width = width;
         this.height = height;
         this.svg = svg;
