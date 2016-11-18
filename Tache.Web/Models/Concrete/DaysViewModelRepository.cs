@@ -12,12 +12,11 @@ namespace Tache.Models.Concrete {
             this.activityViewModelRepo = activityViewModelRepo;
         }
 
-        public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate) {
+        public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate, DateTime endDate) {
             var days = new Dictionary<string, ICollection<ActivityViewModel>>();
 
-            for (int i = -10; i <= 10; i++) {
-                var day = startDate.AddDays(i);
-                days.Add(day.ToShortDateString(), activityViewModelRepo.Activities(day).ToList());
+            for (; startDate <= endDate; startDate = startDate.AddDays(1)) {
+                days.Add(startDate.ToShortDateString(), activityViewModelRepo.Activities(startDate).ToList());
             }
             
             return days;

@@ -16,25 +16,29 @@ namespace Tache.Controllers {
         [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
         public ActionResult Index(int year, int month, int day) {
             DateTime today = DateTime.Today;
-            DateTime startDate = new DateTime(year, month, day);
-            ViewBag.ProcessedDate = startDate.ToString("yyyy-M-d");
+            DateTime startDate, endDate;
+            DateTime dateParam = new DateTime(year, month, day);
             ViewBag.DeactivateRightArrow = "false";
 
-            if (startDate == today)
+            if (dateParam == today)
                 throw new ArgumentOutOfRangeException(paramName: null,
                     message: "We haven't yet calculated your actions for today. Come back tomorrow.");
 
-            if (startDate > today)
+            if (dateParam > today)
                 throw new ArgumentOutOfRangeException(paramName: null,
                     message: "The date you requested is too far in the future!");
 
-            if (startDate > today.AddDays(-4)) {
-                startDate = today.AddDays(-4);
-                ViewBag.ProcessedDate = startDate.ToString("yyyy-M-d");
+            if (dateParam > today.AddDays(-4)) {
+                dateParam = today.AddDays(-4);
                 ViewBag.DeactivateRightArrow = "true";
             }
-            
-            return Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(startDate)), "application/json");
+
+            ViewBag.ProcessedDate = dateParam.ToString("yyyy-M-d");
+            startDate = dateParam.AddDays(-10);
+            endDate = dateParam.AddDays(10);
+            endDate = endDate < today ? endDate : today.AddDays(-1);
+
+            return Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(startDate, endDate)), "application/json");
         }
             
     }
