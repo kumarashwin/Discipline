@@ -5,7 +5,7 @@ var currentDate = new DateHelper(window.location.pathname.replace(/\//g, "-").su
 var minDateBeforeFetch = currentDate.addDays(-5);
 var maxDateBeforeFetch = currentDate.addDays(5);
 
-//console.log(activities);
+console.log(activities);
 //console.log("min: ", minDateBeforeFetch.dateString);
 //console.log("max: ", maxDateBeforeFetch.dateString);
 

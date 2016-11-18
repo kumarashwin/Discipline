@@ -139,6 +139,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Attributes\ByDefaultReturnViewAttribute.cs" />
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\Concrete\ActivityViewModelRepository.cs" />
     <Compile Include="Models\Concrete\DaysViewModelRepository.cs" />

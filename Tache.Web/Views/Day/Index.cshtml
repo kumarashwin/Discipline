@@ -1,14 +1,15 @@
 ﻿@model string
-
 @{
     ViewBag.Title = "Day";
 }
 
-<div id="svgContainer">
+@section Activities {
     <script type="text/javascript">
-    var activities = @Html.Raw(Model);
+        var activities = @Html.Raw(Model);
     </script>
+}
 
+<div id="svgContainer">
     <div id="svgDiv">
         <!--
         -->
