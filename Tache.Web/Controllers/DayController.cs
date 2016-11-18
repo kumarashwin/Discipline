@@ -13,7 +13,29 @@ namespace Tache.Controllers {
         }
 
         [ByDefaultReturnView]
-        public ActionResult Index(int year, int month, int day) => 
-            Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(new DateTime(year, month, day))), "application/json");
+        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
+        public ActionResult Index(int year, int month, int day) {
+            DateTime today = DateTime.Today;
+            DateTime startDate = new DateTime(year, month, day);
+            ViewBag.ProcessedDate = startDate.ToString("yyyy-M-d");
+            ViewBag.DeactivateRightArrow = "false";
+
+            if (startDate == today)
+                throw new ArgumentOutOfRangeException(paramName: null,
+                    message: "We haven't yet calculated your actions for today. Come back tomorrow.");
+
+            if (startDate > today)
+                throw new ArgumentOutOfRangeException(paramName: null,
+                    message: "The date you requested is too far in the future!");
+
+            if (startDate > today.AddDays(-4)) {
+                startDate = today.AddDays(-4);
+                ViewBag.ProcessedDate = startDate.ToString("yyyy-M-d");
+                ViewBag.DeactivateRightArrow = "true";
+            }
+            
+            return Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(startDate)), "application/json");
+        }
+            
     }
 }

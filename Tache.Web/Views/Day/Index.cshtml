@@ -5,6 +5,8 @@
 
 @section Activities {
     <script type="text/javascript">
+        var deactivateRightArrow = @ViewBag.DeactivateRightArrow;
+        var processedDate = "@ViewBag.ProcessedDate";
         var activities = @Html.Raw(Model);
     </script>
 }

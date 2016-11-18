@@ -1,9 +1,17 @@
-﻿
-document.getElementById("arrow-left")
-    .addEventListener("click", getArrowEventHandler(-1));
+﻿document.getElementById("arrow-left").addEventListener("click", getArrowEventHandler(-1));
 
-var arrowRight = document.getElementById("arrow-right");
-arrowRight.addEventListener("click", getArrowEventHandler(1));
+var ArrowRight = (function () {
+    function ArrowRight(element) {
+        this.element = element;
+        this.element.addEventListener("click", getArrowEventHandler(1));
+    }
+
+    ArrowRight.prototype.hide = function () { this.element.style.display = "none" };
+    ArrowRight.prototype.show = function () { this.element.style.display = "" };
+
+    return ArrowRight;
+})();
+var arrowRight = new ArrowRight(document.getElementById("arrow-right"));
 
 function getArrowEventHandler(direction) {
     return function (event) {
@@ -11,12 +19,10 @@ function getArrowEventHandler(direction) {
 
         currentDate = currentDate.addDays(direction);
 
-
-        if (currentDate.addDays(4).dateObject.getTime() == today.getTime()) {
-            arrowRight.style.display = "none";
-        } else {
-            arrowRight.style.display = "";
-        }
+        if (currentDate.addDays(4).dateObject.getTime() == today.getTime())
+            arrowRight.hide();
+        else
+            arrowRight.show();
 
         if (currentDate.dateString == minDateBeforeFetch.dateString) {
             var requestDate = currentDate.addDays(-20);

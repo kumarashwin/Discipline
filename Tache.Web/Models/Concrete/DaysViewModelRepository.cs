@@ -13,17 +13,13 @@ namespace Tache.Models.Concrete {
         }
 
         public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate) {
-
-            if (startDate > DateTime.Now.AddDays(-4))
-                startDate = DateTime.Now.AddDays(-4);
-            
             var days = new Dictionary<string, ICollection<ActivityViewModel>>();
 
             for (int i = -10; i <= 10; i++) {
                 var day = startDate.AddDays(i);
                 days.Add(day.ToShortDateString(), activityViewModelRepo.Activities(day).ToList());
             }
-                
+            
             return days;
         }
     }
