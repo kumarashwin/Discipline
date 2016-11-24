@@ -6,6 +6,7 @@ if (deactivateRightArrow) arrowRight.hide();
 
 var currentDate = new DateHelper(processedDate);
 var minDateBeforeFetch = currentDate.addDays(-5);
+
 var maxDateBeforeFetch = currentDate.addDays(5);
 
 //console.log(activities);
