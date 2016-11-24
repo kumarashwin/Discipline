@@ -1,15 +1,20 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Data.Entity;
+using System.Linq;
 using System.Web.Mvc;
+using Tache.Domain.Abstract;
 using Tache.Infrastructure.Filters;
 using Tache.Models.Abstract;
 
 namespace Tache.Controllers {
     public class DayController : Controller {
+        private AbstractDbContext context;
         private IDaysViewModelRepository daysViewModelRepository;
 
-        public DayController(IDaysViewModelRepository daysViewModelRepository) {
+        public DayController(IDaysViewModelRepository daysViewModelRepository, AbstractDbContext context) {
             this.daysViewModelRepository = daysViewModelRepository;
+            this.context = context;
         }
         /// <summary>
         /// Validates the requested date, throws exceptions if the request is for the
@@ -41,7 +46,9 @@ namespace Tache.Controllers {
                 ViewBag.DeactivateRightArrow = "true";
             }
 
+            ViewBag.Budgets = JsonConvert.SerializeObject(context.Budgets.Where(budget => budget.Period == Period.perDay).ToDictionary(b => b.ActivityId, model => model.TimeInTicks));
             ViewBag.ProcessedDate = dateParam.ToString("yyyy-M-d");
+
             startDate = dateParam.AddDays(-10);
             endDate = dateParam.AddDays(10);
             endDate = endDate < today ? endDate : today.AddDays(-1);

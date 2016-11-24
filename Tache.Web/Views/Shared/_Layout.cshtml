@@ -1,31 +1,31 @@
 ﻿<!DOCTYPE html>
 <html lang="en_US">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="description" content="Tache" />
-        <title>@ViewBag.Title</title>
-        <link type="text/css" rel="stylesheet" href="~/Content/site.css" />
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content="Tache" />
+    <title>@ViewBag.Title</title>
+    <link type="text/css" rel="stylesheet" href="~/Content/site.css" />
 
-        @if (IsSectionDefined("Activities")) {
-            @RenderSection("Activities", required: false)
-        }
+    @if (IsSectionDefined("Activities")) {
+        @RenderSection("Activities", required: false)
+    }
 
-        @*Combine & minify eventually...*@
-        <script type="text/javascript" src="~/Scripts/day.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/chart.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/misc.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/dateHelper.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/events.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/rect.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/arrows.js" defer></script>
-        <script type="text/javascript" src="~/Scripts/ajax.js" defer></script>
+    @*Combine & minify eventually...*@
+    <script type="text/javascript" src="~/Scripts/day.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/chart.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/misc.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/dateHelper.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/events.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/rect.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/arrows.js" defer></script>
+    <script type="text/javascript" src="~/Scripts/ajax.js" defer></script>
 
-        <script type="text/javascript" src="~/Scripts/main.js" defer></script>
-    </head>
-    <body>
-        <div>
-            @RenderBody()
-        </div>
-    </body>
+    <script type="text/javascript" src="~/Scripts/main.js" defer></script>
+</head>
+<body>
+    <div>
+        @RenderBody()
+    </div>
+</body>
 </html>

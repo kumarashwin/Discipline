@@ -15,9 +15,10 @@ namespace Tache.Models.Concrete {
         public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate, DateTime endDate) {
             var days = new Dictionary<string, ICollection<ActivityViewModel>>();
 
-            for (; startDate <= endDate; startDate = startDate.AddDays(1)) {
-                days.Add(startDate.ToShortDateString(), activityViewModelRepo.Activities(startDate).ToList());
-            }
+            for (; startDate <= endDate; startDate = startDate.AddDays(1)) 
+                days.Add(
+                    startDate.ToShortDateString(),
+                    activityViewModelRepo.Activities(startDate).ToList());
             
             return days;
         }
