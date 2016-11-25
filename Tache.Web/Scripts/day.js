@@ -16,7 +16,17 @@
                 activities = activities.filter(function (current) { return current["Activity"] == activity; }, this);
                 activities.forEach(function (activity) { height += calcDiffInMinutes(activity["From"], activity["To"]) * 0.25; }, this);
                 y -= height;
-                this.svg.appendChild(svgElemFactory(activity, x, y, this.width, height, activities[0]["Color"]));
+
+                var color = activities[0]["Color"];
+
+                this.svg.appendChild(svgElemFactory(activity, x, y, this.width, height, color));
+
+                var ticks = budgets[activity];
+                if (ticks) {
+                    var budgetLineHeight = this.height - ticksToPixels(ticks);
+                    this.svg.appendChild(budgetLine(x - 5, x + 5 + this.width, budgetLineHeight, color));
+                }
+                
             } else {
                 this.gElem = document.createElementNS("http://www.w3.org/2000/svg", "g");
                 activities.forEach(function (activity) {
@@ -28,6 +38,21 @@
             }
         }
     };
+    
+    function budgetLine(x, width, height, color) {
+        var elem = document.createElementNS("http://www.w3.org/2000/svg", "line");
+        elem.setAttribute("x1", x);
+        elem.setAttribute("x2", width);
+        elem.setAttribute("y1", height);
+        elem.setAttribute("y2", height);
+        elem.setAttribute("stroke", "black");
+        elem.setAttribute("stroke-width", 3);
+        return elem;
+    }
+
+    function ticksToPixels(ticks) {
+        return (((ticks/10000)/1000)/60) * 0.25
+    }
 
     function calcDiffInMinutes(from, to) {
         return calcMinutesRegex(to) - calcMinutesRegex(from);

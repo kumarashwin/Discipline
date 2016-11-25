@@ -46,7 +46,10 @@ namespace Tache.Controllers {
                 ViewBag.DeactivateRightArrow = "true";
             }
 
-            ViewBag.Budgets = JsonConvert.SerializeObject(context.Budgets.Where(budget => budget.Period == Period.perDay).ToDictionary(b => b.ActivityId, model => model.TimeInTicks));
+            ViewBag.Budgets = JsonConvert.SerializeObject(
+                context.Budgets.Where(budget => budget.Period == Period.perDay)
+                    .ToDictionary(b => b.ActivityId, model => model.TimeInTicks));
+
             ViewBag.ProcessedDate = dateParam.ToString("yyyy-M-d");
 
             startDate = dateParam.AddDays(-10);
