@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections;
 using System.Linq;
-using Tache.Domain.Concrete;
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Abstract {

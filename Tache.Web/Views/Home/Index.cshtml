@@ -1,4 +1,13 @@
-﻿
+﻿@model IEnumerable<Tache.Models.ViewModels.CurrentActivityViewModel>
+
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Tache";
+    var CurrentActivities = Model.Where(e => e.CurrentActivity != null).ToArray();
 }
+<h2>
+    Currently, you are <span>@CurrentActivities[0].Activity.Name</span>
+    @for (int i = 1; i < CurrentActivities.Length; i++) {
+        <span> while </span><span>@CurrentActivities[i].Activity.Name</span>
+    }
+    <span>.</span>
+</h2>

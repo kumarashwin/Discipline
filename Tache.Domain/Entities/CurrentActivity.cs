@@ -1,7 +1,5 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Tache.Domain.Entities;
 
 namespace Tache.Domain.Entities {
     public class CurrentActivity {

@@ -146,6 +146,7 @@
     <Compile Include="Models\Concrete\DaysViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IActivityViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IDaysViewModelRepository.cs" />
+    <Compile Include="Models\ViewModels\CurrentActivityViewModel .cs" />
     <Compile Include="Models\ViewModels\ActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

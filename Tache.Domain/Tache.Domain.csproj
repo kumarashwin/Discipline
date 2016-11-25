@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="Abstract\IBudgetRepository.cs" />
     <Compile Include="Abstract\AbstractDbContext.cs" />
+    <Compile Include="Abstract\ICurrentActivityRepository.cs" />
     <Compile Include="Abstract\IDurationRepository.cs" />
     <Compile Include="Abstract\IActivityRepository.cs" />
     <Compile Include="Concrete\BudgetRepository.cs" />

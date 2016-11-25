@@ -27,6 +27,8 @@ namespace Tache.Domain.Migrations {
             var readingID = context.Activities.Where(a => a.Name == "reading").First().Id;
             var gamingID = context.Activities.Where(a => a.Name == "gaming").First().Id;
 
+            context.CurrentActivities.AddOrUpdate(cA => cA.ActivityId, new CurrentActivity { ActivityId = codingID, Start = DateTime.Now.AddHours(-2) });
+
             int lastMinute;
             var result = new List<Duration>() { };
             for (DateTime d = (DateTime.Now).AddDays(-60); d < DateTime.Now; d = d.AddDays(1)) {

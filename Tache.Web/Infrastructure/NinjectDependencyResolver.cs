@@ -31,6 +31,7 @@ namespace Tache.Infrastructure {
             kernel.Bind<IActivityRepository>().To<ActivityRepository>().InRequestScope();
             kernel.Bind<IBudgetRepository>().To<BudgetRepository>().InRequestScope();
             kernel.Bind<IDurationRepository>().To<DurationRepository>().InRequestScope();
+            kernel.Bind<ICurrentActivityRepository>().To<CurrentActivityRepository>().InRequestScope();
         }
     }
 }

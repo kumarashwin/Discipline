@@ -1,25 +1,25 @@
 ﻿using System;
 using System.Linq;
+using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
-    public class CurrentActivityRepository {
-        private DbContext context;
+    public class CurrentActivityRepository : ICurrentActivityRepository {
+        private AbstractDbContext context;
 
-        public CurrentActivityRepository(DbContext context = null) {
-            if (context == null) context = new DbContext();
+        public CurrentActivityRepository(AbstractDbContext context) {
             this.context = context;
         }
 
         public IQueryable<CurrentActivity> CurrentActivities { get { return context.CurrentActivities; } }
 
-        public void Start(Activity activity, DateTime clientRequestTime) {
-            context.CurrentActivities.Add(new CurrentActivity { ActivityId = activity.Id, Start = clientRequestTime });
+        public void Start(int activity, DateTime clientRequestTime) {
+            context.CurrentActivities.Add(new CurrentActivity { ActivityId = activity, Start = clientRequestTime });
             context.SaveChanges();
         }
 
-        public void Stop(Activity activity, DateTime clientRequestTime) {
-            var currentActivity = context.CurrentActivities.Where(a => a.ActivityId == activity.Id).First();
+        public void Stop(int activity, DateTime clientRequestTime) {
+            var currentActivity = context.CurrentActivities.Where(a => a.ActivityId == activity).First();
             AddDurations(currentActivity.Start, clientRequestTime, currentActivity.ActivityId);
             context.CurrentActivities.Remove(currentActivity);
             context.SaveChanges();
