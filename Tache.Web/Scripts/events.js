@@ -1,4 +1,4 @@
-﻿function startTransition(){
+﻿function startTransition() {
     chart.svg.parentElement.addEventListener("transitionend", onTransparentFinish);
     chart.svg.parentElement.className = "makeTransparent";
 }

@@ -43,7 +43,9 @@ function prepareThenSendRequest(direction, dateBeforeFetch){
         multiplier = -1;
 
     var requestDate = currentDate.addDays(20 * multiplier);
-    dateBeforeFetch = currentDate.addDays(21 * multiplier);
-    var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(-16).dateString.replace(/-/g, "\\");
+    var newDateBeforeFetch = currentDate.addDays(21 * multiplier);
+    dateBeforeFetch.dateObject = newDateBeforeFetch.dateObject;
+    dateBeforeFetch.dateString = newDateBeforeFetch.dateString;
+    var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(16 * multiplier).dateString.replace(/-/g, "\\");
     requestMoreActivities(url, direction);
 }

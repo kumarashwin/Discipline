@@ -33,12 +33,10 @@
         if (this.days){
             if (this.redrawLabels) this.clearLabels();
 
-            //var x = this.padding;
             this.days.forEach(function (day, index) {
                 if (this.redrawLabels) this.drawLabel(day.date);
-                var x = this.padding + ((this.barWidth + this.padding) * index); // TRY THIS OUT!!
+                var x = this.padding + ((this.barWidth + this.padding) * index);
                 day.draw(x, this.activity);
-                //x += this.padding + this.barWidth;
             }, this);
         } 
     };
