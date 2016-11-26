@@ -1,17 +1,18 @@
 ﻿var Chart = ( function () {
     function Chart(svg) {
         this.svg = svg;
-        this.svg.addEventListener("click", rectClickHandler);
+        this.setInitialValues();
+    }
 
-        this.barWidth = 70;
-        this.height = svg.height.baseVal.value;
+    Chart.prototype.setInitialValues = function(){
+        //Edit these if needed:
         this.padding = 15;
-        this.labels = document.getElementById("dates");
+        this.barWidth = 70;
 
-        this.days;
-        this.activity;
-        this.redrawLabels;
         this.mode = "calendar";
+        this.height = this.svg.height.baseVal.value;
+        this.labels = document.getElementById("dates");
+        this.svg.addEventListener("click", rectClickHandler);
     }
 
     Chart.prototype.ready = function (days, activity, redrawLabels) {
@@ -29,23 +30,25 @@
     };
 
     Chart.prototype.draw = function () {
-        if (!this.days)
-            return;
+        if (this.days){
+            if (this.redrawLabels) this.clearLabels();
 
-        if (this.redrawLabels) this.clearLabels();
-        var x = this.padding;
-        this.days.forEach(function (day, index) {
-            if (this.redrawLabels) this.drawLabel(day.date);
-            day.draw(x, this.activity);
-            x += this.padding + this.barWidth;
-        }, this);
+            //var x = this.padding;
+            this.days.forEach(function (day, index) {
+                if (this.redrawLabels) this.drawLabel(day.date);
+                var x = this.padding + ((this.barWidth + this.padding) * index); // TRY THIS OUT!!
+                day.draw(x, this.activity);
+                //x += this.padding + this.barWidth;
+            }, this);
+        } 
     };
 
     Chart.prototype.drawLabel = function (label) {
-        var li = document.createElement("li");
-        var span = document.createElement("span");
 
+        var span = document.createElement("span");
         span.appendChild(document.createTextNode(label));
+
+        var li = document.createElement("li");
         li.appendChild(span);
 
         this.labels.appendChild(li);
@@ -56,5 +59,6 @@
             this.labels.removeChild(this.labels.firstChild);
         }
     };
+    
     return Chart;
 })();

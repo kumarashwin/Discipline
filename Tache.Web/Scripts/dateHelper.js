@@ -19,13 +19,6 @@
         return result;
     };
 
-    //DateHelper.prototype.daysBetween = function (dateHelper) {
-    //    var ticks = this.dateObject.getTime() - dateHelper.dateObject.getTime();
-    //    //ticks = ticks < 0 ? (ticks * -1) : ticks;
-    //    var days = ticks / (1000 * 60 * 60 * 24);
-    //    return days;
-    //};
-
     function leftPadZeros(num) {
         return (num.toString().length < 2 ? "0" + num : num).toString();
     }

@@ -1,4 +1,5 @@
-﻿document.getElementById("arrow-left").addEventListener("click", getArrowEventHandler(-1));
+﻿// Left arrow doesn't yet need any special functionality
+document.getElementById("arrow-left").addEventListener("click", getArrowEventHandler(-1));
 
 var ArrowRight = (function () {
     function ArrowRight(element) {
@@ -25,19 +26,24 @@ function getArrowEventHandler(direction) {
             arrowRight.show();
 
         if (currentDate.dateString == minDateBeforeFetch.dateString) {
-            var requestDate = currentDate.addDays(-20);
-            minDateBeforeFetch = currentDate.addDays(-21);
-            var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(-16).dateString.replace(/-/g, "\\");
-            requestMoreActivities(url, "left");
+            prepareThenSendRequest("left", minDateBeforeFetch);
         } else if (currentDate.dateString == maxDateBeforeFetch.dateString) {
-            var requestDate = currentDate.addDays(20);
-            maxDateBeforeFetch = currentDate.addDays(21);
-            var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(16).dateString.replace(/-/g, "\\");
-            requestMoreActivities(url, "right");
+            prepareThenSendRequest("right", maxDateBeforeFetch);
         }
 
         chart.ready(returnSevenDaysAroundDate(currentDate, activities), chart.activity, true);
-        chart.svg.parentElement.addEventListener("transitionend", onTransparentFinish);
-        chart.svg.parentElement.className = "makeTransparent";
+
+        startTransition();
     };
+}
+
+function prepareThenSendRequest(direction, dateBeforeFetch){
+    var multiplier = 1;
+    if(direction == "left")
+        multiplier = -1;
+
+    var requestDate = currentDate.addDays(20 * multiplier);
+    dateBeforeFetch = currentDate.addDays(21 * multiplier);
+    var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(-16).dateString.replace(/-/g, "\\");
+    requestMoreActivities(url, direction);
 }
