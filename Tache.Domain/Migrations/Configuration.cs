@@ -17,7 +17,8 @@ namespace Tache.Domain.Migrations {
                 new Activity { Name = "eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
                 new Activity { Name = "coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
                 new Activity { Name = "reading", Description = "*...page flip*", Color = "#333300" },
-                new Activity { Name = "gaming", Description = "*pew pew pew!*", Color = "#6600cc" });
+                new Activity { Name = "gaming", Description = "*pew pew pew!*", Color = "#6600cc" },
+                new Activity { Name = "nothing in particular", Description = "Default", Color = "#808080", Default = true});
 
             context.SaveChanges();
 
@@ -26,8 +27,9 @@ namespace Tache.Domain.Migrations {
             var codingID = context.Activities.Where(a => a.Name == "coding").First().Id;
             var readingID = context.Activities.Where(a => a.Name == "reading").First().Id;
             var gamingID = context.Activities.Where(a => a.Name == "gaming").First().Id;
+            var defaultID = context.Activities.Where(a => a.Default == true).First().Id;
 
-            context.CurrentActivities.AddOrUpdate(cA => cA.ActivityId, new CurrentActivity { ActivityId = codingID, Start = DateTime.Now.AddHours(-2) });
+            context.Activities.Where(a => a.Id == codingID).First().Start = DateTime.Now.AddHours(-1);
 
             int lastMinute;
             var result = new List<Duration>() { };

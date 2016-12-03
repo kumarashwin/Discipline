@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Tache.Domain.Entities;
 
@@ -8,5 +9,8 @@ namespace Tache.Domain.Abstract {
 
         void CreateOrUpdate(Activity activity);
         Activity Delete(int activityId);
+
+        void Start(int activity, DateTime clientRequestTime);
+        void Stop(int activity, DateTime clientRequestTime);
     }
 }

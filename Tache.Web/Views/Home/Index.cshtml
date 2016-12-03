@@ -1,13 +1,20 @@
-﻿@model IEnumerable<Tache.Models.ViewModels.CurrentActivityViewModel>
+﻿@using Tache.Domain.Entities
+@model IEnumerable<Activity>
 
 @{
     ViewBag.Title = "Tache";
-    var CurrentActivities = Model.Where(e => e.CurrentActivity != null).ToArray();
+    IEnumerable<Activity> currentActivities = Model.Where(e => e.Start != null);
+    var currentActivity = currentActivities.First();
+    IEnumerable<SelectListItem> allActivities = Model.Except(currentActivities)
+        .Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString() })
+        .OrderBy(a => a.Text);
 }
 <h2>
-    Currently, you are <span>@CurrentActivities[0].Activity.Name</span>
-    @for (int i = 1; i < CurrentActivities.Length; i++) {
-        <span> while </span><span>@CurrentActivities[i].Activity.Name</span>
-    }
-    <span>.</span>
+    You have been <span style="color: palevioletred;">@currentActivity.Name</span> since <span style="color: lightgreen;">@currentActivity.Start</span><span>.</span>
 </h2>
+@using (Html.BeginForm()) {
+    @Html.Hidden("currentActivity", currentActivity.Id)
+    <h4>
+        I am going to start: @Html.DropDownList("newActivity", allActivities) <button type="submit">Submit</button>
+    </h4>
+}

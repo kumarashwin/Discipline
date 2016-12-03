@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201611102009446_Added colors to activities.Designer.cs">
       <DependentUpon>201611102009446_Added colors to activities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612021952134_Changed Activity Entity to include current activities.cs" />
+    <Compile Include="Migrations\201612021952134_Changed Activity Entity to include current activities.Designer.cs">
+      <DependentUpon>201612021952134_Changed Activity Entity to include current activities.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -98,6 +102,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201611102009446_Added colors to activities.resx">
       <DependentUpon>201611102009446_Added colors to activities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612021952134_Changed Activity Entity to include current activities.resx">
+      <DependentUpon>201612021952134_Changed Activity Entity to include current activities.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
