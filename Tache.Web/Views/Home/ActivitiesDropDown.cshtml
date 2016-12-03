@@ -1,0 +1,16 @@
+﻿@using Tache.Domain.Entities
+@model IEnumerable<Activity>
+
+<div id="activitiesDropDown" style="display:inline-table;">
+    <div class="icon-box">
+        <span class="icono-list"></span>
+        <div class="border-overlap"></div>
+    </div>
+    <ul>
+        @foreach (Activity activity in Model) {
+            <li data-id="@activity.Id" data-name="@activity.Name" data-description="@activity.Description" data-color="@activity.Color">
+                @activity.Name<div><span class="icono-trash"></span><span class="icono-sliders"></span></div>
+            </li>
+        }
+    </ul>
+</div>

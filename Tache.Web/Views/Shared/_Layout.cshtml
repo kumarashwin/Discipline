@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Tache" />
     <title>@ViewBag.Title</title>
+    <link type="text/css" rel="stylesheet" href="~/Content/icono.min.css"/>
     <link type="text/css" rel="stylesheet" href="~/Content/site.css" />
 
     @if (IsSectionDefined("Activities")) {
@@ -25,7 +26,7 @@
 </head>
 <body>
     <div>
-        @RenderBody()
+        @RenderSection("Body")
     </div>
 </body>
 </html>

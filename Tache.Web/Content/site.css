@@ -100,3 +100,45 @@ rect:hover {
     transition: 0.1s;
     opacity: 1;
 }
+
+#activitiesDropDown:hover ul, #activitiesDropDown:hover .border-overlap {
+   display: block;
+} 
+
+#activitiesDropDown ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 340px;
+    border: 1px solid black;
+    display: none;
+}
+
+#activitiesDropDown li {
+    height: 40px;
+}
+
+#activitiesDropDown li div {
+    float: right;
+}
+
+#activitiesDropDown li span {
+    transform: scale(0.5);
+}
+
+#activitiesDropDown span {
+    color: blue;
+}
+
+.icon-box {
+    border: 1px solid black;
+    width: 40px;
+}
+
+.border-overlap {
+    position: relative;
+    background: white;
+    bottom: -2px;
+    height: 2px;
+    display:none;
+}

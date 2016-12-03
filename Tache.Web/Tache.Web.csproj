@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\defaultError.html" />
+    <Content Include="Content\icono.min.css" />
     <Content Include="Content\ruler.png" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
@@ -158,6 +159,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Day\Index.cshtml" />
     <Content Include="Views\Shared\RangeError.cshtml" />
+    <Content Include="Views\Home\Activity.cshtml" />
+    <Content Include="Views\Home\ActivitiesDropDown.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

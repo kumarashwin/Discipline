@@ -3,18 +3,18 @@
 
 @{
     ViewBag.Title = "Tache";
-    IEnumerable<Activity> currentActivities = Model.Where(e => e.Start != null);
-    var currentActivity = currentActivities.First();
-    IEnumerable<SelectListItem> allActivities = Model.Except(currentActivities)
-        .Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString() })
-        .OrderBy(a => a.Text);
 }
-<h2>
-    You have been <span style="color: palevioletred;">@currentActivity.Name</span> since <span style="color: lightgreen;">@currentActivity.Start</span><span>.</span>
-</h2>
-@using (Html.BeginForm()) {
-    @Html.Hidden("currentActivity", currentActivity.Id)
-    <h4>
-        I am going to start: @Html.DropDownList("newActivity", allActivities) <button type="submit">Submit</button>
-    </h4>
+
+@section Body{
+    @{
+        IEnumerable<Activity> currentActivities = Model.Where(e => e.Start != null);
+        var currentActivity = currentActivities.First();
+        IEnumerable<SelectListItem> allActivities = Model.Except(currentActivities)
+            .Select(a => new SelectListItem { Text = a.Name, Value = a.Id.ToString() })
+            .OrderBy(a => a.Text);
+    }
+    <h2>You have been <span style="color: palevioletred;">@currentActivity.Name</span> since <span style="color: lightgreen;">@currentActivity.Start</span>.</h2>
+    <h4>I am going to start: @Html.Partial("ActivitiesDropDown", Model.Except(currentActivities))</h4>
+
+    @*@Html.Partial("Activity")*@
 }
