@@ -1,17 +1,18 @@
 ﻿* {
     margin: 0;
     padding: 0;
+    font-family: sans-serif;
 }
 
-body{
+body {
     padding-top: 40px;
     padding-left: 40px;
 }
 
-#svgDiv{
-    width:610px;
+#svgDiv {
+    width: 610px;
     height: 360px;
-    position:relative;
+    position: relative;
 }
 
 #svgContainer {
@@ -21,20 +22,25 @@ body{
     padding-left: 0px;
 }
 
-#dates li{
+#dates li {
     display: inline;
     float: left;
 }
 
-@keyframes animatedBackground{
-    from { background-color: royalblue; }
-	to { background-color: white; }
+@keyframes animatedBackground {
+    from {
+        background-color: royalblue;
+    }
+
+    to {
+        background-color: white;
+    }
 }
 
 #dates li span {
     display: block;
     margin-left: 15px;
-    text-align:center;
+    text-align: center;
     width: 70px;
     font-size: small;
     font-weight: bold;
@@ -42,15 +48,15 @@ body{
     animation: animatedBackground 0.5s linear normal;
 }
 
-.minus-three, .plus-three{
+.minus-three, .plus-three {
     opacity: 0.7;
 }
 
-.minus-two, .plus-two{
+.minus-two, .plus-two {
     opacity: 0.8;
 }
 
-.plus-one, .minus-one{
+.plus-one, .minus-one {
     opacity: 0.9;
 }
 
@@ -61,12 +67,12 @@ rect:hover {
 .arrows {
     position: absolute;
     display: inline-block;
-    margin-top:26%;
+    margin-top: 26%;
 }
 
-.arrows div:hover {
-    opacity: 0.8;
-}
+    .arrows div:hover {
+        opacity: 0.8;
+    }
 
 #arrow-left {
     left: 1%;
@@ -77,7 +83,7 @@ rect:hover {
 }
 
 .arrows div {
-    position:relative;
+    position: relative;
     top: 45%;
     border: 20px solid transparent;
     opacity: 0.4;
@@ -91,54 +97,97 @@ rect:hover {
     border-right-color: lawngreen;
 }
 
-.makeTransparent{
+.makeTransparent {
     transition: 0.1s;
     opacity: 0.5;
 }
 
-.makeOpaque{
+.makeOpaque {
     transition: 0.1s;
     opacity: 1;
 }
 
-#activitiesDropDown:hover ul, #activitiesDropDown:hover .border-overlap {
-   display: block;
-} 
+/*======== ACTIVITIES DROP DOWN ============*/
 
-#activitiesDropDown ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 340px;
-    border: 1px solid black;
-    display: none;
-}
-
-#activitiesDropDown li {
-    height: 40px;
-}
-
-#activitiesDropDown li div {
-    float: right;
-}
-
-#activitiesDropDown li span {
-    transform: scale(0.5);
-}
-
-#activitiesDropDown span {
-    color: blue;
+.icon-box span, .activities-list span {
+    color: royalblue;
 }
 
 .icon-box {
     border: 1px solid black;
-    width: 40px;
+    width: 38px;
 }
 
-.border-overlap {
+    .icon-box:hover ~ div {
+        display: block;
+    }
+
+.activities-list {
+    display: none;
+    border: 1px solid black;
     position: relative;
-    background: white;
-    bottom: -2px;
-    height: 2px;
-    display:none;
 }
+
+    .activities-list:hover {
+        display: block;
+    }
+
+    .activities-list .border-overlap {
+        width: 38px;
+        position: relative;
+        background: white;
+        top: -2px;
+        height: 2px;
+    }
+
+    .activities-list .add-activity {
+        height: 16%;
+        width: 10%;
+        position: absolute;
+        right: -1px;
+        border: 1px solid black;
+    }
+
+    .activities-list .add-activity:hover {
+        background: royalblue;
+    }
+    
+    .activities-list .add-activity:hover span {
+        color: white;
+    }
+        
+        .activities-list .add-activity .border-overlap {
+            width: 34px;
+            position: relative;
+            background: white;
+            top: -1px;
+            height: 1px;
+        }
+
+    .activities-list hr {
+        color: lightgrey;
+    }
+
+    .activities-list ul {
+        list-style: none;
+        width: 340px;
+    }
+
+        .activities-list ul li {
+            height: 40px;
+            padding: 2% 5%;
+            position: relative;
+        }
+
+            .activities-list ul li .activity-text {
+                position: absolute;
+                margin-top: 2%;
+            }
+
+            .activities-list ul li div {
+                float: right;
+            }
+
+                .activities-list ul li div span {
+                    transform: scale(0.5);
+                }

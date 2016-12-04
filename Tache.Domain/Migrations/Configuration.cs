@@ -13,21 +13,19 @@ namespace Tache.Domain.Migrations {
 
         protected override void Seed(Tache.Domain.Concrete.DbContext context) {
             context.Activities.AddOrUpdate(p => p.Name,
-                new Activity { Name = "sleeping", Description = "I love sleeping!", Color = "#0099ff" },
-                new Activity { Name = "eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
-                new Activity { Name = "coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
-                new Activity { Name = "reading", Description = "*...page flip*", Color = "#333300" },
-                new Activity { Name = "gaming", Description = "*pew pew pew!*", Color = "#6600cc" },
-                new Activity { Name = "nothing in particular", Description = "Default", Color = "#808080", Default = true});
+                new Activity { Name = "Sleeping", Description = "I love sleeping!", Color = "#0099ff" },
+                new Activity { Name = "Eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
+                new Activity { Name = "Coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
+                new Activity { Name = "Reading", Description = "*...page flip*", Color = "#333300" },
+                new Activity { Name = "Gaming", Description = "*pew pew pew!*", Color = "#6600cc" });
 
             context.SaveChanges();
 
-            var sleepingID = context.Activities.Where(a => a.Name == "sleeping").First().Id;
-            var eatingID = context.Activities.Where(a => a.Name == "eating").First().Id;
-            var codingID = context.Activities.Where(a => a.Name == "coding").First().Id;
-            var readingID = context.Activities.Where(a => a.Name == "reading").First().Id;
-            var gamingID = context.Activities.Where(a => a.Name == "gaming").First().Id;
-            var defaultID = context.Activities.Where(a => a.Default == true).First().Id;
+            var sleepingID = context.Activities.Where(a => a.Name == "Sleeping").First().Id;
+            var eatingID = context.Activities.Where(a => a.Name == "Eating").First().Id;
+            var codingID = context.Activities.Where(a => a.Name == "Coding").First().Id;
+            var readingID = context.Activities.Where(a => a.Name == "Reading").First().Id;
+            var gamingID = context.Activities.Where(a => a.Name == "Gaming").First().Id;
 
             context.Activities.Where(a => a.Id == codingID).First().Start = DateTime.Now.AddHours(-1);
 
