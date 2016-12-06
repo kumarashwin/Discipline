@@ -4,6 +4,10 @@
     font-family: sans-serif;
 }
 
+ul {
+    list-style: none;
+}
+
 body {
     padding-top: 40px;
     padding-left: 40px;
@@ -108,6 +112,9 @@ rect:hover {
 }
 
 /*======== ACTIVITIES DROP DOWN ============*/
+#activitiesDropDown {
+    display: inline-table;
+}
 
 #activitiesDropDown, .icon-box span {
     color: royalblue;
@@ -141,10 +148,6 @@ rect:hover {
         height: 2px;
     }
 
-    .activities-list ul {
-        list-style: none;
-    }
-
     .activities-list button {
         color: royalblue;
         font-weight: bold;
@@ -160,6 +163,7 @@ rect:hover {
             color: white;
             background-color: royalblue;
         }
+
     .activities-list .add-activity:hover {
         background: royalblue;
         color: white;
@@ -184,3 +188,13 @@ rect:hover {
             top: -1px;
             height: 1px;
         }
+
+#background-cover {
+    z-index: 1;
+    background: grey;
+    opacity: 0.5;
+}
+
+#activities-CRUD {
+    display: none;
+}

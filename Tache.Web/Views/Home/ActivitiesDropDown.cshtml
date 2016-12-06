@@ -1,7 +1,7 @@
 ﻿@using Tache.Domain.Entities
 @model IEnumerable<Activity>
 
-<div id="activitiesDropDown" style="display:inline-table;">
+<div id="activitiesDropDown" style="">
     <div class="icon-box"><span class="icono-list"></span></div>
     <div class="activities-list">
         <div class="border-overlap"></div>
@@ -16,9 +16,11 @@
                 </li>
             }
         </ul>
+
         <div class="add-activity">
             <div class="border-overlap"></div>
             <span>New</span>
         </div>
     </div>
 </div>
+@Html.Partial("ActivityCRUD", new Activity())

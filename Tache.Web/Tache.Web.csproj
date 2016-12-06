@@ -122,6 +122,7 @@
     <Content Include="Content\ruler.png" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\activitiesRightClick.js" />
     <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\arrows.js" />
     <Content Include="Scripts\chart.js" />
@@ -166,7 +167,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Day\Index.cshtml" />
     <Content Include="Views\Shared\RangeError.cshtml" />
-    <Content Include="Views\Home\Activity.cshtml" />
+    <Content Include="Views\Home\ActivityCRUD.cshtml" />
     <Content Include="Views\Home\ActivitiesDropDown.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
