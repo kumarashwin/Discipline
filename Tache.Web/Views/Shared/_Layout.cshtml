@@ -13,6 +13,9 @@
     }
 
     @*Combine & minify eventually...*@
+    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+
     <script type="text/javascript" src="~/Scripts/day.js" defer></script>
     <script type="text/javascript" src="~/Scripts/chart.js" defer></script>
     <script type="text/javascript" src="~/Scripts/misc.js" defer></script>
@@ -25,8 +28,6 @@
     <script type="text/javascript" src="~/Scripts/main.js" defer></script>
 </head>
 <body>
-    <div>
         @RenderSection("Body")
-    </div>
 </body>
 </html>

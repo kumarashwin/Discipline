@@ -19,7 +19,7 @@ body {
     width: 610px;
     height: 360px;
     padding: 10px 30px;
-    padding-left: 0px;
+    padding-left: 0;
 }
 
 #dates li {
@@ -109,7 +109,7 @@ rect:hover {
 
 /*======== ACTIVITIES DROP DOWN ============*/
 
-.icon-box span, .activities-list span {
+#activitiesDropDown, .icon-box span {
     color: royalblue;
 }
 
@@ -140,54 +140,35 @@ rect:hover {
         height: 2px;
     }
 
+    .activities-list ul {
+        list-style: none;
+    }
+
+        .activities-list ul li {
+            padding: 4% 8% 2% 6%;
+        }
+
+            .activities-list ul li:hover,
+            .activities-list .add-activity:hover {
+                background: royalblue;
+                color: white;
+            }
+
     .activities-list .add-activity {
-        height: 16%;
-        width: 10%;
         position: absolute;
         right: -1px;
         border: 1px solid black;
+        color: cornflowerblue;
     }
 
-    .activities-list .add-activity:hover {
-        background: royalblue;
-    }
-    
-    .activities-list .add-activity:hover span {
-        color: white;
-    }
-        
+        .activities-list .add-activity span {
+            margin: 4px 10px 0 10px;
+        }
+
         .activities-list .add-activity .border-overlap {
-            width: 34px;
+            width: 100%;
             position: relative;
             background: white;
             top: -1px;
             height: 1px;
         }
-
-    .activities-list hr {
-        color: lightgrey;
-    }
-
-    .activities-list ul {
-        list-style: none;
-        width: 340px;
-    }
-
-        .activities-list ul li {
-            height: 40px;
-            padding: 2% 5%;
-            position: relative;
-        }
-
-            .activities-list ul li .activity-text {
-                position: absolute;
-                margin-top: 2%;
-            }
-
-            .activities-list ul li div {
-                float: right;
-            }
-
-                .activities-list ul li div span {
-                    transform: scale(0.5);
-                }

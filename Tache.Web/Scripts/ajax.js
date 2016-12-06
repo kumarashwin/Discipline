@@ -22,3 +22,13 @@ function requestMoreActivities(url, direction) {
     });
     req.send(null);
 }
+
+function removeListItem(id) {
+    return function(data, status, xhr) {
+        if (data != false) {
+            var selector = "li[activity-id=" + id + "]";
+            var li = document.getElementById("activitiesDropDown").querySelector(selector);
+            li.parentElement.removeChild(li);
+        }
+    }
+}

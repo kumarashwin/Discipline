@@ -27,11 +27,11 @@ namespace Tache.Domain.Migrations {
             var readingID = context.Activities.Where(a => a.Name == "Reading").First().Id;
             var gamingID = context.Activities.Where(a => a.Name == "Gaming").First().Id;
 
-            context.Activities.Where(a => a.Id == codingID).First().Start = DateTime.Now.AddHours(-1);
+            context.Activities.Where(a => a.Id == codingID).First().Start = DateTime.UtcNow.AddHours(-1);
 
             int lastMinute;
             var result = new List<Duration>() { };
-            for (DateTime d = (DateTime.Now).AddDays(-60); d < DateTime.Now; d = d.AddDays(1)) {
+            for (DateTime d = (DateTime.UtcNow).AddDays(-60); d < DateTime.UtcNow; d = d.AddDays(1)) {
                 result.Add(new Duration { ActivityId = sleepingID, From = new DateTime(d.Year, d.Month, d.Day, 0, 0, 0), To = new DateTime(d.Year, d.Month, d.Day, 8, minuteRandomizer(out lastMinute), 0) });
                 result.Add(new Duration { ActivityId = codingID, From = new DateTime(d.Year, d.Month, d.Day, 8, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 10, minuteRandomizer(out lastMinute), 0) });
                 result.Add(new Duration { ActivityId = eatingID, From = new DateTime(d.Year, d.Month, d.Day, 10, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 11, minuteRandomizer(out lastMinute), 0) });
