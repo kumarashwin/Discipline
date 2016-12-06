@@ -113,6 +113,7 @@ rect:hover {
     color: royalblue;
 }
 
+
 .icon-box {
     border: 1px solid black;
     width: 38px;
@@ -144,15 +145,25 @@ rect:hover {
         list-style: none;
     }
 
-        .activities-list ul li {
-            padding: 4% 8% 2% 6%;
-        }
+    .activities-list button {
+        color: royalblue;
+        font-weight: bold;
+        border: 0;
+        background-color: white;
+        text-align: center;
+        text-decoration: none;
+        padding: 4% 8% 2% 6%;
+        width: 100%;
+    }
 
-            .activities-list ul li:hover,
-            .activities-list .add-activity:hover {
-                background: royalblue;
-                color: white;
-            }
+        .activities-list button:hover {
+            color: white;
+            background-color: royalblue;
+        }
+    .activities-list .add-activity:hover {
+        background: royalblue;
+        color: white;
+    }
 
     .activities-list .add-activity {
         position: absolute;
@@ -163,6 +174,7 @@ rect:hover {
 
         .activities-list .add-activity span {
             margin: 4px 10px 0 10px;
+            font-size: small;
         }
 
         .activities-list .add-activity .border-overlap {

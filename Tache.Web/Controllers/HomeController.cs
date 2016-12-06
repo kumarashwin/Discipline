@@ -16,6 +16,7 @@ namespace Tache.Controllers {
             // Inefficient, optimize this:
             activityRepo.Stop(int.Parse(currentActivity), time);
             activityRepo.Start(int.Parse(newActivity), time.AddSeconds(1));
+            ModelState.Clear();
             return PartialView("Body", activityRepo.Activities);
         }
 

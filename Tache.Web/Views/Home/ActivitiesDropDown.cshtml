@@ -7,13 +7,12 @@
         <div class="border-overlap"></div>
         <ul>
             @foreach (Activity activity in Model) {
-                <li data-id="@activity.Id"
-                    data-name="@activity.Name"
-                    data-color="@activity.Color"
-                    data-description="@activity.Description">
-
-                    @*<a href="#" class="activity-text">@activity.Name</a>*@
-                    @Ajax.ActionLink(activity.Name, "Index", new { currentActivity = ViewBag.CurrentActivity.Id, newActivity = activity.Id }, new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv" })
+                <li>
+                    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv" })) {
+                        @Html.Hidden("newActivity", activity.Id);
+                        @Html.Hidden("currentActivity", (object)ViewBag.CurrentActivity.Id);
+                        <button type="submit">@activity.Name</button>
+                    }
                 </li>
             }
         </ul>
