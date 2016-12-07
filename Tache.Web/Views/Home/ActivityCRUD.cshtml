@@ -2,5 +2,8 @@
 
 <div id="activities-CRUD">
     <div id="background-cover"></div>
-    @Html.EditorFor(m => m)
+    @using (Html.BeginForm("TestActivity", "Home", "POST")) {
+        @Html.EditorFor(m => m)
+        <button type="submit">Save</button>
+    }
 </div>

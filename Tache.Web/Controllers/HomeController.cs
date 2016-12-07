@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
+using Tache.Domain.Entities;
 
 namespace Tache.Controllers {
     public class HomeController : Controller {
@@ -22,6 +23,12 @@ namespace Tache.Controllers {
 
         public ActionResult Index() => View(model: activityRepo.Activities);
 
+        // TESTING ONLY!! NOT PERMANENT
+        [HttpPost]
+        public ActionResult TestActivity(Activity activity) {
+            activityRepo.CreateOrUpdate(activity);
+            return RedirectToAction("Index");
+        }
         //[HttpPost]
         //public JsonResult Delete(int activityId) => Json(true);
 
