@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace Tache.Domain.Entities {
     public class Activity {
-        private long? _budgetInTicks;
+        private long? _budgetInTicks = null;
         private TimeSpan? _budgetHours;
         private TimeSpan? _budgetMinutes;
 
@@ -22,7 +22,7 @@ namespace Tache.Domain.Entities {
         [ScaffoldColumn(false)]
         public long? BudgetInTicks {
             get {
-                _budgetInTicks = null;
+                _budgetInTicks = _budgetInTicks ?? null;
                 if (_budgetHours != null) {
                     _budgetInTicks = _budgetInTicks ?? 0;
                     _budgetInTicks += ((TimeSpan)_budgetHours).Ticks;

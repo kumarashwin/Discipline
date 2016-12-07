@@ -7,11 +7,11 @@
         <div class="border-overlap"></div>
         <ul>
             @foreach (Activity activity in Model) {
-                <li>
+                <li> 
                     @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv" })) {
                         @Html.Hidden("newActivity", activity.Id);
                         @Html.Hidden("currentActivity", (object)ViewBag.CurrentActivity.Id);
-                        <button type="submit">@activity.Name</button>
+                        <button data-activity-id="@activity.Id" data-activity-name="@activity.Name" data-activity-description="@activity.Description" data-activity-color="@activity.Color" data-activity-hours="@activity.BudgetHours" data-activity-minutes="@activity.BudgetMinutes" type="submit">@activity.Name</button>
                     }
                 </li>
             }
