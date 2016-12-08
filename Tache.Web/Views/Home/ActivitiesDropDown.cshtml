@@ -7,8 +7,8 @@
         <div class="border-overlap"></div>
         <ul>
             @foreach (Activity activity in Model) {
-                <li> 
-                    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv" })) {
+                <li>
+                    @using (Ajax.BeginForm(new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" })) {
                         @Html.Hidden("newActivity", activity.Id);
                         @Html.Hidden("currentActivity", (object)ViewBag.CurrentActivity.Id);
                         <button data-activity-id="@activity.Id" data-activity-name="@activity.Name" data-activity-description="@activity.Description" data-activity-color="@activity.Color" data-activity-hours="@activity.BudgetHours" data-activity-minutes="@activity.BudgetMinutes" type="submit">@activity.Name</button>
@@ -18,8 +18,7 @@
         </ul>
 
         <div class="add-activity">
-            <div class="border-overlap"></div>
-            <span>New</span>
+            <button type="button" id="new-activity">+</button>
         </div>
     </div>
 </div>

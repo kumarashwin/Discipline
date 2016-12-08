@@ -1,17 +1,28 @@
-﻿var activitiesCRUD = document.getElementById("activities-CRUD");
-var backgroundDiv = document.getElementById("background-cover");
+﻿function setupActivitiesCRUD() {
+    var activitiesCRUD = document.getElementById("activities-CRUD");
+    var backgroundDiv = document.getElementById("background-cover");
 
-var activitiesList = document.getElementsByClassName("activities-list")[0].querySelector("ul");
+    var activitiesList = document.getElementsByClassName("activities-list")[0].querySelector("ul");
+    var newButton = document.getElementById("new-activity");
 
-activitiesList.addEventListener("contextmenu", function (event) {
-    if (event.target.nodeName == "BUTTON") {
-        event.preventDefault();
-        activitiesCRUD.querySelector("#Id").value = event.target.getAttribute("data-activity-id")   
-        activitiesCRUD.querySelector("#Name").value = event.target.getAttribute("data-activity-name")   
-        activitiesCRUD.querySelector("#Description").value = event.target.getAttribute("data-activity-description")   
-        activitiesCRUD.querySelector("#Color").value = event.target.getAttribute("data-activity-color")   
-        activitiesCRUD.querySelector("#BudgetHours").value = event.target.getAttribute("data-activity-hours")
-        activitiesCRUD.querySelector("#BudgetMinutes").value = event.target.getAttribute("data-activity-minutes")
-        activitiesCRUD.style.display = "block";
+    activitiesList.addEventListener("contextmenu", activityCRUDEventHandler);
+    newButton.addEventListener("click", activityCRUDEventHandler);
+
+    function activityCRUDEventHandler(event) {
+        if (event.target.nodeName == "BUTTON") {
+            var inputs = activitiesCRUD.querySelectorAll("input");
+            inputs.forEach(function (input) { input.value = ""; });
+
+            if (event.target.type == "submit") {
+                inputs.forEach(function (input) {
+                    input.value = event.target.getAttribute("data-activity-" + input.id.toLowerCase());
+                });
+            }
+            event.preventDefault();
+            activitiesCRUD.style.display = "block";
+        }
     }
-});
+}
+
+// Initial call;
+setupActivitiesCRUD();

@@ -122,7 +122,7 @@ rect:hover {
 
 
 .icon-box {
-    border: 1px solid black;
+    border: 1px solid royalblue;
     width: 38px;
 }
 
@@ -132,7 +132,7 @@ rect:hover {
 
 .activities-list {
     display: none;
-    border: 1px solid black;
+    border: 1px solid royalblue;
     position: relative;
 }
 
@@ -142,7 +142,7 @@ rect:hover {
 
     .activities-list .border-overlap {
         width: 38px;
-        position: relative;
+        position: absolute;
         background: white;
         top: -2px;
         height: 2px;
@@ -162,9 +162,23 @@ rect:hover {
         .activities-list button:hover {
             color: white;
             background-color: royalblue;
+            z-index: 2;
         }
 
-    .activities-list .add-activity:hover {
+        .activities-list #new-activity {
+            color: white;
+            background-color: royalblue;
+            border: 2px solid royalblue;
+            font-weight: bolder;
+            font-size: medium;
+        }
+
+        .activities-list #new-activity:hover {
+            color:royalblue;
+            background-color: white;
+        }
+
+    ./*activities-list .add-activity:hover {
         background: royalblue;
         color: white;
     }
@@ -187,7 +201,7 @@ rect:hover {
             background: white;
             top: -1px;
             height: 1px;
-        }
+        }*/
 
 #background-cover {
     z-index: 1;
