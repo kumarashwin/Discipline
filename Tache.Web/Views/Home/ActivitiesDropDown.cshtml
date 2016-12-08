@@ -1,8 +1,8 @@
 ﻿@using Tache.Domain.Entities
 @model IEnumerable<Activity>
 
-@{ 
-        ViewBag.CustomAjaxOptions = new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" };
+@{
+    ViewBag.CustomAjaxOptions = new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" };
 }
 <div id="activitiesDropDown" style="">
     <div class="icon-box"><span class="icono-list"></span></div>
@@ -18,13 +18,9 @@
                     }
                 </li>
             }
+            <li class="add-activity">
+                <button type="button" id="new-activity">+</button>
+            </li>
         </ul>
-
-
-
-        <div class="add-activity">
-            <button type="button" id="new-activity">+</button>
-        </div>
     </div>
 </div>
-@Html.Partial("ActivityCRUD", new Activity())
