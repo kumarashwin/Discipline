@@ -10,6 +10,11 @@ namespace Tache.App_Start
 
     using Ninject;
     using Ninject.Web.Common;
+    using System.Collections.Generic;
+    using Models.Abstract;
+    using Models.Concrete;
+    using Domain.Abstract;
+    using Domain.Concrete;
 
     public static class NinjectWebCommon 
     {
@@ -46,6 +51,7 @@ namespace Tache.App_Start
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
                 RegisterServices(kernel);
+                AddBindings(kernel);
                 return kernel;
             }
             catch
@@ -59,8 +65,34 @@ namespace Tache.App_Start
         /// Load your modules or register your services here!
         /// </summary>
         /// <param name="kernel">The kernel.</param>
-        private static void RegisterServices(IKernel kernel) {
-            System.Web.Mvc.DependencyResolver.SetResolver(new Infrastructure.NinjectDependencyResolver(kernel));
-        }        
+        private static void RegisterServices(StandardKernel kernel) {
+            System.Web.Http.GlobalConfiguration.Configuration.DependencyResolver = new Ninject.Web.WebApi.NinjectDependencyResolver(kernel);
+            System.Web.Mvc.DependencyResolver.SetResolver(new CustomMvcDependencyResolver(kernel));
+        }
+
+        private static void AddBindings(StandardKernel kernel) {
+
+            // Web
+            kernel.Bind<IActivityViewModelRepository>().To<ActivityViewModelRepository>().InRequestScope();
+            kernel.Bind<IDaysViewModelRepository>().To<DaysViewModelRepository>().InRequestScope();
+
+            // Domain
+            kernel.Bind<AbstractDbContext>().To<DbContext>().InRequestScope();
+            kernel.Bind<IActivityRepository>().To<ActivityRepository>().InRequestScope();
+            kernel.Bind<IBudgetRepository>().To<BudgetRepository>().InRequestScope();
+            kernel.Bind<IDurationRepository>().To<DurationRepository>().InRequestScope();
+            kernel.Bind<ICurrentActivityRepository>().To<CurrentActivityRepository>().InRequestScope();
+        }
+    }
+
+    public class CustomMvcDependencyResolver : System.Web.Mvc.IDependencyResolver {
+        private IKernel kernel;
+
+        public CustomMvcDependencyResolver(IKernel kernel){
+            this.kernel = kernel;
+        }
+
+        public object GetService(Type serviceType) => kernel.TryGet(serviceType);
+        public IEnumerable<object> GetServices(Type serviceType) => kernel.GetAll(serviceType);
     }
 }
