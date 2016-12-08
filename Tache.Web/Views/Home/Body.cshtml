@@ -1,0 +1,10 @@
+﻿@using Tache.Domain.Entities
+@model IEnumerable<Activity>
+
+<div id="bodyDiv">
+    @{
+        ViewBag.CurrentActivity = Model.Where(e => e.Start != null).First();
+    }
+    <h2>You have been <span style="color: palevioletred;">@ViewBag.CurrentActivity.Name</span> since <span style="color: lightgreen;">@ViewBag.CurrentActivity.Start</span>.</h2>
+    <h4>I am going to start: @Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))</h4>
+</div>

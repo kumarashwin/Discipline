@@ -235,10 +235,10 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Day\Index.cshtml" />
     <Content Include="Views\Shared\RangeError.cshtml" />
-    <Content Include="Views\Shared\ActivitiesDropDown.cshtml" />
+    <Content Include="Views\Home\ActivitiesDropDown.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
-    <Content Include="Views\Shared\Body.cshtml" />
+    <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\Home\ActivityCRUD.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web.Http;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
@@ -14,7 +13,7 @@ namespace Tache.Controllers {
 
         public IEnumerable<Activity> GetAll() => activityRepo.Activities;
 
-        public Activity Get(int id) => activityRepo.Activities.Where(a => a.Id == id).First();
+        public Activity Get(int id) => activityRepo.Retrieve(id);
 
         public void Post(Activity activity) => activityRepo.CreateOrUpdate(activity);
 

@@ -1,9 +1,15 @@
 ﻿@model Tache.Domain.Entities.Activity
 
 <div id="activities-CRUD">
-    <div id="background-cover"></div>
-    @using (Html.BeginForm("TestActivity", "Home", "POST")) {
-        @Html.EditorFor(m => m)
-        <button type="submit">Save</button>
-    }
+    <div>
+        @using (Ajax.BeginForm("Update", (AjaxOptions)ViewBag.CustomAjaxOptions)) {
+            @Html.EditorFor(m => m)
+            <button id="save" type="submit">Save</button>
+        }
+
+        @using (Ajax.BeginForm("Delete", (AjaxOptions)ViewBag.CustomAjaxOptions)) {
+            @Html.HiddenFor(m => m.Id)
+            <button id="delete" type="submit">Delete</button>
+        }
+    </div>
 </div>

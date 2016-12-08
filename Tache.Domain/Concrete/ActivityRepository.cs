@@ -12,11 +12,9 @@ namespace Tache.Domain.Concrete {
             this.context = context;
         }
 
-        public IQueryable<Activity> Activities {
-            get {
-                return context.Activities;
-            }
-        }
+        public IQueryable<Activity> Activities { get { return context.Activities; } }
+
+        public Activity Retrieve(int id) => context.Activities.Find(id); 
 
         public void CreateOrUpdate(Activity activity) {
             if (activity.Id == 0) {
@@ -31,6 +29,7 @@ namespace Tache.Domain.Concrete {
             context.SaveChanges();
         }
 
+        // Shouldn't be ever used by the user
         public Activity Delete(int activityId) {
             var dbEntry = context.Activities.Find(activityId);
             if (dbEntry != null) {
@@ -38,6 +37,17 @@ namespace Tache.Domain.Concrete {
                 context.SaveChanges();
             }
             return dbEntry;
+        }
+
+        // Use this instead to make it so that the activity is never usable again
+        public Activity Hide(int activityId) {
+            var dbEntry = context.Activities.Find(activityId);
+            if (dbEntry != null) {
+                dbEntry.Hide = true;
+                context.SaveChanges();
+            }
+            return dbEntry;
+ 
         }
 
         public void Start(int activity, DateTime clientRequestTime) {

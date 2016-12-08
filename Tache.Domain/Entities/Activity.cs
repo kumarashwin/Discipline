@@ -16,6 +16,9 @@ namespace Tache.Domain.Entities {
         public string Description { get; set; }
         public string Color { get; set; }
 
+        [ScaffoldColumn(false)]
+        public bool Hide { get; set; } = false;
+
         [HiddenInput(DisplayValue = false)]
         public DateTime? Start { get; set; } = null;
 

@@ -115,6 +115,10 @@
     <Compile Include="Migrations\201612071524036_Added BudgetInTicks to Activity entity.Designer.cs">
       <DependentUpon>201612071524036_Added BudgetInTicks to Activity entity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612081704356_Added Hide field to Activity.cs" />
+    <Compile Include="Migrations\201612081704356_Added Hide field to Activity.Designer.cs">
+      <DependentUpon>201612081704356_Added Hide field to Activity.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -140,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612071524036_Added BudgetInTicks to Activity entity.resx">
       <DependentUpon>201612071524036_Added BudgetInTicks to Activity entity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612081704356_Added Hide field to Activity.resx">
+      <DependentUpon>201612081704356_Added Hide field to Activity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
