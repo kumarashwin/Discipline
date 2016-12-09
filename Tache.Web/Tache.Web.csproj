@@ -141,7 +141,7 @@
     <Content Include="Content\ruler.png" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\activitiesRightClick.js" />
+    <Content Include="Scripts\setupActivitiesCRUD.js" />
     <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\arrows.js" />
     <Content Include="Scripts\chart.js" />

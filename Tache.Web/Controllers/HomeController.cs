@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
@@ -14,8 +15,8 @@ namespace Tache.Controllers {
         public ActionResult Index() => View(model: activityRepo.Activities);
 
         [HttpPost]
-        public ActionResult Index(string currentActivity, string newActivity) {
-            var time = DateTime.UtcNow;
+        public ActionResult Index(string currentActivity, string newActivity, string userDateTime) {
+            var time = DateTime.Parse(userDateTime);
             // Inefficient, optimize this:
             activityRepo.Stop(int.Parse(currentActivity), time);
             activityRepo.Start(int.Parse(newActivity), time.AddSeconds(1));

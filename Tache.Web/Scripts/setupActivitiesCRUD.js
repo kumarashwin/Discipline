@@ -1,11 +1,16 @@
 ﻿function setupActivitiesCRUD() {
     var activitiesCRUD = document.getElementById("activities-CRUD");
-
-    var activitiesList = document.getElementsByClassName("activities-list")[0].querySelector("ul");
+    var activitiesUL = document.getElementsByClassName("activities-list")[0].querySelector("ul");
     var newButton = document.getElementById("new-activity");
     var deleteButton = activitiesCRUD.querySelector("form.delete");
 
-    activitiesList.addEventListener("contextmenu", activityCRUDEventHandler);
+    // Sets the userDateTime input value when one of the activities <li> is clicked
+    activitiesUL.addEventListener("submit", function (event) {
+        event.target.querySelector('input[name=userDateTime]').value = new Date().toISOString();
+    });
+
+    // Only works when right-clicking the list of activities, or left-clicking the 'new' button
+    activitiesUL.addEventListener("contextmenu", activityCRUDEventHandler);
     newButton.addEventListener("click", activityCRUDEventHandler);
 
     function activityCRUDEventHandler(event) {

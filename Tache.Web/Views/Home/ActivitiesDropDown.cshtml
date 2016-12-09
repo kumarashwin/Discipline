@@ -1,19 +1,17 @@
 ﻿@using Tache.Domain.Entities
 @model IEnumerable<Activity>
 
-@{
-    ViewBag.CustomAjaxOptions = new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" };
-}
-<div id="activitiesDropDown" style="">
+<div id="activitiesDropDown">
     <div class="icon-box"><span class="icono-list"></span></div>
     <div class="activities-list">
         <div class="border-overlap"></div>
         <ul>
             @foreach (Activity activity in Model) {
                 <li>
-                    @using (Ajax.BeginForm("Index", (AjaxOptions)ViewBag.CustomAjaxOptions)) {
+                    @using (Ajax.BeginForm("Index", new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" })) {
                         @Html.Hidden("newActivity", activity.Id);
                         @Html.Hidden("currentActivity", (object)ViewBag.CurrentActivity.Id);
+                        @Html.Hidden("userDateTime");
                         <button data-activity-id="@activity.Id" data-activity-name="@activity.Name" data-activity-description="@activity.Description" data-activity-color="@activity.Color" data-activity-hours="@activity.BudgetHours" data-activity-minutes="@activity.BudgetMinutes" type="submit">@activity.Name</button>
                     }
                 </li>
@@ -22,5 +20,10 @@
                 <button type="button" id="new-activity">+</button>
             </li>
         </ul>
+
+
+
+
+
     </div>
 </div>

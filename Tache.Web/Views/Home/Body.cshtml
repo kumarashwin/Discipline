@@ -6,7 +6,13 @@
 }
 
 <div id="bodyDiv">
-    <h2>You have been <span style="color: palevioletred;">@ViewBag.CurrentActivity.Name</span> since <span style="color: lightgreen;">@ViewBag.CurrentActivity.Start</span>.</h2>
-    <h4>I am going to start: @Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))</h4>
+    <h2>
+        Since <span style="color: lightcoral;">@ViewBag.CurrentActivity.Start.ToShortTimeString()</span> on<br />
+        <span style="color: lightpink;">@ViewBag.CurrentActivity.Start.ToLongDateString()</span>,<br />
+        you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
+    </h2>
+    <hr />
+        <h4>I am going to start: </h4>
+        @Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
     @Html.Partial("ActivityCRUD", new Activity())
 </div>

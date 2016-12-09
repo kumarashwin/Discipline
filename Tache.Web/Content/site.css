@@ -219,3 +219,18 @@ rect:hover {
     #activities-CRUD .form-elements {
         margin: 20px;
     }
+
+/* ===== Header styling ===== */
+#bodyDiv {
+}
+
+#bodyDiv hr {
+    margin-top: 7px;
+    margin-bottom: 5px;
+    width: 258px;
+}
+
+#bodyDiv h4 {
+    display: inline-block;
+    vertical-align: top;
+}
