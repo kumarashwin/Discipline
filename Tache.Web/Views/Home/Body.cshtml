@@ -5,14 +5,21 @@
     ViewBag.CurrentActivity = Model.Where(e => e.Start != null).First();
 }
 
-<div id="bodyDiv">
-    <h2>
-        Since <span style="color: lightcoral;">@ViewBag.CurrentActivity.Start.ToShortTimeString()</span> on<br />
-        <span style="color: lightpink;">@ViewBag.CurrentActivity.Start.ToLongDateString()</span>,<br />
-        you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
-    </h2>
-    <hr />
-        <h4>I am going to start: </h4>
-        @Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
-    @Html.Partial("ActivityCRUD", new Activity())
-</div>
+<h2>
+    Since <span style="color: lightcoral;">@ViewBag.CurrentActivity.Start.ToShortTimeString()</span> on<br />
+    <span style="color: lightpink;">@ViewBag.CurrentActivity.Start.ToLongDateString()</span>,<br />
+    you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
+</h2>
+
+@using (Ajax.BeginForm("Index", "Day", new AjaxOptions { OnSuccess = "showChart" })) {
+    // Setup hidden fields for client-side dateTime
+    @Html.Hidden("year", 2016)
+    @Html.Hidden("month", 12)
+    @Html.Hidden("day", 10)
+    <button type="submit" id="showChart">Show Chart</button>
+}
+<hr />
+<h4>I am going to start: </h4>
+
+@Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
+@Html.Partial("ActivityCRUD", new Activity())

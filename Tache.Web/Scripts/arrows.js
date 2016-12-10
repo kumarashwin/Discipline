@@ -42,10 +42,13 @@ function prepareThenSendRequest(direction, dateBeforeFetch){
     if(direction == "left")
         multiplier = -1;
 
-    var requestDate = currentDate.addDays(20 * multiplier);
-    var newDateBeforeFetch = currentDate.addDays(21 * multiplier);
+    var requestDate = currentDate.addDays(16 * multiplier);
+    
+    // Set either the minDateBeforeFetch or the maxDateBeforeFetch to the newDateBeforeFetch
+    var newDateBeforeFetch = requestDate.addDays(5 * multiplier);
     dateBeforeFetch.dateObject = newDateBeforeFetch.dateObject;
     dateBeforeFetch.dateString = newDateBeforeFetch.dateString;
-    var url = window.location.protocol + "//" + window.location.host + "/" + currentDate.addDays(16 * multiplier).dateString.replace(/-/g, "\\");
+
+    var url = window.location.protocol + "//" + window.location.host + "/" + requestDate.dateString.replace(/-/g, "\\");
     requestMoreActivities(url, direction);
 }

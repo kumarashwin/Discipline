@@ -175,7 +175,6 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
-    <Content Include="Scripts\main.js" />
     <Content Include="Scripts\misc.js" />
     <Content Include="Scripts\rect.js" />
     <Content Include="Web.config" />
@@ -240,6 +239,7 @@
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\Home\ActivityCRUD.cshtml" />
+    <Content Include="Views\Home\Chart.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

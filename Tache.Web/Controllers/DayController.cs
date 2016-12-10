@@ -1,11 +1,13 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Infrastructure.Filters;
 using Tache.Models.Abstract;
+using Tache.Models.ViewModels;
 
 namespace Tache.Controllers {
     public class DayController : Controller {
@@ -25,38 +27,36 @@ namespace Tache.Controllers {
         /// <param name="month"></param>
         /// <param name="day"></param>
         /// <returns></returns>
-        [ByDefaultReturnView]
-        [HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
+        //[ByDefaultReturnView]
+        //[HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
+        [HttpPost]
         public ActionResult Index(int year, int month, int day) {
-            DateTime today = DateTime.Today;
+
             DateTime startDate, endDate;
             DateTime dateParam = new DateTime(year, month, day);
-            ViewBag.DeactivateRightArrow = "false";
 
-            //if (dateParam == today)
-            //    throw new ArgumentOutOfRangeException(paramName: null,
-            //        message: "We haven't yet calculated your actions for today. Come back tomorrow.");
-
-            //if (dateParam > today)
-            //    throw new ArgumentOutOfRangeException(paramName: null,
-            //        message: "The date you requested is too far in the future!");
-
-            if (dateParam > today.AddDays(-4)) {
-                dateParam = today.AddDays(-4);
-                ViewBag.DeactivateRightArrow = "true";
+            var deactivateRightArrow = "false";
+            if (dateParam > DateTime.Today.AddDays(-4)) {
+                dateParam = DateTime.Today.AddDays(-4);
+                deactivateRightArrow  = "true";
             }
-
-            ViewBag.Budgets = JsonConvert.SerializeObject(
-                context.Budgets.Where(budget => budget.Period == Period.perDay)
-                    .ToDictionary(b => b.ActivityId, model => model.TimeInTicks));
-
-            ViewBag.ProcessedDate = dateParam.ToString("yyyy-M-d");
+            var processedDate = dateParam.ToString("yyyy-M-d");
 
             startDate = dateParam.AddDays(-10);
             endDate = dateParam.AddDays(10);
-            endDate = endDate < today ? endDate : today.AddDays(-1);
+            endDate = endDate < DateTime.Today ? endDate : DateTime.Today.AddDays(-1);
+            var activities = daysViewModelRepository.Days(startDate, endDate);
 
-            return Content(JsonConvert.SerializeObject(daysViewModelRepository.Days(startDate, endDate)), "application/json");
+            var budgets = context.Budgets.Where(budget => budget.Period == Period.perDay).ToDictionary(b => b.ActivityId, model => model.TimeInTicks);
+
+            var contentJson = new {
+                activities = activities,
+                budgets = budgets,
+                processedDate = processedDate,
+                deactivateRightArrow = deactivateRightArrow
+            };
+
+            return Content(JsonConvert.SerializeObject(contentJson), "application/json");
         }
             
     }

@@ -13,13 +13,15 @@ body {
     padding-left: 40px;
 }
 
-#svgDiv {
+/* ==== SVG STUFF ====*/
+#svgContainer {
     width: 610px;
     height: 360px;
     position: relative;
 }
 
-#svgContainer {
+#svgDiv {
+    border: 1px solid red;
     width: 610px;
     height: 360px;
     padding: 10px 30px;
@@ -31,6 +33,17 @@ body {
     float: left;
 }
 
+    #dates li span {
+        display: block;
+        margin-left: 15px;
+        text-align: center;
+        width: 70px;
+        font-size: small;
+        font-weight: bold;
+        color: darkblue;
+        animation: animatedBackground 0.5s linear normal;
+    }
+
 @keyframes animatedBackground {
     from {
         background-color: royalblue;
@@ -39,17 +52,6 @@ body {
     to {
         background-color: white;
     }
-}
-
-#dates li span {
-    display: block;
-    margin-left: 15px;
-    text-align: center;
-    width: 70px;
-    font-size: small;
-    font-weight: bold;
-    color: darkblue;
-    animation: animatedBackground 0.5s linear normal;
 }
 
 .minus-three, .plus-three {
@@ -74,32 +76,32 @@ rect:hover {
     margin-top: 26%;
 }
 
-    .arrows div:hover {
-        opacity: 0.8;
+    .arrows div {
+        position: relative;
+        top: 45%;
+        border: 20px solid transparent;
+        opacity: 0.4;
     }
+
+        .arrows div:hover {
+            opacity: 0.8;
+        }
 
 #arrow-left {
     left: 1%;
 }
 
+    #arrow-left div {
+        border-right-color: lawngreen;
+    }
+
 #arrow-right {
     right: 1%;
 }
 
-.arrows div {
-    position: relative;
-    top: 45%;
-    border: 20px solid transparent;
-    opacity: 0.4;
-}
-
-#arrow-right div {
-    border-left-color: lawngreen;
-}
-
-#arrow-left div {
-    border-right-color: lawngreen;
-}
+    #arrow-right div {
+        border-left-color: lawngreen;
+    }
 
 .makeTransparent {
     transition: 0.1s;
@@ -198,11 +200,11 @@ rect:hover {
         background: grey;
     }
 
-   #activities-CRUD button.crud-exit {
-       position: absolute;
-       right: 2%;
-       top: 2%;
-   } 
+    #activities-CRUD button.crud-exit {
+        position: absolute;
+        right: 2%;
+        top: 2%;
+    }
 
     #activities-CRUD .crud-form-div {
         z-index: 2;
@@ -221,9 +223,6 @@ rect:hover {
     }
 
 /* ===== Header styling ===== */
-#bodyDiv {
-}
-
 #bodyDiv hr {
     margin-top: 7px;
     margin-bottom: 5px;
