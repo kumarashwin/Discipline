@@ -8,14 +8,15 @@ function requestMoreActivities(url, direction) {
     req.setRequestHeader("accept", "application/json");
     req.addEventListener("load", function () {
         if (req.status < 400) {
+            var response = JSON.parse(req.responseText);
+            Object.assign(budgets, response.budgets);
             switch (direction) {
                 case "right":
-                    Object.assign(activities, JSON.parse(req.responseText));
+                    Object.assign(activities, response.activities);
                     break;
                 case "left":
-                    newActivities = JSON.parse(req.responseText);
-                    Object.assign(newActivities, activities);
-                    activities = newActivities;
+                    Object.assign(response.activities, activities);
+                    activities = response.activities;
                     break;
             }
         }

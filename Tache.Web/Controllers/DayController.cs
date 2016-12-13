@@ -29,7 +29,6 @@ namespace Tache.Controllers {
         /// <returns></returns>
         //[ByDefaultReturnView]
         //[HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
-        [HttpPost]
         public ActionResult Index(int year, int month, int day) {
 
             DateTime startDate, endDate;

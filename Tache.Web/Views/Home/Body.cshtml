@@ -11,13 +11,14 @@
     you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
 </h2>
 
-@using (Ajax.BeginForm("Index", "Day", new AjaxOptions { OnSuccess = "showChart" })) {
-    // Setup hidden fields for client-side dateTime
-    @Html.Hidden("year", 2016)
-    @Html.Hidden("month", 12)
-    @Html.Hidden("day", 10)
-    <button type="submit" id="showChart">Show Chart</button>
-}
+@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod="GET", OnSuccess="showChart" }, new { id = "show-chart", onclick = "setupCurrentDate()" })
+@*@using (ajax.beginform("index", "day", null, new ajaxoptions { onsuccess = "showchart" }, new { id = "show-chart", onsubmit = "setupcurrentdate()" })) {
+    // setup hidden fields for client-side datetime
+    @html.hidden("year")
+    @html.hidden("month")
+    @html.hidden("day")
+    <button type="submit" id="showchart">show chart</button>
+}*@
 <hr />
 <h4>I am going to start: </h4>
 

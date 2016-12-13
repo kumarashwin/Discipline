@@ -49,6 +49,6 @@ function prepareThenSendRequest(direction, dateBeforeFetch){
     dateBeforeFetch.dateObject = newDateBeforeFetch.dateObject;
     dateBeforeFetch.dateString = newDateBeforeFetch.dateString;
 
-    var url = window.location.protocol + "//" + window.location.host + "/" + requestDate.dateString.replace(/-/g, "\\");
+    var url = window.location.protocol + "//" + window.location.host + "/" + requestDate.dateString.replace(/-/g, "/");
     requestMoreActivities(url, direction);
 }

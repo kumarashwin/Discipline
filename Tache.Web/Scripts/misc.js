@@ -31,3 +31,9 @@ function returnSevenDaysAroundDate(dateHelper, data) {
     }
     return result;
 }
+
+function setupCurrentDate() {
+    var date = new Date();
+    var showChart = document.getElementById("show-chart");
+    showChart.href = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+}
