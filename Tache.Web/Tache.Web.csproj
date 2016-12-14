@@ -136,12 +136,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
-    <Content Include="Content\defaultError.html" />
     <Content Include="Content\icono.min.css" />
-    <Content Include="Content\ruler.png" />
     <Content Include="Content\site.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\setupActivitiesCRUD.js" />
+    <Content Include="Scripts\resetPage.js" />
     <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\arrows.js" />
     <Content Include="Scripts\chart.js" />
@@ -222,7 +220,6 @@
     <Compile Include="Models\Concrete\DaysViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IActivityViewModelRepository.cs" />
     <Compile Include="Models\Abstract\IDaysViewModelRepository.cs" />
-    <Compile Include="Models\ViewModels\CurrentActivityViewModel .cs" />
     <Compile Include="Models\ViewModels\ActivityViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -232,7 +229,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\RangeError.cshtml" />
     <Content Include="Views\Home\ActivitiesDropDown.cshtml" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />

@@ -9,6 +9,16 @@
         return this;
     }
 
+    DateHelper.prototype.today = function () {
+        var today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        var result = new DateHelper();
+        result.dateObject = today;
+        result.dateString = convertToViableDateString(today);
+        return result;
+    };
+
     DateHelper.prototype.addDays = function (day) {
         var newDate = new Date(this.dateObject);
         newDate = new Date(newDate.setDate(newDate.getDate() + day));

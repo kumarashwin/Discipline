@@ -1,4 +1,9 @@
-﻿function setupActivitiesCRUD() {
+﻿function resetPage() {
+    setupActivitiesCRUD();
+    main();
+}
+
+function setupActivitiesCRUD() {
     var activitiesCRUD = document.getElementById("activities-CRUD");
     var activitiesUL = document.getElementsByClassName("activities-list")[0].querySelector("ul");
     var newButton = document.getElementById("new-activity");

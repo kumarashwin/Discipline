@@ -4,12 +4,12 @@
     <div class="crud-background-div"></div>
     <div id="crud-form-div">
         <button type="button" class="crud-exit" onclick="(function () { document.getElementById('activities-CRUD').style.display = 'none'; })()">X</button>
-        @using (Ajax.BeginForm("Update", null, new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" }, new { @class = "update" })) {
+        @using (Ajax.BeginForm("Update", null, new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "resetPage" }, new { @class = "update" })) {
             <div>@Html.EditorFor(m => m)</div>
             <button type="submit">Save</button>
         }
 
-        @using (Ajax.BeginForm("Delete", null, new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" }, new { @class = "delete" })) {
+        @using (Ajax.BeginForm("Delete", null, new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "resetPage" }, new { @class = "delete" })) {
             @Html.HiddenFor(m => m.Id)
             <button type="submit">Delete</button>
         }

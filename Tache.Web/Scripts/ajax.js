@@ -9,7 +9,6 @@ function requestMoreActivities(url, direction) {
     req.addEventListener("load", function () {
         if (req.status < 400) {
             var response = JSON.parse(req.responseText);
-            Object.assign(budgets, response.budgets);
             switch (direction) {
                 case "right":
                     Object.assign(activities, response.activities);

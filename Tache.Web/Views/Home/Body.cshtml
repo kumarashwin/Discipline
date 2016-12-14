@@ -11,7 +11,7 @@
     you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
 </h2>
 
-@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "showChart" }, new { id = "show-chart", onclick = "setupCurrentDate()" })
+@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { id = "show-chart", onclick = "prepareAnchorForChartRequest()" })
 
 <hr />
 <h4>I am going to start: </h4>

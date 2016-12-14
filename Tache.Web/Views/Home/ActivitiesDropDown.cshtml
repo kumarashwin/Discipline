@@ -8,7 +8,7 @@
         <ul>
             @foreach (Activity activity in Model) {
                 <li>
-                    @using (Ajax.BeginForm("Index", new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "setupActivitiesCRUD" })) {
+                    @using (Ajax.BeginForm("Index", new AjaxOptions { UpdateTargetId = "bodyDiv", OnSuccess = "resetPage" })) {
                         @Html.Hidden("newActivity", activity.Id);
                         @Html.Hidden("currentActivity", (object)ViewBag.CurrentActivity.Id);
                         @Html.Hidden("userDateTime");

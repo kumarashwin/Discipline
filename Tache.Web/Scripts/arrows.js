@@ -1,10 +1,8 @@
-﻿// Left arrow doesn't yet need any special functionality
-document.getElementById("arrow-left").addEventListener("click", getArrowEventHandler(-1));
-
-var ArrowRight = (function () {
+﻿var ArrowRight = (function () {
     function ArrowRight(element) {
         this.element = element;
         this.element.addEventListener("click", getArrowEventHandler(1));
+        this.hide();
     }
 
     ArrowRight.prototype.hide = function () { this.element.style.display = "none" };
@@ -12,27 +10,26 @@ var ArrowRight = (function () {
 
     return ArrowRight;
 })();
-var arrowRight = new ArrowRight(document.getElementById("arrow-right"));
 
 function getArrowEventHandler(direction) {
     return function (event) {
         event.stopPropagation();
 
-        currentDate = currentDate.addDays(direction);
+        centerBarDate = centerBarDate.addDays(direction);
 
-        if (currentDate.addDays(4).dateObject.getTime() == today.getTime())
+        // arrowRight is hidden if the right-most bar shows yesterdays data 
+        if (centerBarDate.addDays(4).dateObject.getTime() == today.dateObject.getTime())
             arrowRight.hide();
         else
             arrowRight.show();
 
-        if (currentDate.dateString == minDateBeforeFetch.dateString) {
+        // Handles sending Ajax request for more activities
+        if (centerBarDate.dateString == minDateBeforeFetch.dateString)
             prepareThenSendRequest("left", minDateBeforeFetch);
-        } else if (currentDate.dateString == maxDateBeforeFetch.dateString) {
+        else if (centerBarDate.dateString == maxDateBeforeFetch.dateString)
             prepareThenSendRequest("right", maxDateBeforeFetch);
-        }
 
-        chart.ready(returnSevenDaysAroundDate(currentDate, activities), chart.activity, true);
-
+        chart.ready(returnSevenDaysAroundDate(centerBarDate, activities), chart.activity, true);
         startTransition();
     };
 }
@@ -42,7 +39,7 @@ function prepareThenSendRequest(direction, dateBeforeFetch){
     if(direction == "left")
         multiplier = -1;
 
-    var requestDate = currentDate.addDays(16 * multiplier);
+    var requestDate = centerBarDate.addDays(16 * multiplier);
     
     // Set either the minDateBeforeFetch or the maxDateBeforeFetch to the newDateBeforeFetch
     var newDateBeforeFetch = requestDate.addDays(5 * multiplier);

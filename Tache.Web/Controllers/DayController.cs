@@ -23,40 +23,23 @@ namespace Tache.Controllers {
         /// current day or in the future.
         /// Returns ContentResult i.e. a Json string, for at most, current date less four.
         /// </summary>
-        /// <param name="year"></param>
-        /// <param name="month"></param>
-        /// <param name="day"></param>
-        /// <returns></returns>
-        //[ByDefaultReturnView]
-        //[HandleError(ExceptionType = typeof(ArgumentOutOfRangeException), View = "RangeError")]
         public ActionResult Index(int year, int month, int day) {
+            DateTime startDate, endDate, dateParam;
 
-            DateTime startDate, endDate;
-            DateTime dateParam = new DateTime(year, month, day);
-
-            var deactivateRightArrow = "false";
-            if (dateParam > DateTime.Today.AddDays(-4)) {
-                dateParam = DateTime.Today.AddDays(-4);
-                deactivateRightArrow  = "true";
-            }
-            var processedDate = dateParam.ToString("yyyy-M-d");
-
+            // NOTE: Does no checking for dates; directly tries to retrieve 10 days before and after
+            // Thus, the checking needs to be done at the JavaScript side;
+            dateParam = new DateTime(year, month, day);
             startDate = dateParam.AddDays(-10);
             endDate = dateParam.AddDays(10);
-            endDate = endDate < DateTime.Today ? endDate : DateTime.Today.AddDays(-1);
+
             var activities = daysViewModelRepository.Days(startDate, endDate);
 
-            var budgets = context.Budgets.Where(budget => budget.Period == Period.perDay).ToDictionary(b => b.ActivityId, model => model.TimeInTicks);
+            string contentJson = JsonConvert.SerializeObject( new {
+                    activities = activities,
+                    budgets = context.Activities.Where(a => a.BudgetInTicks != null).ToDictionary(a => a.Id, b => b.BudgetInTicks)});
 
-            var contentJson = new {
-                activities = activities,
-                budgets = budgets,
-                processedDate = processedDate,
-                deactivateRightArrow = deactivateRightArrow
-            };
-
-            return Content(JsonConvert.SerializeObject(contentJson), "application/json");
+            return Content(contentJson, "application/json");
         }
-            
+
     }
 }
