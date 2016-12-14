@@ -13,36 +13,65 @@ body {
     padding-left: 40px;
 }
 
+#chartDiv, #activities-CRUD {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#svgDiv, #crud-form-div {
+    z-index: 2;
+    background: white;
+    position: fixed;
+}
+
+.crud-background-div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    opacity: 0.7;
+    background: grey;
+}
+
+button.crud-exit {
+    position: absolute;
+    right: 2%;
+    top: 2%;
+}
+
 /* ==== SVG STUFF ====*/
+#svgDiv {
+    top: 25%;
+    left: 28%;
+}
+
 #svgContainer {
     width: 610px;
     height: 360px;
+    margin: 20px 10px 0 10px;
     position: relative;
 }
 
-#svgDiv {
-    border: 1px solid red;
-    width: 610px;
-    height: 360px;
-    padding: 10px 30px;
-    padding-left: 0;
+#dates {
+    margin: 10px;
 }
 
 #dates li {
-    display: inline;
-    float: left;
+    display: inline-block;
+    width: 70px;
+    margin-left: 15px;
+    text-align: center;
+    font-size: small;
+    font-weight: bold;
+    color: royalblue;
+    animation: animatedBackground 0.5s linear normal;
 }
-
-    #dates li span {
-        display: block;
-        margin-left: 15px;
-        text-align: center;
-        width: 70px;
-        font-size: small;
-        font-weight: bold;
-        color: darkblue;
-        animation: animatedBackground 0.5s linear normal;
-    }
 
 @keyframes animatedBackground {
     from {
@@ -52,18 +81,6 @@ body {
     to {
         background-color: white;
     }
-}
-
-.minus-three, .plus-three {
-    opacity: 0.7;
-}
-
-.minus-two, .plus-two {
-    opacity: 0.8;
-}
-
-.plus-one, .minus-one {
-    opacity: 0.9;
 }
 
 rect:hover {
@@ -179,47 +196,19 @@ rect:hover {
             color: royalblue;
             background-color: white;
         }
-
-#activities-CRUD {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+/* ==== Activity CRUD Window ==== */
+#crud-form-div {
+    top: 30%;
+    left: 42%;
 }
 
-    #activities-CRUD .crud-background-div {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        opacity: 0.7;
-        background: grey;
-    }
-
-    #activities-CRUD button.crud-exit {
-        position: absolute;
-        right: 2%;
-        top: 2%;
-    }
-
-    #activities-CRUD .crud-form-div {
-        z-index: 2;
-        background: white;
-        position: fixed;
-        top: 30%;
-        left: 42%;
-    }
-
-    #activities-CRUD form button {
+    #crud-form-div button[type=submit] {
         width: 100%;
     }
 
-    #activities-CRUD .form-elements {
-        margin: 20px;
+    #crud-form-div input,
+    #crud-form-div label {
+        margin: 5px;
     }
 
 /* ===== Header styling ===== */

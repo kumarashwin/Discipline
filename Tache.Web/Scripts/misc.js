@@ -6,6 +6,7 @@ var deactivateRightArrow, processedDate, activities, budgets, currentDate, minDa
 function showChart(data, status, xhr) {
     if (status == "success") {
         // Code to show the svgDiv
+        document.getElementById("chartDiv").style.display = "block";
 
         if (deactivateRightArrow = data.deactivateRightArrow) arrowRight.hide();
         processedDate = data.processedDate;
