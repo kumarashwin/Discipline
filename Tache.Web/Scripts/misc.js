@@ -43,6 +43,7 @@ function resolveAjaxReponseForChart(data, status, xhr) {
         // The chart object is found and readied with the necessary data; then drawn
         chart = new Chart(document.getElementsByTagName("svg")[0]);
         chart.ready(returnSevenDaysAroundDate(centerBarDate, activities), null, true);
+        chart.clear();
         chart.draw();
     }
 }
@@ -54,4 +55,17 @@ function returnSevenDaysAroundDate(dateHelper, data) {
         result[currDate.dateString] = data[currDate.dateString];
     }
     return result;
+}
+
+var hoverOnRectActivityInfo = document.getElementById('hover-on-rect-activity-info');
+var svg = document.getElementsByTagName("svg")[0];
+svg.addEventListener('contextmenu', showActivityInfo);
+function showActivityInfo(event) {
+    if (event.target.nodeName == 'rect') {
+        event.preventDefault();
+        hoverOnRectActivityInfo.querySelector('h5#activity-name').innerHTML = event.target.getAttribute('data-activity-name');
+        hoverOnRectActivityInfo.style.left = event.pageX + "px";
+        hoverOnRectActivityInfo.style.top = event.pageY + "px";
+        hoverOnRectActivityInfo.style.display = "block";
+    }
 }

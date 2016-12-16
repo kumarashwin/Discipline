@@ -235,6 +235,7 @@
     <Content Include="Views\Home\Body.cshtml" />
     <Content Include="Views\Home\ActivityCRUD.cshtml" />
     <Content Include="Views\Home\Chart.cshtml" />
+    <Content Include="Views\Home\HoverOnRectActivityInfo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

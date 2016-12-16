@@ -17,6 +17,5 @@
 <h4>I am going to start: </h4>
 
 @Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
-
 @Html.Partial("ActivityCRUD", new Activity())
 @Html.Partial("Chart")

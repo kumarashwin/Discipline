@@ -62,16 +62,16 @@ button.crud-exit {
     margin: 10px;
 }
 
-#dates li {
-    display: inline-block;
-    width: 70px;
-    margin-left: 15px;
-    text-align: center;
-    font-size: small;
-    font-weight: bold;
-    color: royalblue;
-    animation: animatedBackground 0.5s linear normal;
-}
+    #dates li {
+        display: inline-block;
+        width: 70px;
+        margin-left: 15px;
+        text-align: center;
+        font-size: small;
+        font-weight: bold;
+        color: royalblue;
+        animation: animatedBackground 0.5s linear normal;
+    }
 
 @keyframes animatedBackground {
     from {
@@ -210,6 +210,15 @@ rect:hover {
     #crud-form-div label {
         margin: 5px;
     }
+
+/* ==== Hover on Rect Activity Info ====*/
+#hover-on-rect-activity-info {
+    display: none;
+    position: absolute;
+    z-index: 2;
+    background-color: white;
+    opacity: 0.7;
+}
 
 /* ===== Header styling ===== */
 #bodyDiv hr {
