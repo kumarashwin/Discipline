@@ -7,6 +7,7 @@
     <title>@ViewBag.Title</title>
     <link type="text/css" rel="stylesheet" href="~/Content/icono.min.css"/>
     <link type="text/css" rel="stylesheet" href="~/Content/site.css" />
+    <link type="text/css" rel="stylesheet" href="~/Content/farbtastic.css"/>
 
     @if (IsSectionDefined("Activities")) {
         @RenderSection("Activities", required: false)
@@ -15,6 +16,7 @@
     @*Combine & minify eventually...*@
     <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
     <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
+    <script type="text/javascript" src="~/Scripts/farbtastic.js"></script>
 
     <script type="text/javascript" src="~/Scripts/day.js" defer></script>
     <script type="text/javascript" src="~/Scripts/chart.js" defer></script>

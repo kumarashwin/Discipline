@@ -67,10 +67,10 @@ function returnSevenDaysAroundDate(dateHelper, data) {
 function showActivityInfoEventHandler(event) {
     if (event.target.nodeName == 'rect') {
         event.preventDefault();
-        rectActivityInfo.querySelector('h5#activity-name').innerHTML = event.target.getAttribute('data-activity-name');
-        rectActivityInfo.querySelector('h5#activity-description').innerHTML = event.target.getAttribute('data-activity-description');
-        rectActivityInfo.querySelector('h5#activity-from').innerHTML = event.target.getAttribute('data-activity-from');
-        rectActivityInfo.querySelector('h5#activity-to').innerHTML = event.target.getAttribute('data-activity-to');
+        rectActivityInfo.querySelector('#activity-name').innerHTML = event.target.getAttribute('data-activity-name');
+        rectActivityInfo.querySelector('#activity-description').innerHTML = event.target.getAttribute('data-activity-description');
+        rectActivityInfo.querySelector('#activity-from').innerHTML = event.target.getAttribute('data-activity-from');
+        rectActivityInfo.querySelector('#activity-to').innerHTML = event.target.getAttribute('data-activity-to');
         rectActivityInfo.style.left = event.pageX + "px";
         rectActivityInfo.style.top = event.pageY + "px";
         rectActivityInfo.className = "hover";

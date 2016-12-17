@@ -196,6 +196,7 @@ rect:hover {
             color: royalblue;
             background-color: white;
         }
+
 /* ==== Activity CRUD Window ==== */
 #crud-form-div {
     top: 30%;
@@ -221,22 +222,13 @@ rect:hover {
     z-index: 2;
     background-color: white;
     pointer-events: none;
-    animation: changeOpacity 0.7s linear normal;  
-    opacity: 0.7;
+    opacity: 0;
+    animation: changeOpacity 0.7s 1s forwards;  
 }
 
 @keyframes changeOpacity {
-    0% {
-        opacity: 0;
-    }
-
-    75%{
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 0.7;
-    }
+    from { opacity: 0; }
+    to { opacity: 0.7; }
 }
 
 /* ===== Header styling ===== */

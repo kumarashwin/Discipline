@@ -1,7 +1,7 @@
 ﻿function resetPage() {
     // Setup Activities CRUD Window
     setupActivitiesCRUD();
-    
+
     // Setup Chart Window
     main();
 }
@@ -11,6 +11,12 @@ function setupActivitiesCRUD() {
     var activitiesUL = document.getElementsByClassName("activities-list")[0].querySelector("ul");
     var newButton = document.getElementById("new-activity");
     var deleteButton = activitiesCRUD.querySelector("form.delete");
+
+    // Attachs the color picker to the colorpicker div 
+    $('#colorpicker').farbtastic('#Color')
+    document.getElementById('Color').addEventListener('focus', function (event) {
+        document.getElementById('colorpicker').style.display = 'block';
+    });
 
     // Sets the userDateTime input value when one of the activities <li> is clicked
     activitiesUL.addEventListener("submit", function (event) {
@@ -22,18 +28,33 @@ function setupActivitiesCRUD() {
     newButton.addEventListener("click", activityCRUDEventHandler);
 
     function activityCRUDEventHandler(event) {
-        if (event.target.nodeName == "BUTTON") {
-            deleteButton.style.display = "none";
+        if (event.target.nodeName == "BUTTON") { event.preventDefault();
             var inputs = activitiesCRUD.querySelectorAll("input");
+
+            // Clearning all input fields;
             inputs.forEach(function (input) { input.value = ""; });
 
+            // By default i.e. if it's a new activity, delete will be hidden;
+            deleteButton.style.display = "none";
+
+            // Populating the Activities Crud window with data from the activity list item;
+            // in case it's an update of a currently existing activity
             if (event.target.type == "submit") {
                 inputs.forEach(function (input) {
                     input.value = event.target.getAttribute("data-activity-" + input.id.toLowerCase());
                 });
+                
+                // The delete button is only important in the case of updates
                 deleteButton.style.display = "block";
             }
-            event.preventDefault();
+
+            // Set up the color picker:
+            // If we are in the process of creating a new activity,
+            // we would populate the blank color field with white, by default 
+            var colorField = document.getElementById('Color');
+            if (!colorField.value) colorField.value = '#ffffff';
+            $.farbtastic('#colorpicker').setColor(colorField.value);
+
             activitiesCRUD.style.display = "block";
         }
     }

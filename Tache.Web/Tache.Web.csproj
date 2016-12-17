@@ -136,9 +136,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\HelpPage\HelpPage.css" />
+    <Content Include="Content\farbtastic.css" />
     <Content Include="Content\icono.min.css" />
+    <Content Include="Content\marker.png" />
+    <Content Include="Content\mask.png" />
     <Content Include="Content\site.css" />
+    <Content Include="Content\wheel.png" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\farbtastic.js" />
+    <Content Include="Scripts\jscolor.min.js" />
     <Content Include="Scripts\resetPage.js" />
     <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\arrows.js" />
