@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
@@ -20,11 +21,8 @@ namespace Tache.Domain.Concrete {
             if (activity.Id == 0) {
                 context.Activities.Add(activity);
             } else {
-                var dbEntry = context.Activities.Find(activity.Id);
-                if (dbEntry != null) {
-                    dbEntry.Name = activity.Name;
-                    dbEntry.Description = activity.Description;
-                }
+                context.Activities.Attach(activity);
+                context.Entry(activity).State = EntityState.Modified;
             }
             context.SaveChanges();
         }

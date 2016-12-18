@@ -13,10 +13,11 @@ function setupActivitiesCRUD() {
     var deleteButton = activitiesCRUD.querySelector("form.delete");
 
     // Attachs the color picker to the colorpicker div 
-    $('#colorpicker').farbtastic('#Color')
-    document.getElementById('Color').addEventListener('focus', function (event) {
-        document.getElementById('colorpicker').style.display = 'block';
-    });
+    var colorField = document.getElementById('Color');
+    var colorPicker = document.getElementById('colorpicker');
+    $(colorPicker).farbtastic(colorField);
+    colorField.addEventListener('focus', function (event) { colorPicker.style.display = 'block'; });
+    colorField.addEventListener('blur', function (event) { colorPicker.style.display = 'none'; });
 
     // Sets the userDateTime input value when one of the activities <li> is clicked
     activitiesUL.addEventListener("submit", function (event) {
