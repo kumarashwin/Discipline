@@ -25,14 +25,20 @@
         }, this);
 
         activities.forEach(function (activity) {
-            height += calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
+            var diffInMinutes = calcDiffInMinutes(activity["From"], activity["To"]);
+            activity.Minutes = diffInMinutes % 60;
+            activity.Hours = (diffInMinutes - activity.Minutes)/60;
+            height += diffInMinutes * 0.25; // Minutes to Pixels
         }, this);
         y -= height;
         
         // Being that this is about a single activity which will, across the chart,
         // have the same color and budget line, we can set it here as the first activity
         // in the day activities array for each day; only the spatial values change
-        this.svg.appendChild(makeSvgRect(x, y, this.width, height, activities[0]));
+        // Note, however, that the rect should not display the 'From' and 'To' fields
+        var dayActivity = activities[0];
+        dayActivity.To = dayActivity.From = null;
+        this.svg.appendChild(makeSvgRect(x, y, this.width, height, dayActivity));
 
         // The following is to add the budget line, if one exists for the selected activity;
         // default color is black
@@ -50,7 +56,10 @@
         var gElem = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
         this.activities.forEach(function (activity) {
-            height = calcDiffInMinutes(activity["From"], activity["To"]) * 0.25;
+            var diffInMinutes = calcDiffInMinutes(activity["From"], activity["To"]);
+            activity.Minutes = diffInMinutes % 60;
+            activity.Hours = (diffInMinutes - activity.Minutes)/60;
+            height = diffInMinutes * 0.25; // Minutes to Pixels
             y -= height;
             gElem.appendChild(makeSvgRect(x, y, this.width, height, activity));
         }, this);
@@ -59,12 +68,10 @@
     };
 
     function ticksToPixels(ticks) {
-        return (((ticks/10000)/1000)/60) * 0.25
-    }
+        return (((ticks/10000)/1000)/60) * 0.25; }
 
     function calcDiffInMinutes(from, to) {
-        return calcMinutesRegex(to) - calcMinutesRegex(from);
-    }
+        return calcMinutesRegex(to) - calcMinutesRegex(from); }
 
     function calcMinutesRegex(time) {
         var match = /(\d{1,2}):(\d{1,2}):(\d{1,2})/.exec(time);
@@ -81,8 +88,12 @@
         svgElem.setAttributeNS(null, "data-activity-id", activity.Activity);
         svgElem.setAttributeNS(null, "data-activity-name", activity.Name);
         svgElem.setAttributeNS(null, "data-activity-description", activity.Description);
-        svgElem.setAttributeNS(null, "data-activity-from", activity.From);
-        svgElem.setAttributeNS(null, "data-activity-to", activity.To);
+        svgElem.setAttributeNS(null, "data-activity-hours", activity.Hours);
+        svgElem.setAttributeNS(null, "data-activity-minutes", activity.Minutes);
+        if (activity.From && activity.To) {
+            svgElem.setAttributeNS(null, "data-activity-from", activity.From);
+            svgElem.setAttributeNS(null, "data-activity-to", activity.To);
+        }
         return svgElem;
     }
 

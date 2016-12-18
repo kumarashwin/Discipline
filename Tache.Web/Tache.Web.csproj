@@ -144,7 +144,6 @@
     <Content Include="Content\wheel.png" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\farbtastic.js" />
-    <Content Include="Scripts\jscolor.min.js" />
     <Content Include="Scripts\resetPage.js" />
     <Content Include="Scripts\ajax.js" />
     <Content Include="Scripts\arrows.js" />
