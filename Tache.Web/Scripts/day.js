@@ -33,10 +33,14 @@
         y -= height;
         
         // Being that this is about a single activity which will, across the chart,
-        // have the same color and budget line, we can set it here as the first activity
+        // have the same color and budget line, we can set it here as a deep copy
+        // of all the properties of the first activity
         // in the day activities array for each day; only the spatial values change
-        // Note, however, that the rect should not display the 'From' and 'To' fields
-        var dayActivity = activities[0];
+        // Note, however, that the rect should not display the 'From' and 'To' field
+        var dayActivity = {};
+        Object.keys(activities[0]).forEach(function (property) {
+            dayActivity[property] = activities[0][property];
+        });
         dayActivity.To = dayActivity.From = null;
         this.svg.appendChild(makeSvgRect(x, y, this.width, height, dayActivity));
 
