@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
-using Tache.Models.ViewModels;
-using Tache.Models.Abstract;
+using Tache.Web.Models.ViewModels;
+using Tache.Web.Models.Abstract;
 
-namespace Tache.Models.Concrete {
+namespace Tache.Web.Models.Concrete {
     public class DaysViewModelRepository : IDaysViewModelRepository {
         private IActivityViewModelRepository activityViewModelRepo;
 

@@ -1,15 +1,11 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
-using Tache.Infrastructure.Filters;
-using Tache.Models.Abstract;
-using Tache.Models.ViewModels;
+using Tache.Web.Models.Abstract;
 
-namespace Tache.Controllers {
+namespace Tache.Web.Controllers {
     public class DayController : Controller {
         private AbstractDbContext context;
         private IDaysViewModelRepository daysViewModelRepository;

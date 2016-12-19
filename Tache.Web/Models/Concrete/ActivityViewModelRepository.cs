@@ -3,10 +3,10 @@ using System.Data.Entity;
 using System.Data.Entity.SqlServer;
 using System.Linq;
 using Tache.Domain.Abstract;
-using Tache.Models.Abstract;
-using Tache.Models.ViewModels;
+using Tache.Web.Models.Abstract;
+using Tache.Web.Models.ViewModels;
 
-namespace Tache.Models.Concrete {
+namespace Tache.Web.Models.Concrete {
     public class ActivityViewModelRepository : IActivityViewModelRepository {
         private IActivityRepository activityRepo;
         private IDurationRepository durationRepo;

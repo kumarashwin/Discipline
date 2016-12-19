@@ -6,7 +6,7 @@ using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
     public class BudgetRepository : IBudgetRepository {
-        private DbContext context = new DbContext();
+        private AbstractDbContext context = new TacheDbContext();
 
         public IEnumerable<Budget> Budgets {
             get {

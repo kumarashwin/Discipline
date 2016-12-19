@@ -1,7 +1,7 @@
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Tache.App_Start.NinjectWebCommon), "Start")]
-[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Tache.App_Start.NinjectWebCommon), "Stop")]
+[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Tache.Web.NinjectWebCommon), "Start")]
+[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Tache.Web.NinjectWebCommon), "Stop")]
 
-namespace Tache.App_Start
+namespace Tache.Web
 {
     using System;
     using System.Web;
@@ -77,7 +77,7 @@ namespace Tache.App_Start
             kernel.Bind<IDaysViewModelRepository>().To<DaysViewModelRepository>().InRequestScope();
 
             // Domain
-            kernel.Bind<AbstractDbContext>().To<DbContext>().InRequestScope();
+            kernel.Bind<AbstractDbContext>().To<TacheDbContext>().InRequestScope();
             kernel.Bind<IActivityRepository>().To<ActivityRepository>().InRequestScope();
             kernel.Bind<IBudgetRepository>().To<BudgetRepository>().InRequestScope();
             kernel.Bind<IDurationRepository>().To<DurationRepository>().InRequestScope();

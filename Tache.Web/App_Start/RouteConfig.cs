@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 
-namespace Tache
+namespace Tache.Web
 {
     public class RouteConfig
     {

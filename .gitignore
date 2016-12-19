@@ -255,3 +255,5 @@ paket-files/
 # Connection Strings
 connectionStrings.config
 
+/Tache.Web/App_Start/Startup.Auth.cs
+/Tache.Web/Startup.cs

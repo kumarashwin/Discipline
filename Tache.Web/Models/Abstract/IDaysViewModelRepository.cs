@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Tache.Models.ViewModels;
+using Tache.Web.Models.ViewModels;
 
-namespace Tache.Models.Abstract {
+namespace Tache.Web.Models.Abstract {
     public interface IDaysViewModelRepository {
         IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate, DateTime endDate);
     }

@@ -4,7 +4,7 @@ using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
-namespace Tache.Controllers {
+namespace Tache.Web.Controllers {
     public class HomeController : Controller {
         private IActivityRepository activityRepo;
 

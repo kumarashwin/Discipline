@@ -3,7 +3,7 @@ using System.Web.Http;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
-namespace Tache.Controllers {
+namespace Tache.Web.Controllers {
     public class ActivityController : ApiController {
         private IActivityRepository activityRepo;
 

@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Web.Mvc;
 
-namespace Tache.Infrastructure.Filters {
+namespace Tache.Web.Infrastructure.Filters {
     public class ByDefaultReturnViewAttribute : ActionFilterAttribute {
         /// <summary>
         /// As long as no exception has been raised, this filter will wrap the

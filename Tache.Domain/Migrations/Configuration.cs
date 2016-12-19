@@ -5,12 +5,12 @@ namespace Tache.Domain.Migrations {
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<Tache.Domain.Concrete.DbContext> {
+    internal sealed class Configuration : DbMigrationsConfiguration<Tache.Domain.Concrete.TacheDbContext> {
         public Configuration() {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(Tache.Domain.Concrete.DbContext context) {
+        protected override void Seed(Tache.Domain.Concrete.TacheDbContext context) {
             context.Activities.AddOrUpdate(p => p.Name,
                 new Activity { Name = "Sleeping", Description = "I love sleeping!", Color = "#0099ff" },
                 new Activity { Name = "Eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
@@ -36,7 +36,7 @@ namespace Tache.Domain.Migrations {
         private Random random = new Random();
         private int minuteRandomizer(out int lastMinute) => lastMinute = this.random.Next(0, 59);
 
-        private Dictionary<string, int> GetIdOfAllActivities(Tache.Domain.Concrete.DbContext context) =>
+        private Dictionary<string, int> GetIdOfAllActivities(Tache.Domain.Concrete.TacheDbContext context) =>
             new Dictionary<string, int> {
                 { "Sleeping", context.Activities.Where(a => a.Name == "Sleeping").First().Id },
                 { "Coding", context.Activities.Where(a => a.Name == "Coding").First().Id },

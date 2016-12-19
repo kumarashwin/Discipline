@@ -1,4 +1,4 @@
-﻿namespace Tache.Models.ViewModels {
+﻿namespace Tache.Web.Models.ViewModels {
     public class ActivityViewModel {
 
         public int Activity { get; set; }
