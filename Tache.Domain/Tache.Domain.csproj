@@ -84,6 +84,7 @@
     <Compile Include="Abstract\IActivityRepository.cs" />
     <Compile Include="Concrete\BudgetRepository.cs" />
     <Compile Include="Concrete\CurrentActivityRepository.cs" />
+    <Compile Include="Concrete\IdentityDbContext.cs" />
     <Compile Include="Entities\CurrentActivity.cs" />
     <Compile Include="Concrete\ActivityRepository.cs" />
     <Compile Include="Concrete\TacheDbContext.cs" />
@@ -91,6 +92,7 @@
     <Compile Include="Entities\Budget.cs" />
     <Compile Include="Entities\Duration.cs" />
     <Compile Include="Entities\Activity.cs" />
+    <Compile Include="Entities\TacheUser.cs" />
     <Compile Include="Migrations\201610271629090_Intial DB Schema.cs" />
     <Compile Include="Migrations\201610271629090_Intial DB Schema.Designer.cs">
       <DependentUpon>201610271629090_Intial DB Schema.cs</DependentUpon>
