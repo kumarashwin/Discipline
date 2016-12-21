@@ -24,14 +24,14 @@ namespace Tache.Web {
     }
 
     // Configure the application user manager used in this application. UserManager is defined in ASP.NET Identity and is used by the application.
-    public class TacheUserManager : UserManager<TacheUser> {
-        public TacheUserManager(IUserStore<TacheUser> store) : base(store) { }
+    public class ApplicationUserManager : UserManager<ApplicationUser> {
+        public ApplicationUserManager(IUserStore<ApplicationUser> store) : base(store) { }
 
-        public static TacheUserManager Create(IdentityFactoryOptions<TacheUserManager> options, IOwinContext context) {
-            var manager = new TacheUserManager(new UserStore<TacheUser>(context.Get<IdentityDbContext>()));
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) {
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(context.Get<Tache.Domain.Concrete.IdentityDbContext>()));
 
             // Configure validation logic for usernames
-            manager.UserValidator = new UserValidator<TacheUser>(manager) {
+            manager.UserValidator = new UserValidator<ApplicationUser>(manager) {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
@@ -39,7 +39,7 @@ namespace Tache.Web {
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator {
                 RequiredLength = 6,
-                RequireNonLetterOrDigit = true,
+                RequireNonLetterOrDigit = false,
                 RequireDigit = true,
                 RequireLowercase = true,
                 RequireUppercase = true,
@@ -52,11 +52,11 @@ namespace Tache.Web {
 
             // Register two factor authentication providers. This application uses Phone and Emails as a step of receiving a code for verifying the user
             // You can write your own provider and plug it in here.
-            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<TacheUser> {
+            manager.RegisterTwoFactorProvider("Phone Code", new PhoneNumberTokenProvider<ApplicationUser> {
                 MessageFormat = "Your security code is {0}"
             });
 
-            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<TacheUser> {
+            manager.RegisterTwoFactorProvider("Email Code", new EmailTokenProvider<ApplicationUser> {
                 Subject = "Security Code",
                 BodyFormat = "Your security code is {0}"
             });
@@ -66,20 +66,20 @@ namespace Tache.Web {
 
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
-                manager.UserTokenProvider = new DataProtectorTokenProvider<TacheUser>(dataProtectionProvider.Create("ASP.NET Identity"));
+                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser>(dataProtectionProvider.Create("ASP.NET Identity"));
 
             return manager;
         }
     }
 
     // Configure the application sign-in manager which is used in this application.
-    public class ApplicationSignInManager : SignInManager<TacheUser, string> {
-        public ApplicationSignInManager(TacheUserManager userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager) { }
+    public class ApplicationSignInManager : SignInManager<ApplicationUser, string> {
+        public ApplicationSignInManager(ApplicationUserManager userManager, IAuthenticationManager authenticationManager) : base(userManager, authenticationManager) { }
 
-        public override Task<ClaimsIdentity> CreateUserIdentityAsync(TacheUser user) =>
-            user.GenerateUserIdentityAsync((TacheUserManager)UserManager);
+        public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user) =>
+            user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
 
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context) =>
-            new ApplicationSignInManager(context.GetUserManager<TacheUserManager>(), context.Authentication);
+            new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
     }
 }

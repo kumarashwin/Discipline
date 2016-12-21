@@ -128,7 +128,12 @@
     <Compile Include="Entities\Budget.cs" />
     <Compile Include="Entities\Duration.cs" />
     <Compile Include="Entities\Activity.cs" />
-    <Compile Include="Entities\TacheUser.cs" />
+    <Compile Include="Entities\ApplicationUser.cs" />
+    <Compile Include="Migrations.Identity\201612211724341_Initial Indentity Migration.cs" />
+    <Compile Include="Migrations.Identity\201612211724341_Initial Indentity Migration.Designer.cs">
+      <DependentUpon>201612211724341_Initial Indentity Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations.Identity\Configuration.cs" />
     <Compile Include="Migrations\201610271629090_Intial DB Schema.cs" />
     <Compile Include="Migrations\201610271629090_Intial DB Schema.Designer.cs">
       <DependentUpon>201610271629090_Intial DB Schema.cs</DependentUpon>
@@ -165,6 +170,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations.Identity\201612211724341_Initial Indentity Migration.resx">
+      <DependentUpon>201612211724341_Initial Indentity Migration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201610271629090_Intial DB Schema.resx">
       <DependentUpon>201610271629090_Intial DB Schema.cs</DependentUpon>
     </EmbeddedResource>
@@ -187,6 +195,7 @@
       <DependentUpon>201612081704356_Added Hide field to Activity.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
