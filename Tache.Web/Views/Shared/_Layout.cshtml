@@ -5,31 +5,21 @@
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content="Tache" />
     <title>@ViewBag.Title</title>
-    <link type="text/css" rel="stylesheet" href="~/Content/icono.min.css"/>
-    <link type="text/css" rel="stylesheet" href="~/Content/site.css" />
-    <link type="text/css" rel="stylesheet" href="~/Content/farbtastic.css"/>
 
-    @if (IsSectionDefined("Activities")) {
-        @RenderSection("Activities", required: false)
-    }
+    @Styles.Render("~/Content/css")
 
-    @*Combine & minify eventually...*@
-    <script type="text/javascript" src="~/Scripts/jquery-3.1.1.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
-    <script type="text/javascript" src="~/Scripts/farbtastic.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/unobtrusive")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/farbtastic")
+    @Scripts.Render("~/bundles/activities")
+    @Scripts.Render("~/bundles/chart")
 
-    <script type="text/javascript" src="~/Scripts/day.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/chart.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/misc.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/dateHelper.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/events.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/rect.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/arrows.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/ajax.js" defer></script>
-    <script type="text/javascript" src="~/Scripts/resetPage.js" defer></script>
-    
 </head>
-<body onload="main()">
-    @RenderSection("Body", required: false)
+<body onload="resetPage()">
+    <div class="container-fluid">
+        @RenderSection("Body", required: false)
+    </div>
 </body>
+
 </html>

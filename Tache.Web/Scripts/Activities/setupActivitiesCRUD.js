@@ -1,12 +1,4 @@
-﻿function resetPage() {
-    // Setup Activities CRUD Window
-    setupActivitiesCRUD();
-
-    // Setup Chart Window
-    main();
-}
-
-function setupActivitiesCRUD() {
+﻿function setupActivitiesCRUD() {
     var activitiesCRUD = document.getElementById("activities-CRUD");
     var activitiesUL = document.getElementsByClassName("activities-list")[0].querySelector("ul");
     var newButton = document.getElementById("new-activity");
@@ -29,7 +21,8 @@ function setupActivitiesCRUD() {
     newButton.addEventListener("click", activityCRUDEventHandler);
 
     function activityCRUDEventHandler(event) {
-        if (event.target.nodeName == "BUTTON") { event.preventDefault();
+        if (event.target.nodeName == "BUTTON") {
+            event.preventDefault();
             var inputs = activitiesCRUD.querySelectorAll("input");
 
             // Clearning all input fields;
@@ -44,7 +37,7 @@ function setupActivitiesCRUD() {
                 inputs.forEach(function (input) {
                     input.value = event.target.getAttribute("data-activity-" + input.id.toLowerCase());
                 });
-                
+
                 // The delete button is only important in the case of updates
                 deleteButton.style.display = "block";
             }

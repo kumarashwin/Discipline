@@ -1,18 +1,8 @@
-﻿* {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
-
-ul {
+﻿ul {
     list-style: none;
 }
 
-body {
-    padding-top: 40px;
-    padding-left: 40px;
-}
-
+/* ==  Application == */
 #chartDiv, #activities-CRUD {
     display: none;
     position: absolute;
