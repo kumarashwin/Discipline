@@ -2,6 +2,10 @@
     list-style: none;
 }
 
+body {
+    padding: 0;
+}
+
 /* ==  Application == */
 #chartDiv, #activities-CRUD {
     display: none;

@@ -1,8 +1,11 @@
-﻿@using Tache.Domain.Entities
-@model IEnumerable<Activity>
+﻿@model Tache.Web.Models.ViewModels.CurrentActivityViewModel
 
 @{
     ViewBag.Title = "Tache";
+}
+
+@section Nav {
+    @Html.Partial("NavBar")    
 }
 
 @section Body{

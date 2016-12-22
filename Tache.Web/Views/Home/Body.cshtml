@@ -1,21 +1,14 @@
-﻿@using Tache.Domain.Entities
-@model IEnumerable<Activity>
+﻿@model Tache.Web.Models.ViewModels.CurrentActivityViewModel
 
-@{
-    ViewBag.CurrentActivity = Model.Where(e => e.Start != null).First();
-}
+<h2>@Html.Raw(Model.TimeSpent)</h2>
+<h4>@Html.Raw(Model.StartDateTime)</h4>
+<h3>@Html.Raw(Model.BudgetStatus)</h3>
 
-<h2>
-    Since <span style="color: lightcoral;">@ViewBag.CurrentActivity.Start.ToShortTimeString()</span> on<br />
-    <span style="color: lightpink;">@ViewBag.CurrentActivity.Start.ToLongDateString()</span>,<br />
-    you have been <span style="color: royalblue;">@ViewBag.CurrentActivity.Name</span>.
-</h2>
+@*@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { id = "show-chart", onclick = "prepareAnchorForChartRequest()" })*@
 
-@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { id = "show-chart", onclick = "prepareAnchorForChartRequest()" })
+@*<hr />
+<h4>I am going to start: </h4>*@
 
-<hr />
-<h4>I am going to start: </h4>
-
-@Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
-@Html.Partial("ActivityCRUD", new Activity())
-@Html.Partial("Chart")
+@*@Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
+    @Html.Partial("ActivityCRUD", new Activity())
+    @Html.Partial("Chart")*@

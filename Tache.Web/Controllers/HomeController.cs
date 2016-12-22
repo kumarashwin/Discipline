@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Globalization;
+using System.Linq;
 using System.Web.Mvc;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
+using Tache.Web.Models.ViewModels;
 
 namespace Tache.Web.Controllers {
     public class HomeController : Controller {
@@ -12,7 +14,9 @@ namespace Tache.Web.Controllers {
             this.activityRepo = activityRepo;
         }
 
-        public ActionResult Index() => View(model: activityRepo.Activities);
+        //public ActionResult Index() => View(model: activityRepo.Activities);
+
+        public ActionResult Index() => View(model: new CurrentActivityViewModel(activityRepo));
 
         [HttpPost]
         public ActionResult Index(string currentActivity, string newActivity, string userDateTime) {

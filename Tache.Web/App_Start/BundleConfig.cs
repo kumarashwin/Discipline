@@ -20,7 +20,6 @@ namespace Tache.Web {
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/icono.min.css",
                       "~/farbtastic.css",
                       "~/Content/site.css"));
         }

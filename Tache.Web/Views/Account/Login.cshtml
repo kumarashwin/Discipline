@@ -22,8 +22,8 @@
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
                     @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
                 </div>
-                @Html.HiddenFor(m => m.RememberMe, new { @checked = "true" })
                 <div class="form-group">
+                    <input type="hidden" name="RememberMe" value="true" id="RememberMe" />
                     <input type="submit" value="Log in" class="btn btn-default btn-block" />
                 </div>
             }
