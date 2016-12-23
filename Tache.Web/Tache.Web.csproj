@@ -214,6 +214,11 @@
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
+    <None Include="Scripts\Validate\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\Validate\jquery.validate.js" />
+    <Content Include="Scripts\Validate\jquery.validate.min.js" />
+    <Content Include="Scripts\Validate\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\Validate\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.js" />

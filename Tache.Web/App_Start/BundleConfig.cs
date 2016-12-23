@@ -10,6 +10,8 @@ namespace Tache.Web {
 
             bundles.Add(new ScriptBundle("~/bundles/unobtrusive").Include("~/Scripts/Unobtrusive/jquery.unobtrusive-ajax.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/validate").Include("~/Scripts/Validate/jquery.validate*"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/Bootstrap/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/farbtastic").Include("~/Scripts/Farbtastic/farbtastic.js"));
