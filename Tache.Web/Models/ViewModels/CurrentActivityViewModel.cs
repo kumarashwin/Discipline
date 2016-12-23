@@ -1,16 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
 namespace Tache.Web.Models.ViewModels {
     public class CurrentActivityViewModel {
         private TimeSpan timeSpent;
-        private string differenceFromBudget;
         private bool isOverBudget = true;
 
-        public CurrentActivityViewModel(IActivityRepository activities) {
-            Activity = activities.Activities.Where(e => e.Start != null).First();
+        public Activity Activity { get; set; }
+
+        public CurrentActivityViewModel(IEnumerable<Activity> activities) {
+            Activity = activities.Where(e => e.Start != null).First();
 
             var serverCurrentTime = DateTime.UtcNow;
             var clientStartTime = TimeZoneInfo.ConvertTimeToUtc(Activity.Start.Value);
@@ -21,22 +22,16 @@ namespace Tache.Web.Models.ViewModels {
                 timeSpent = clientStartTime - serverCurrentTime;
         }
 
-        public string DifferenceFromBudget {
-            get {
-                if (Activity.BudgetInTicks != null) {
-                    long ticks = timeSpent.Ticks - (long)Activity.BudgetInTicks;
+        public string CalculateDifferenceFromBudget() {
+            long ticks = timeSpent.Ticks - (long)Activity.BudgetInTicks;
 
-                    if (ticks <= 0) {
-                        isOverBudget = false;
-                        ticks *= -1;
-                    }
-
-                    var timeSpan = new TimeSpan(ticks);
-                    return FormatHoursAndMinutes(timeSpan.Hours, timeSpan.Minutes);
-                } else {
-                    throw new Exception("Code shouldn't call difference from budget if no budget");
-                }
+            if (ticks <= 0) {
+                isOverBudget = false;
+                ticks *= -1;
             }
+
+            TimeSpan timeSpan = new TimeSpan(ticks);
+            return FormatHoursAndMinutes(timeSpan.Hours, timeSpan.Minutes);
         }
 
         public string StartDateTime {
@@ -48,6 +43,8 @@ namespace Tache.Web.Models.ViewModels {
 
         private string FormatHoursAndMinutes(int hours, int minutes) {
             var result = "";
+            if (hours == 0 && minutes == 0)
+                return "just a few seconds";
             if (hours > 0) {
                 switch (hours) {
                     case 1:
@@ -93,13 +90,14 @@ namespace Tache.Web.Models.ViewModels {
             get {
                 if (Activity.BudgetInTicks == null)
                     return "You haven't set a budget for this activity.";
+
+                string differenceFromBudget = CalculateDifferenceFromBudget();
                 if (isOverBudget)
-                    return $"You are over your budget of {Budget} by {DifferenceFromBudget}.";
+                    return $"You are over your budget of {Budget} by {differenceFromBudget}.";
                 else
-                    return $"You have {DifferenceFromBudget} left before you reach your budget of {Budget}.";
+                    return $"You have {differenceFromBudget} left before you reach your budget of {Budget}.";
             }
         }
 
-        public Activity Activity { get; set; }
     }
 }

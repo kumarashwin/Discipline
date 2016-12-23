@@ -14,18 +14,14 @@ namespace Tache.Web.Controllers {
             this.activityRepo = activityRepo;
         }
 
-        //public ActionResult Index() => View(model: activityRepo.Activities);
-
-        public ActionResult Index() => View(model: new CurrentActivityViewModel(activityRepo));
+        public ActionResult Index() => View(model: activityRepo.Activities);
 
         [HttpPost]
-        public ActionResult Index(string currentActivity, string newActivity, string userDateTime) {
-            var time = DateTime.Parse(userDateTime);
-            // Inefficient, optimize this:
-            activityRepo.Stop(int.Parse(currentActivity), time);
-            activityRepo.Start(int.Parse(newActivity), time.AddSeconds(1));
+        public ActionResult Index(string newActivity, string clientRequestTime) {
+            var time = DateTime.Parse(clientRequestTime);
+            activityRepo.StartNew(int.Parse(newActivity), time.AddSeconds(1));
             ModelState.Clear();
-            return PartialView("Body", activityRepo.Activities);
+            return PartialView("ActivityStatus", activityRepo.Activities);
         }
 
         [HttpPost]

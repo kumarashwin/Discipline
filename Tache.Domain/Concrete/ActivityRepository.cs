@@ -28,7 +28,7 @@ namespace Tache.Domain.Concrete {
         }
 
         // Shouldn't be ever used by the user
-        public Activity Delete(int activityId) {
+        private Activity Delete(int activityId) {
             var dbEntry = context.Activities.Find(activityId);
             if (dbEntry != null) {
                 context.Activities.Remove(dbEntry);
@@ -48,15 +48,14 @@ namespace Tache.Domain.Concrete {
  
         }
 
-        public void Start(int activity, DateTime clientRequestTime) {
-            context.Activities.Where(a => a.Id == activity).First().Start = clientRequestTime;
-            context.SaveChanges();
-        }
-
-        public void Stop(int activity, DateTime clientRequestTime) {
-            Activity currentActivity = context.Activities.Where(a => a.Id == activity).First();
+        public void StartNew(int activity, DateTime clientRequestTime) {
+            // Stops previous activity
+            Activity currentActivity = context.Activities.Where(a => a.Start != null).First();
             AddDurations((DateTime)currentActivity.Start, clientRequestTime, currentActivity.Id);
             currentActivity.Start = null;
+
+            // Starts new activity
+            context.Activities.Where(a => a.Id == activity).First().Start = clientRequestTime;
             context.SaveChanges();
         }
 

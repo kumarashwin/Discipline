@@ -9,10 +9,8 @@ namespace Tache.Domain.Abstract {
 
         Activity Retrieve(int id);
         void CreateOrUpdate(Activity activity);
-        Activity Delete(int activityId);
         Activity Hide(int activityId);
 
-        void Start(int activity, DateTime clientRequestTime);
-        void Stop(int activity, DateTime clientRequestTime);
+        void StartNew(int activity, DateTime clientRequestTime);
     }
 }

@@ -3,5 +3,5 @@
     setupActivitiesCRUD();
 
     // Setup Chart Window
-    main();
+    //main();
 }

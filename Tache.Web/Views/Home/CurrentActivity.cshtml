@@ -1,13 +1,25 @@
 ﻿@model Tache.Web.Models.ViewModels.CurrentActivityViewModel
 
-<h2>@Html.Raw(Model.TimeSpent)</h2>
-<h4>@Html.Raw(Model.StartDateTime)</h4>
-<h3>@Html.Raw(Model.BudgetStatus)</h3>
+<div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+        <h2>@Html.Raw(Model.TimeSpent)</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+        <h4>@Html.Raw(Model.StartDateTime)</h4>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-3 col-xs-6">
+        <h3>@Html.Raw(Model.BudgetStatus)</h3>
+    </div>
+</div>
 
 @*@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { id = "show-chart", onclick = "prepareAnchorForChartRequest()" })*@
 
 @*<hr />
-<h4>I am going to start: </h4>*@
+    <h4>I am going to start: </h4>*@
 
 @*@Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
     @Html.Partial("ActivityCRUD", new Activity())

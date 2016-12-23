@@ -264,10 +264,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\ActivitiesDropDown.cshtml" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.map" />
-    <Content Include="Views\Home\Body.cshtml" />
+    <Content Include="Views\Home\CurrentActivity.cshtml" />
     <Content Include="Views\Home\ActivityCRUD.cshtml" />
     <Content Include="Views\Home\Chart.cshtml" />
     <Content Include="Views\Home\RectActivityInfo.cshtml" />
@@ -283,7 +282,8 @@
     <Content Include="Views\Account\ResetPasswordConfirmation.cshtml" />
     <Content Include="Views\Account\SendCode.cshtml" />
     <Content Include="Views\Account\VerifyCode.cshtml" />
-    <Content Include="Views\Shared\NavBar.cshtml" />
+    <Content Include="Views\Home\NextActivity.cshtml" />
+    <Content Include="Views\Home\ActivityStatus.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -18,7 +18,5 @@ namespace Tache.Web.Controllers {
         public void Post(Activity activity) => activityRepo.CreateOrUpdate(activity);
 
         public void Put(Activity activity) => activityRepo.CreateOrUpdate(activity);
-
-        public void Delete(int id) => activityRepo.Delete(id);
     }
 }

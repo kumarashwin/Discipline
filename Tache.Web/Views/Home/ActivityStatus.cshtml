@@ -1,0 +1,9 @@
+﻿@using Tache.Web.Models.ViewModels
+@model IEnumerable<Activity>
+
+<div id="current-activity" class="container-fluid">
+    @Html.Partial("CurrentActivity", new CurrentActivityViewModel(Model))
+</div>
+<div id="next-activity" class="container-fluid">
+    @Html.Partial("NextActivity", Model.Where(a => a.Hide == false && a.Start == null))
+</div>
