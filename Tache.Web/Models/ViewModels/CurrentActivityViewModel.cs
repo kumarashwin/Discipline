@@ -42,32 +42,32 @@ namespace Tache.Web.Models.ViewModels {
         }
 
         private string FormatHoursAndMinutes(int hours, int minutes) {
-            var result = "";
             if (hours == 0 && minutes == 0)
                 return "just a few seconds";
+
+            string hourString = null;
+            string minuteString = null;
+
             if (hours > 0) {
-                switch (hours) {
-                    case 1:
-                        result += $"<b>{hours}</b> hour";
-                        break;
-                    default:
-                        result += $"<b>{hours}</b> hours";
-                        break;
-                }
+                hourString = $"<b>{hours}</b>";
+                if (hours == 1)
+                    hourString += " hour"; 
+                else
+                    hourString += $" hours";
             }
 
             if (minutes > 0) {
-                result += " and ";
-                switch (minutes) {
-                    case 1:
-                        result += $"<b>{minutes}</b> minute";
-                        break;
-                    default:
-                        result += $"<b>{minutes}</b> minutes";
-                        break;
-                }
+                minuteString = $"<b>{minutes}</b>";
+                if (minutes == 1)
+                    minuteString += " minute"; 
+                else
+                    minuteString += $" minutes";
             }
-            return result;
+
+            if (hourString != null && minuteString != null)
+                return $"{hourString} and {minuteString}";
+            return (hourString ?? "") + (minuteString ?? "");
+
         }
 
         public string TimeSpent {

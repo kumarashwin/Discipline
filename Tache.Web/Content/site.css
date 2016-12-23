@@ -6,6 +6,14 @@ body {
     padding: 0;
 }
 
+/* == Bootstrap mods == */
+
+/* Apply to rows to remove padding from child columns */
+.no-gutter > [class*='col-'] {
+    padding-right:0;
+    padding-left:0;
+}
+
 /* ==  Application == */
 #chartDiv, #activities-CRUD {
     display: none;
