@@ -183,20 +183,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\farbtastic.css" />
-    <Content Include="Content\icono.min.css" />
-    <Content Include="Content\marker.png" />
-    <Content Include="Content\mask.png" />
+    <Content Include="Content\Bootstrap\bootstrap-theme.css" />
+    <Content Include="Content\Bootstrap\bootstrap-theme.min.css" />
+    <Content Include="Content\Bootstrap\bootstrap.css" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css" />
+    <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.css" />
+    <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.min.css" />
+    <Content Include="Content\Colorpicker\img\bootstrap-colorpicker\alpha-horizontal.png" />
+    <Content Include="Content\Colorpicker\img\bootstrap-colorpicker\alpha.png" />
+    <Content Include="Content\Colorpicker\img\bootstrap-colorpicker\hue-horizontal.png" />
+    <Content Include="Content\Colorpicker\img\bootstrap-colorpicker\hue.png" />
+    <Content Include="Content\Colorpicker\img\bootstrap-colorpicker\saturation.png" />
+    <Content Include="Content\Farbtastic\farbtastic.css" />
+    <Content Include="Content\Farbtastic\marker.png" />
+    <Content Include="Content\Farbtastic\mask.png" />
     <Content Include="Content\site.css" />
-    <Content Include="Content\wheel.png" />
+    <Content Include="Content\Farbtastic\wheel.png" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
+    <Content Include="Scripts\Colorpicker\bootstrap-colorpicker.js" />
+    <Content Include="Scripts\Colorpicker\bootstrap-colorpicker.min.js" />
     <Content Include="Scripts\Farbtastic\farbtastic.js" />
     <Content Include="Scripts\Activities\resetPage.js" />
     <Content Include="Scripts\Chart\ajax.js" />
@@ -209,10 +217,12 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-theme.min.css.map" />
+    <Content Include="Content\Bootstrap\bootstrap-theme.css.map" />
+    <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.css.map" />
+    <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.min.css.map" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <None Include="Scripts\Validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Validate\jquery.validate.js" />
@@ -284,6 +294,7 @@
     <Content Include="Views\Account\VerifyCode.cshtml" />
     <Content Include="Views\Home\NextActivity.cshtml" />
     <Content Include="Views\Home\ActivityStatus.cshtml" />
+    <Content Include="Views\Home\ActivityForm.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

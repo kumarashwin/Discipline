@@ -28,14 +28,14 @@ namespace Tache.Web.Controllers {
         public ActionResult Update(Activity activity) {
             activityRepo.CreateOrUpdate(activity);
             ModelState.Clear();
-            return PartialView("Body", activityRepo.Activities);
+            return PartialView("NextActivity", activityRepo.Activities.Where(a => a.Hide == false && a.Start == null));
         }
 
         [HttpPost]
         public ActionResult Delete(int id) {
             activityRepo.Hide(id);
             ModelState.Clear();
-            return PartialView("Body", activityRepo.Activities);
+            return PartialView("NextActivity", activityRepo.Activities.Where(a => a.Hide == false && a.Start == null));
         }
     }
 }

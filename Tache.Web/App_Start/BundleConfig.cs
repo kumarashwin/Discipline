@@ -14,15 +14,16 @@ namespace Tache.Web {
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/Bootstrap/bootstrap.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/farbtastic").Include("~/Scripts/Farbtastic/farbtastic.js"));
+            bundles.Add(new ScriptBundle("~/bundles/colorpicker").Include("~/Scripts/Colorpicker/bootstrap-colorpicker.js"));
+            //bundles.Add(new ScriptBundle("~/bundles/farbtastic").Include("~/Scripts/Farbtastic/farbtastic.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/activities").Include("~/Scripts/Activities/*.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/chart").Include("~/Scripts/Chart/*.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/farbtastic.css",
+                      "~/Content/Bootstrap/bootstrap.css",
+                      "~/Content/Colorpicker/css/bootstrap-colorpicker.css",
                       "~/Content/site.css"));
         }
     }

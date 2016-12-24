@@ -1,14 +1,7 @@
-﻿@using Tache.Web.Models.ViewModels
-@model IEnumerable<Activity>
+﻿@model IEnumerable<Activity>
 
 <div id="current-activity" class="container-fluid">
     @Html.Partial("CurrentActivity", new CurrentActivityViewModel(Model))
-</div>
-
-<div class="row">
-    <div class="col-xs-offset-3 col-xs-6">
-        <h3 class="text-muted text-center">I am going to start: </h3>
-    </div>
 </div>
 
 <div id="next-activity" class="container-fluid">
