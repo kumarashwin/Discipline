@@ -1,12 +1,6 @@
 ﻿@model Activity
 
 <div id="activity-form-elements">
-
-    <div class="row">
-        <div class="col-xs-offset-8 col-xs-1">
-        </div>
-    </div>
-
     <div class="row">
         <div class="col-xs-offset-3 col-xs-6">
             @using (Ajax.BeginForm("Update", null, new AjaxOptions { UpdateTargetId = "next-activity" }, new { @class = "update" })) {
@@ -44,12 +38,6 @@
                     </div>
                 </div>
             }
-
-            @*@using (Ajax.BeginForm("Delete", null, new AjaxOptions { UpdateTargetId = "next-activity" }, new { @class = "delete" })) {
-                    @Html.HiddenFor(m => m.Id)
-                    <button type="submit">Delete</button>
-                }*@
         </div>
     </div>
 </div>
-@*<div id="colorpicker" style="display: none; z-index: 2; position: absolute;"></div>*@

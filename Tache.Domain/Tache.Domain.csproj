@@ -162,6 +162,10 @@
     <Compile Include="Migrations\201612081704356_Added Hide field to Activity.Designer.cs">
       <DependentUpon>201612081704356_Added Hide field to Activity.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201612241903462_Made Name field in Activity Required.cs" />
+    <Compile Include="Migrations\201612241903462_Made Name field in Activity Required.Designer.cs">
+      <DependentUpon>201612241903462_Made Name field in Activity Required.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -193,6 +197,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612081704356_Added Hide field to Activity.resx">
       <DependentUpon>201612081704356_Added Hide field to Activity.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201612241903462_Made Name field in Activity Required.resx">
+      <DependentUpon>201612241903462_Made Name field in Activity Required.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />
