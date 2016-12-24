@@ -1,8 +1,5 @@
-﻿function setupActivitiesCRUD() {
-    //var activitiesCRUD = document.getElementById("activities-CRUD");
-    var activitiesForm = document.getElementById('activity-form');
+﻿function attachEventsToActivities() {
     var activitiesButtonGroup = document.getElementById('activities-button-group');
-    //var deleteButton = activitiesCRUD.querySelector("form.delete");
 
     // Sets the clientRequestTime input value when one of the activities is clicked on
     activitiesButtonGroup.addEventListener("submit", function (event) {
@@ -12,12 +9,10 @@
     // Add the event handler to the edit button beside each activity
     activitiesButtonGroup.addEventListener("click", activityEditEventHandler);
 
-    // Initializes the color picker
-    $('#Color').colorpicker({color:'transparent', format:'hex'});
-
     function activityEditEventHandler(event) {
         if (event.target.type == 'button') {
-            var allInputs = activitiesForm.querySelectorAll('input');
+            var activityForm = document.getElementById('activity-form');
+            var allInputs = activityForm.querySelectorAll('input');
 
             // Clearning all input fields;
             allInputs.forEach(function (input) { input.value = ''; });
@@ -31,7 +26,8 @@
             // Sets the value of the color picker
             $('#Color').colorpicker('setValue', event.target.getAttribute("data-activity-color")); 
 
-            // To Do: add code to show the form?
+            document.querySelectorAll('div.page').forEach(function (page) { page.style.display = 'none' });
+            activityForm.style.display = '';
         }
     }
 }
