@@ -28,20 +28,33 @@ namespace Tache.Domain.Entities {
 
         [ScaffoldColumn(false)]
         public long? BudgetInTicks {
+            // GET will be called by EF when deciding to store the value
+            // in the database
             get {
-                _budgetInTicks = _budgetInTicks ?? null;
+                //_budgetInTicks = _budgetInTicks ?? null;
+                long newBudget = 0;
+                bool changed = false;
+
                 if (_budgetHours != null) {
-                    _budgetInTicks = _budgetInTicks ?? 0;
-                    _budgetInTicks += ((TimeSpan)_budgetHours).Ticks;
+                    newBudget += ((TimeSpan)_budgetHours).Ticks;
+                    changed = true;
                 }
+
                 if (_budgetMinutes != null) {
-                    _budgetInTicks = _budgetInTicks ?? 0;
-                    _budgetInTicks += ((TimeSpan)_budgetMinutes).Ticks;
+                    newBudget += ((TimeSpan)_budgetMinutes).Ticks;
+                    changed = true;
                 }
+
+                // If values were put in budgetHours and budgetMinutes
+                // budgetInTicks should accordingly change
+                if (changed)
+                    _budgetInTicks = newBudget;
 
                 return _budgetInTicks;
             }
             set {
+                // Only Entity Framework should be setting this value
+                // usually the first time an Activity object is instanced
                 _budgetInTicks = value;
             }
         }
