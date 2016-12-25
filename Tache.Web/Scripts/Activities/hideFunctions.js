@@ -1,5 +1,5 @@
 ﻿function hideAllButActive(event) {
-    if (event.target.type == 'button') {
+    if (event.target.nodeName == 'button'.toUpperCase()) {
         document.querySelectorAll('div.page').forEach(function (page) { page.style.display = 'none' });
         document.querySelector('button.active').classList.remove('active');
 
@@ -14,7 +14,7 @@
 }
 
 function hideFormShowNextActivity(event){
-    if (event.target.type == 'button') {
+    if (event.target.nodeName == 'button'.toUpperCase()) {
         document.querySelectorAll('div.page').forEach(function (page) { page.style.display = 'none' });
         document.querySelector('button.active').classList.remove('active');
         document.querySelector('button[value=next-activity]').classList.add('active');

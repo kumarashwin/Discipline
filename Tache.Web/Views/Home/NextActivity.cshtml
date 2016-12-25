@@ -4,7 +4,7 @@
     @foreach (Activity activity in Model) {
         <div class="row no-gutter">
             <div class="col-xs-9 col-sm-offset-2 col-sm-6 col-md-offset-3 col-md-5">
-                @using (Ajax.BeginForm("Index", new AjaxOptions { UpdateTargetId = "activity-status", OnSuccess = "resetPage" })) {
+                @using (Ajax.BeginForm("Index", new AjaxOptions { UpdateTargetId = "activity-status", OnSuccess = "attachEventsToActivities" })) {
                     @Html.Hidden("newActivity", activity.Id);
                     @Html.Hidden("clientRequestTime");
                     <button class="btn btn-default btn-block" type="submit">@activity.Name</button>
@@ -34,5 +34,3 @@
         </div>
     }
 </div>
-
-@*@Html.Partial("Chart")*@

@@ -7,7 +7,7 @@
     Chart.prototype.setInitialValues = function(){
         //Edit these if needed:
         this.padding = 15;
-        this.barWidth = 70;
+        this.barWidth = 55;
 
         this.mode = "calendar";
         this.height = this.svg.height.baseVal.value;

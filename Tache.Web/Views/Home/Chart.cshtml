@@ -1,21 +1,34 @@
-﻿<div id="chartDiv">
-    <div class="crud-background-div"></div>
-    <div id="svgDiv">
-        <button type="button" class="crud-exit" onclick="(function () { document.getElementById('chartDiv').style.display = 'none'; })()">X</button>
-        <div id="svgContainer">
-            <div id="arrow-left" class="arrows">
-                <div></div>
-            </div>
-            <div id="arrow-right" class="arrows">
-                <div></div>
-            </div>
-            <svg width="610px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
-        </div>
+﻿<div class="row">
+    <div id="arrow-left" class="col-xs-1">
+        <span class="glyphicon glyphicon-arrow-left"></span>
+    </div>
+    <div class="col-xs-10">
+        <svg width="505px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <div id="arrow-right" class="col-xs-1">
+        <span class="glyphicon glyphicon-arrow-right"></span>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-offset-1 col-xs-10">
         <ul id="dates">
             @for (int i = 0; i < 7; i++) {
                 <li><span></span></li>
             }
         </ul>
     </div>
-    @Html.Partial("RectActivityInfo")
+</div>
+
+<div id="rect-activity-info" class="default hidden">
+    <h4 id="activity-name"></h4>
+    <h5 id="activity-description"></h5>
+    <p>
+        For <!-- There is a space here -->
+        <span id="activity-hours">hours</span>
+        <span id="activity-and" style="display: none;"> and </span>
+        <span id="activity-minutes">minutes</span>
+    </p>
+    <p id="activity-duration">
+        <span id="activity-from"></span> to <span id="activity-to"></span>
+    </p>
 </div>

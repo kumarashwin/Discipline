@@ -17,7 +17,7 @@
     @Scripts.Render("~/bundles/chart")
 
 </head>
-<body onload="resetPage()">
+<body onload="initialLoad(event)">
     @RenderSection("Nav", false)
     @RenderSection("Body")
 </body>
