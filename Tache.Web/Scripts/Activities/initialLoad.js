@@ -7,4 +7,6 @@
 
     // Loads the chart framework
     loadChart();
+    
+    hideAllPagesExcept('current-activity');
 }

@@ -201,7 +201,7 @@
     <Content Include="Content\Farbtastic\wheel.png" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\Activities\hideFunctions.js" />
+    <Content Include="Scripts\Activities\hideAllPagesExcept.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Colorpicker\bootstrap-colorpicker.js" />

@@ -1,4 +1,4 @@
-﻿function attachEventsToActivities() {
+﻿function attachEventsToActivities(event) {
     var activitiesButtonGroup = document.getElementById('activities-button-group');
 
     // Sets the clientRequestTime input value when one of the activities is clicked on
@@ -10,7 +10,7 @@
     activitiesButtonGroup.addEventListener("click", activityEditEventHandler);
 
     function activityEditEventHandler(event) {
-        if (event.target.type == 'button') {
+        if (event.target.name == 'edit') {
             var activityForm = document.getElementById('activity-form');
             var allInputs = activityForm.querySelectorAll('input');
 
