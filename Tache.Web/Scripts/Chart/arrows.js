@@ -5,8 +5,8 @@
         this.hide();
     }
 
-    ArrowRight.prototype.hide = function () { this.element.style.display = "none" };
-    ArrowRight.prototype.show = function () { this.element.style.display = "" };
+    ArrowRight.prototype.hide = function () { this.element.disabled = 'disabled' };
+    ArrowRight.prototype.show = function () { this.element.disabled = '' };
 
     return ArrowRight;
 })();
@@ -17,7 +17,7 @@ function getArrowEventHandler(direction) {
 
         centerBarDate = centerBarDate.addDays(direction);
 
-        // arrowRight is hidden if the right-most bar shows yesterdays data 
+        // arrowRight is inactive if the right-most bar shows yesterdays data 
         if (centerBarDate.addDays(4).dateObject.getTime() == today.dateObject.getTime())
             arrowRight.hide();
         else

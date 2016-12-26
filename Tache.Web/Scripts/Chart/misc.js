@@ -108,6 +108,6 @@ function showActivityInfoEventHandler(event) {
         // Fade-in animation
         rectActivityInfo.className = "hover";
     } else {
-        rectActivityInfo.className = "default";
+        rectActivityInfo.className = '';
     }
 }

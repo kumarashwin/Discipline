@@ -216,20 +216,21 @@ rect:hover {
     }*/
 
 /* ==== Hover on Rect Activity Info ====*/
-#rect-activity-info.default {
+#rect-activity-info {
     display: none;
 }
 
 #rect-activity-info.hover {
     position: absolute;
+    display:block;
     z-index: 2;
     background-color: white;
     pointer-events: none;
     opacity: 0;
-    animation: changeOpacity 0.7s 1s forwards;  
+    animation: changeOpacity 0.5s 0.8s forwards;  
 }
 
 @keyframes changeOpacity {
     from { opacity: 0; }
-    to { opacity: 0.7; }
+    to { opacity: 0.8; }
 }

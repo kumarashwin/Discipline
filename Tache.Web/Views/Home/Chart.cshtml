@@ -1,25 +1,32 @@
-﻿<div class="row">
-    <div id="arrow-left" class="col-xs-1">
-        <span class="glyphicon glyphicon-arrow-left"></span>
-    </div>
-    <div class="col-xs-10">
-        <svg width="505px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
-    </div>
-    <div id="arrow-right" class="col-xs-1">
-        <span class="glyphicon glyphicon-arrow-right"></span>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-offset-1 col-xs-10">
-        <ul id="dates">
-            @for (int i = 0; i < 7; i++) {
-                <li><span></span></li>
-            }
-        </ul>
+﻿<div class="row no-gutter">
+    <div class="col-xs-12">
+        <div style="margin-left: auto;margin-right: auto;display: block;width: 505px;">
+            <div>
+                <!-- makeTransparent and other transparency animation event work on this div -->
+                <svg width="505px" height="360px" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+            <ul id="dates">
+                @for (int i = 0; i < 7; i++) {
+                    <li><span></span></li>
+                }
+            </ul>
+        </div>
+        <div class="btn-group btn-group-justified" role="group">
+            <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-block" type="button" id="arrow-left">
+                    <span class="glyphicon glyphicon-arrow-left"></span>
+                </button>
+            </div>
+            <div class="btn-group" role="group">
+                <button class="btn btn-primary btn-block" type="button" id="arrow-right">
+                    <span class="glyphicon glyphicon-arrow-right"></span>
+                </button>
+            </div>
+        </div>
     </div>
 </div>
 
-<div id="rect-activity-info" class="default hidden">
+<div id="rect-activity-info">
     <h4 id="activity-name"></h4>
     <h5 id="activity-description"></h5>
     <p>
