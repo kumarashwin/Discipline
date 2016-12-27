@@ -6,6 +6,8 @@ using Tache.Domain.Abstract;
 using Tache.Web.Models.Abstract;
 
 namespace Tache.Web.Controllers {
+
+    [Authorize(Roles = "User")]
     public class DayController : Controller {
         private AbstractDbContext context;
         private IDaysViewModelRepository daysViewModelRepository;

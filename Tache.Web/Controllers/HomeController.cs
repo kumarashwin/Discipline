@@ -7,6 +7,8 @@ using Tache.Domain.Entities;
 using Tache.Web.Models.ViewModels;
 
 namespace Tache.Web.Controllers {
+
+    [Authorize(Roles = "User")]
     public class HomeController : Controller {
         private IActivityRepository activityRepo;
 
@@ -17,6 +19,7 @@ namespace Tache.Web.Controllers {
         public ActionResult Index() => View(model: activityRepo.Activities);
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Index(string newActivity, string clientRequestTime) {
             var time = DateTime.Parse(clientRequestTime);
             activityRepo.StartNew(int.Parse(newActivity), time.AddSeconds(1));
@@ -25,6 +28,7 @@ namespace Tache.Web.Controllers {
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Update(Activity activity) {
             activityRepo.CreateOrUpdate(activity);
             ModelState.Clear();
@@ -32,6 +36,7 @@ namespace Tache.Web.Controllers {
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(int id) {
             activityRepo.Hide(id);
             ModelState.Clear();

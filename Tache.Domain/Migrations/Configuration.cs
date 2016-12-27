@@ -12,11 +12,11 @@ namespace Tache.Domain.Migrations {
 
         protected override void Seed(Tache.Domain.Concrete.TacheDbContext context) {
             context.Activities.AddOrUpdate(p => p.Name,
-                new Activity { Name = "Sleeping", Description = "I love sleeping!", Color = "#0099ff" },
-                new Activity { Name = "Eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
-                new Activity { Name = "Coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
-                new Activity { Name = "Reading", Description = "*...page flip*", Color = "#333300" },
-                new Activity { Name = "Gaming", Description = "*pew pew pew!*", Color = "#6600cc", BudgetHours = 3 });
+                new Activity { UserName = "kumar.ashwin@outlook.com", Name = "Sleeping", Description = "I love sleeping!", Color = "#0099ff" },
+                new Activity { UserName = "kumar.ashwin@outlook.com", Name = "Eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
+                new Activity { UserName = "kumar.ashwin@outlook.com", Name = "Coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
+                new Activity { UserName = "kumar.ashwin@outlook.com", Name = "Reading", Description = "*...page flip*", Color = "#333300" },
+                new Activity { UserName = "kumar.ashwin@outlook.com", Name = "Gaming", Description = "*pew pew pew!*", Color = "#6600cc", BudgetHours = 3 });
 
             context.SaveChanges();
 

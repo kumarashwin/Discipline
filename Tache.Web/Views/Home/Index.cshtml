@@ -13,14 +13,19 @@
                 <div class="btn-group" role="group"><button type="button" value="activity-form" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span></button></div>
                 <div class="btn-group" role="group">
                     @using (Ajax.BeginForm("Index", "Day", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { onclick = "addYearMonthDayToRequest(event)" })) {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("year");
                         @Html.Hidden("month");
                         @Html.Hidden("day");
                         <button type="submit" value="chart" class="btn btn-default"><span class="glyphicon glyphicon-stats"></span></button>
                     }
                 </div>
-                @*<div class="btn-group" role="group"><button type="button" value="chart" class="btn btn-default"><span class="glyphicon glyphicon-stats"></span></button></div>*@
-                <div class="btn-group" role="group"><button type="button" value="settings" class="btn btn-default"><span class="glyphicon glyphicon-cog"></span></button></div>
+                <div class="btn-group" role="group">
+                    @using (Html.BeginForm("LogOff", "Account")) {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" value="log-off" class="btn btn-danger"><span class="glyphicon glyphicon-off"></span></button>
+                    }
+                </div>
             </div>
         </div>
     </nav>
