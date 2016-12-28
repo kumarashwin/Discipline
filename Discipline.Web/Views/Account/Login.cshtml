@@ -3,12 +3,17 @@
 @{
     ViewBag.Title = "Discipline";
 }
-@section Body {
+
+@section Header {
     <header class="row">
-        <h2 class="col-xs-12" style="text-align:center;">
+        <h1 class="col-xs-12 text-center login-page">
             @ViewBag.Title
-        </h2>
+        </h1>
     </header>
+}
+
+@section Body {
+
     <div class="row">
         <div class="col-xs-6 col-xs-offset-3">
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {

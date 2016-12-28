@@ -4,6 +4,14 @@
     ViewBag.Title = "Discipline";
 }
 
+@section Header {
+    <header class="row">
+        <h1 class="col-xs-12 text-center">
+            @ViewBag.Title
+        </h1>
+    </header>
+}
+
 @section Nav {
     <nav class="navbar navbar-default" id="navigation-header" onclick="hideAllPagesExcept(event.target.value)">
         <div class="container-fluid" style="padding: 0;">
