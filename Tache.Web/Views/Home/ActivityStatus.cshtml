@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<Activity>
 
 <div id="current-activity" class="container-fluid page">
-    @Html.Partial("CurrentActivity", new CurrentActivityViewModel(Model))
+    @Html.Partial("CurrentActivity", new CurrentActivityViewModel(Model.Where(e => e.Start != null).First()))
 </div>
 
 <div id="next-activity" class="container-fluid page">

@@ -10,8 +10,8 @@ namespace Tache.Web.Models.ViewModels {
 
         public Activity Activity { get; set; }
 
-        public CurrentActivityViewModel(IEnumerable<Activity> activities) {
-            Activity = activities.Where(e => e.Start != null).First();
+        public CurrentActivityViewModel(Activity activity) {
+            Activity = activity;
 
             var serverCurrentTime = DateTime.UtcNow;
             var clientStartTime = TimeZoneInfo.ConvertTimeToUtc(Activity.Start.Value);

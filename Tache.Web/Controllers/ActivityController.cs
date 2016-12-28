@@ -11,12 +11,12 @@ namespace Tache.Web.Controllers {
             this.activityRepo = activityRepo;
         }
 
-        public IEnumerable<Activity> GetAll() => activityRepo.Activities;
+        //public IEnumerable<Activity> GetAll() => activityRepo.Activities;
 
-        public Activity Get(int id) => activityRepo.Retrieve(id);
+        //public Activity Get(int id) => activityRepo.Retrieve(id);
 
-        public void Post(Activity activity) => activityRepo.CreateOrUpdate(activity);
+        //public void Post(Activity activity) => activityRepo.CreateOrUpdate(activity);
 
-        public void Put(Activity activity) => activityRepo.CreateOrUpdate(activity);
+        //public void Put(Activity activity) => activityRepo.CreateOrUpdate(activity);
     }
 }

@@ -3,7 +3,8 @@
 
     // Sets the clientRequestTime input value when one of the activities is clicked on
     activitiesButtonGroup.addEventListener("submit", function (event) {
-        event.target.querySelector('input[name=clientRequestTime]').value = new Date().toISOString();
+        if(event.target.name == 'next-activity')
+            event.target.querySelector('input[name=clientRequestTime]').value = new Date().toISOString();
     });
 
     // Add the event handler to the edit button beside each activity
@@ -14,13 +15,18 @@
             var activityForm = document.getElementById('activity-form');
             var allInputs = activityForm.querySelectorAll('input');
 
-            // Clearning all input fields;
-            allInputs.forEach(function (input) { input.value = ''; });
+            // Clearning all input fields except the verification token
+            allInputs.forEach(function (input) {
+                if (input.name != '__RequestVerificationToken')
+                    input.value = '';
+            });
 
             // Populating the value fields with the data-activity attribute in the Edit button
             allInputs.forEach(function (input) { 
-                var attribute = 'data-activity-' + input.id.toLowerCase();
-                input.value = event.target.getAttribute(attribute);
+                if (input.name != '__RequestVerificationToken') {
+                    var attribute = 'data-activity-' + input.id.toLowerCase();
+                    input.value = event.target.getAttribute(attribute);
+                }
             });
             
             // Sets the value of the color picker

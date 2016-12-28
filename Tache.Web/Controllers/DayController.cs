@@ -9,12 +9,12 @@ namespace Tache.Web.Controllers {
 
     [Authorize(Roles = "User")]
     public class DayController : Controller {
-        private AbstractDbContext context;
+        private IActivityRepository activityRepo;
         private IDaysViewModelRepository daysViewModelRepository;
 
-        public DayController(IDaysViewModelRepository daysViewModelRepository, AbstractDbContext context) {
+        public DayController(IDaysViewModelRepository daysViewModelRepository, IActivityRepository activityRepo) {
             this.daysViewModelRepository = daysViewModelRepository;
-            this.context = context;
+            this.activityRepo = activityRepo;
         }
         /// <summary>
         /// Validates the requested date, throws exceptions if the request is for the
@@ -33,11 +33,15 @@ namespace Tache.Web.Controllers {
             var activities = daysViewModelRepository.Days(startDate, endDate);
 
             string contentJson = JsonConvert.SerializeObject( new {
-                    activities = activities,
-                    budgets = context.Activities.Where(a => a.BudgetInTicks != null).ToDictionary(a => a.Id, b => b.BudgetInTicks)});
+                    // this is annoying especially as now, budgets are contained in each activity;
+                    budgets = activityRepo.Activities()
+                        .Where(a => a.BudgetInTicks != null)
+                        .ToDictionary(a => a.Id, b => b.BudgetInTicks),
+
+                    activities = activities
+            });
 
             return Content(contentJson, "application/json");
         }
-
     }
 }

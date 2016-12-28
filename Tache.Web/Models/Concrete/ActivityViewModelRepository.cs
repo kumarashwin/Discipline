@@ -18,7 +18,7 @@ namespace Tache.Web.Models.Concrete {
 
         public IQueryable<ActivityViewModel> Activities(DateTime dayParam) =>
             (from duration in durationRepo.Durations.Where(d => DbFunctions.TruncateTime(d.To) == dayParam.Date)
-             join activity in activityRepo.Activities
+             join activity in activityRepo.Activities()
              on duration.ActivityId equals activity.Id
              select new {
                  Activity = activity,

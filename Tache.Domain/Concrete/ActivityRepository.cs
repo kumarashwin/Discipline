@@ -1,19 +1,30 @@
-﻿using System;
+﻿using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Web;
 using Tache.Domain.Abstract;
 using Tache.Domain.Entities;
 
 namespace Tache.Domain.Concrete {
     public class ActivityRepository : IActivityRepository {
         private AbstractDbContext context;
+        private string userName;
 
         public ActivityRepository(AbstractDbContext context) {
             this.context = context;
+            this.userName = HttpContext.Current.User.Identity.Name;
         }
 
-        public IQueryable<Activity> Activities { get { return context.Activities; } }
+        public IQueryable<Activity> Activities() => context.Activities.Where(a => a.UserName == userName);
+
+        public IQueryable<Activity> Activities(bool onlyNonCurrentActivites = false) {
+            if (onlyNonCurrentActivites) {
+                return context.Activities.Where(a => a.UserName == userName && a.Hide == false && a.Start == null);
+            }
+            return context.Activities.Where(a => a.UserName == userName && a.Hide == false);
+        }
 
         public Activity Retrieve(int id) => context.Activities.Find(id); 
 
@@ -50,7 +61,7 @@ namespace Tache.Domain.Concrete {
 
         public void StartNew(int activity, DateTime clientRequestTime) {
             // Stops previous activity
-            Activity currentActivity = context.Activities.Where(a => a.Start != null).First();
+            Activity currentActivity = context.Activities.Where(a => a.UserName == userName && a.Start != null).First();
             AddDurations((DateTime)currentActivity.Start, clientRequestTime, currentActivity.Id);
             currentActivity.Start = null;
 

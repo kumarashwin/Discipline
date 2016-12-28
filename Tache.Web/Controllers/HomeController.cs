@@ -16,7 +16,7 @@ namespace Tache.Web.Controllers {
             this.activityRepo = activityRepo;
         }
 
-        public ActionResult Index() => View(model: activityRepo.Activities);
+        public ActionResult Index() => View(model: activityRepo.Activities());
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -24,15 +24,17 @@ namespace Tache.Web.Controllers {
             var time = DateTime.Parse(clientRequestTime);
             activityRepo.StartNew(int.Parse(newActivity), time.AddSeconds(1));
             ModelState.Clear();
-            return PartialView("ActivityStatus", activityRepo.Activities);
+            return PartialView("ActivityStatus", activityRepo.Activities());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(Activity activity) {
+            if (activity.UserName == null)
+                activity.UserName = User.Identity.Name;
             activityRepo.CreateOrUpdate(activity);
             ModelState.Clear();
-            return PartialView("NextActivity", activityRepo.Activities.Where(a => a.Hide == false && a.Start == null));
+            return PartialView("NextActivity", activityRepo.Activities(true));
         }
 
         [HttpPost]
@@ -40,7 +42,7 @@ namespace Tache.Web.Controllers {
         public ActionResult Delete(int id) {
             activityRepo.Hide(id);
             ModelState.Clear();
-            return PartialView("NextActivity", activityRepo.Activities.Where(a => a.Hide == false && a.Start == null));
+            return PartialView("NextActivity", activityRepo.Activities(true));
         }
     }
 }

@@ -15,12 +15,3 @@
         <h4 class="text-danger text-center">@Html.Raw(Model.BudgetStatus)</h4>
     </div>
 </div>
-
-@*@Ajax.ActionLink("Show Chart", "Index", null, new AjaxOptions { HttpMethod = "GET", OnSuccess = "resolveAjaxReponseForChart" }, new { id = "show-chart", onclick = "prepareAnchorForChartRequest()" })*@
-
-@*<hr />
-    <h4>I am going to start: </h4>*@
-
-@*@Html.Partial("ActivitiesDropDown", Model.Where(a => a.Hide == false && a.Start == null))
-    @Html.Partial("ActivityCRUD", new Activity())
-    @Html.Partial("Chart")*@
