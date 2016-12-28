@@ -202,6 +202,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Activities\hideAllPagesExcept.js" />
+    <Content Include="Scripts\Activities\nextActivitySubmitEventHandler.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Colorpicker\bootstrap-colorpicker.js" />
@@ -234,7 +235,7 @@
     <Content Include="Scripts\jQuery\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jQuery\jquery-3.1.1.slim.min.js" />
-    <Content Include="Scripts\Activities\attachEventsToActivities.js" />
+    <Content Include="Scripts\Activities\editClickEventHandler.js" />
     <Content Include="Scripts\Unobtrusive\jquery.unobtrusive-ajax.js" />
     <Content Include="Scripts\Unobtrusive\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\Chart\misc.js" />
