@@ -1,0 +1,32 @@
+﻿@using Discipline.Web.Models.ViewModels
+@model LoginViewModel
+@{
+    ViewBag.Title = "Discipline";
+}
+@section Body {
+    <header class="row">
+        <h2 class="col-xs-12" style="text-align:center;">
+            @ViewBag.Title
+        </h2>
+    </header>
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3">
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                <div class="form-group">
+                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Email" })
+                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
+                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                </div>
+                <div class="form-group">
+                    <input type="hidden" name="RememberMe" value="true" id="RememberMe" />
+                    <input type="submit" value="Log in" class="btn btn-default btn-block" />
+                </div>
+            }
+        </div>
+    </div>
+}
