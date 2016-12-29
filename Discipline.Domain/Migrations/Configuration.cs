@@ -21,7 +21,7 @@ namespace Discipline.Domain.Migrations {
                 new Activity { UserName = "katherine.pineault@gmail.com", Name = "Cuddling", Color= "#6F3662" },
                 new Activity { UserName = "katherine.pineault@gmail.com", Name = "Teaching", Color= "#FF7182" },
                 new Activity { UserName = "katherine.pineault@gmail.com", Name = "Thinking", Color= "#FFAE5D" },
-                new Activity { UserName = "katherine.pineault@gmail.com", Name = "Napping", Color= "#F8F8F2" }
+                new Activity { UserName = "katherine.pineault@gmail.com", Name = "Napping", Color= "#330033" }
             );
 
             context.SaveChanges();
@@ -45,14 +45,13 @@ namespace Discipline.Domain.Migrations {
                     new Duration { ActivityId = activities["Thinking"], From = yesterday.AddHours(14).AddSeconds(1), To = yesterday.AddHours(15) },
                     new Duration { ActivityId = activities["Teaching"], From = yesterday.AddHours(15).AddSeconds(1), To = yesterday.AddHours(20) },
                     new Duration { ActivityId = activities["Thinking"], From = yesterday.AddHours(20).AddSeconds(1), To = yesterday.AddHours(21) },
-                    new Duration { ActivityId = activities["Cuddling"], From = yesterday.AddHours(21).AddSeconds(1), To = yesterday.AddHours(22) },
-                    new Duration { ActivityId = activities["Napping"], From = yesterday.AddHours(22).AddSeconds(1), To = yesterday.AddHours(24 + 9) },
+                    new Duration { ActivityId = activities["Cuddling"], From = yesterday.AddHours(21).AddSeconds(1), To = yesterday.AddHours(22) }
                 }
             );
 
             // Setting up current activity
             context.Activities.Where(a => a.Name == "Coding").First().Start = DateTime.Now.AddHours(-1);
-            context.Activities.Where(a => a.Name == "Working").First().Start = DateTime.Today.AddHours(9).AddSeconds(1);
+            context.Activities.Where(a => a.Name == "Napping").First().Start = yesterday.AddHours(22).AddSeconds(1);
         }
 
         private Random random = new Random();

@@ -70,13 +70,34 @@ namespace Discipline.Domain.Concrete {
             context.SaveChanges();
         }
 
-        private void AddDurations(DateTime startTime, DateTime stopTime, int activityId) {
+        public void AddDurations(DateTime startTime, DateTime stopTime, int activityId) {
             DateTime midnight = startTime.Date.AddDays(1);              // Gives us 00:00, the next day
             if (stopTime >= midnight) {                                 // stopTime happens the next day
                 AddDurations(midnight, stopTime, activityId);           // Call recursively until stopTime is in the same day
                 stopTime = midnight.AddSeconds(-1);
             }
             context.Durations.Add(new Duration { ActivityId = activityId, From = startTime, To = stopTime });
+        }
+
+        /// <summary>
+        /// Makes sure that: if an activity was started on a day prior to 
+        /// the client's current day (dateParam + 4 for the initial request)
+        /// durations upto midnight will be added to the Durations table.
+        /// That activity's Start value will be accordingly updated to 
+        /// midnight of the client's current day.
+        /// </summary>
+        /// <param name="dateTime"></param>
+        public void UpdateStartUptoCurrentDate(DateTime clientCurrentDay) {
+            Activity lastStartedActivity = context.Activities.Where(a => a.UserName == userName && a.Start != null).First();
+            DateTime lastStartedActivityStart = lastStartedActivity.Start.GetValueOrDefault();
+            DateTime midnight = clientCurrentDay.AddSeconds(-1);
+            if (lastStartedActivityStart.Date < clientCurrentDay) {
+                this.AddDurations(lastStartedActivityStart, midnight, lastStartedActivity.Id);
+
+                lastStartedActivity.Start = clientCurrentDay;
+                this.CreateOrUpdate(lastStartedActivity);
+                context.SaveChanges();
+            }
         }
     }
 }

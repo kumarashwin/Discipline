@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Discipline.Domain.Abstract;
 using Discipline.Web.Models.Abstract;
+using Discipline.Domain.Entities;
 
 namespace Discipline.Web.Controllers {
 
@@ -24,12 +25,14 @@ namespace Discipline.Web.Controllers {
         public ActionResult Index(int year, int month, int day) {
             DateTime startDate, endDate, dateParam;
 
-            // NOTE: Does no checking for dates; directly tries to retrieve 10 days before and after
-            // Thus, the checking needs to be done at the JavaScript side;
             dateParam = new DateTime(year, month, day);
+            activityRepo.UpdateStartUptoCurrentDate(dateParam.AddDays(4));
+
+            // NOTE: No checking for dates!
+            // Directly tries to retrieve 10 days before and after
+            // The checking needs to be done at the client-side;
             startDate = dateParam.AddDays(-10);
             endDate = dateParam.AddDays(10);
-
             var activities = daysViewModelRepository.Days(startDate, endDate);
 
             string contentJson = JsonConvert.SerializeObject( new {
