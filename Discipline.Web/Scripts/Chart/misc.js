@@ -66,7 +66,8 @@ function showActivityInfoEventHandler(event) {
 
         // The simple stuff: show the basic info about the activity
         rectActivityInfo.querySelector('#activity-name').innerHTML = event.target.getAttribute('data-activity-name');
-        rectActivityInfo.querySelector('#activity-description').innerHTML = event.target.getAttribute('data-activity-description');
+        var description = event.target.getAttribute('data-activity-description');
+        rectActivityInfo.querySelector('#activity-description').innerHTML =  description === 'null' ? 'No Description' : description;
         
         // Resetting all spans to show up if they were hidden before
         var allSpans = rectActivityInfo.querySelectorAll('span');
@@ -106,8 +107,12 @@ function showActivityInfoEventHandler(event) {
         rectActivityInfo.style.top = event.pageY + "px";
 
         // Fade-in animation
-        rectActivityInfo.className = "hover";
-    } else {
-        rectActivityInfo.className = '';
+        rectActivityInfo.className = 'hover';
+        event.target.addEventListener('mouseleave', rectMouseMoveEventHandler);
     }
+}
+
+function rectMouseMoveEventHandler(event) {
+    rectActivityInfo.className = '';
+    event.target.removeEventListener('mouseleave', rectMouseMoveEventHandler)
 }

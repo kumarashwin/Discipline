@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web.Mvc;
 using Discipline.Domain.Abstract;
 using Discipline.Web.Models.Abstract;
-using Discipline.Domain.Entities;
 
 namespace Discipline.Web.Controllers {
 

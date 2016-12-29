@@ -30,51 +30,7 @@ h1.login-page {
     margin-bottom: 5%;
 }
 
-/* ==  Application == */
-/*#chart, #activities-CRUD {
-    display: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}*/
-
-/*#svgDiv, #activity-form-elements {
-    z-index: 2;
-    background: white;
-    position: fixed;
-}*/
-
-/*.grey-background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-    opacity: 0.7;
-    background: grey;
-}*/
-
-/*button.crud-exit {
-    position: absolute;
-    right: 2%;
-    top: 2%;
-}*/
-
 /* ==== SVG STUFF ====*/
-/*#svgDiv {
-    top: 25%;
-    left: 28%;
-}
-
-#svgContainer {
-    width: 610px;
-    height: 360px;
-    margin: 20px 10px 0 10px;
-    position: relative;
-}*/
 
 #dates {
     padding-left: 15px;
@@ -106,39 +62,6 @@ rect:hover {
     opacity: 0.4;
 }
 
-/*.arrows {
-    position: absolute;
-    display: inline-block;
-    margin-top: 26%;
-}
-
-    .arrows div {
-        position: relative;
-        top: 45%;
-        border: 20px solid transparent;
-        opacity: 0.4;
-    }
-
-        .arrows div:hover {
-            opacity: 0.8;
-        }
-
-#arrow-left {
-    left: 1%;
-}
-
-    #arrow-left div {
-        border-right-color: lawngreen;
-    }
-
-#arrow-right {
-    right: 1%;
-}
-
-    #arrow-right div {
-        border-left-color: lawngreen;
-    }*/
-
 .makeTransparent {
     transition: 0.1s;
     opacity: 0.5;
@@ -148,88 +71,6 @@ rect:hover {
     transition: 0.1s;
     opacity: 1;
 }
-
-/*======== ACTIVITIES DROP DOWN ============*/
-/*#activitiesDropDown {
-    display: inline-table;
-}*/
-
-/*#activitiesDropDown, .icon-box span {
-    color: royalblue;
-}*/
-
-
-/*.icon-box {
-    border: 1px solid royalblue;
-    width: 38px;
-}
-
-    .icon-box:hover ~ div {
-        display: block;
-    }*/
-
-/*.activities-list {
-    display: none;
-    border: 1px solid royalblue;
-    position: relative;
-}
-
-    .activities-list:hover {
-        display: block;
-    }
-
-    .activities-list .border-overlap {
-        width: 38px;
-        position: absolute;
-        background: white;
-        top: -2px;
-        height: 2px;
-    }
-
-    .activities-list button {
-        color: royalblue;
-        font-weight: bold;
-        border: 0;
-        background-color: white;
-        text-align: center;
-        text-decoration: none;
-        padding: 4% 8% 2% 6%;
-        width: 100%;
-    }
-
-        .activities-list button:hover {
-            color: white;
-            background-color: royalblue;
-            z-index: 2;
-        }
-
-    .activities-list #new-activity {
-        color: white;
-        background-color: royalblue;
-        border: 2px solid royalblue;
-        font-weight: bolder;
-        font-size: medium;
-    }
-
-        .activities-list #new-activity:hover {
-            color: royalblue;
-            background-color: white;
-        }*/
-
-/* ==== Activity CRUD Window ==== */
-/*#activity-form-elements {
-    top: 30%;
-    left: 42%;
-}
-
-    #activity-form-elements button[type=submit] {
-        width: 100%;
-    }
-
-    #activity-form-elements input,
-    #activity-form-elements label {
-        margin: 5px;
-    }*/
 
 /* ==== Hover on Rect Activity Info ====*/
 #rect-activity-info {
@@ -244,6 +85,14 @@ rect:hover {
         pointer-events: none;
         opacity: 0;
         animation: changeOpacity 0.5s 0.8s forwards;
+    }
+
+    #activity-name {
+        font-weight: bold;
+    }
+
+    #activity-description {
+        font-style: italic;
     }
 
 @keyframes changeOpacity {
