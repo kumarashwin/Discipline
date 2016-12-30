@@ -26,7 +26,6 @@ namespace Discipline.Domain.Migrations {
 
             context.SaveChanges();
 
-            Console.WriteLine("REACHING HERE");
             // Get Dict. of activity names : Id
             IDictionary<string, int> activities = GetIdOfAllActivities(context);
 

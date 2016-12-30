@@ -29,6 +29,9 @@ namespace Discipline.Domain.Concrete {
         public Activity Retrieve(int id) => context.Activities.Find(id); 
 
         public void CreateOrUpdate(Activity activity) {
+            if (activity.UserName == null)
+                activity.UserName = userName;
+
             if (activity.Id == 0) {
                 context.Activities.Add(activity);
             } else {

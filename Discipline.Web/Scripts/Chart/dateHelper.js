@@ -36,25 +36,25 @@
                 return 'Sunday';
                 break;
             case 1:
-                return 'Monday'
+                return 'Monday';
                 break;
             case 2:
-                return 'Tuesday'
+                return 'Tuesday';
                 break;
             case 3:
-                return 'Wednesday'
+                return 'Wednesday';
                 break;
             case 4:
-                return 'Thursday'
+                return 'Thursday';
                 break;
             case 5:
-                return 'Friday'
+                return 'Friday';
                 break;
             case 6:
-                return 'Saturday'
+                return 'Saturday';
                 break;
         }
-    }
+    };
 
     function leftPadZeros(num) {
         return (num.toString().length < 2 ? "0" + num : num).toString();

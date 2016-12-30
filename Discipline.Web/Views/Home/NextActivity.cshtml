@@ -7,7 +7,7 @@
                         new AjaxOptions {
                             UpdateTargetId = "activity-status",
                             OnSuccess = "hideAllPagesExcept('current-activity')"
-                        }, new { onsubmit = "nextActivitySubmitEventHandler(event)" })) {
+                        }, new { onsubmit = "nextActivitySubmit(event)" })) {
 
                 @Html.AntiForgeryToken()
                 @Html.Hidden("newActivity", activity.Id);

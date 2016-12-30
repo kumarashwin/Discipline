@@ -202,7 +202,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\Activities\hideAllPagesExcept.js" />
-    <Content Include="Scripts\Activities\nextActivitySubmitEventHandler.js" />
+    <Content Include="Scripts\Activities\nextActivitySubmit.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.js" />
     <Content Include="Scripts\Bootstrap\bootstrap.min.js" />
     <Content Include="Scripts\Colorpicker\bootstrap-colorpicker.js" />
@@ -295,6 +295,7 @@
     <Content Include="Views\Home\NextActivity.cshtml" />
     <Content Include="Views\Home\ActivityStatus.cshtml" />
     <Content Include="Views\Home\ActivityForm.cshtml" />
+    <Content Include="Views\Home\Initial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

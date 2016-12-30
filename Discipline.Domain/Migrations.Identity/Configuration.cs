@@ -18,7 +18,7 @@ namespace Discipline.Domain.Migrations.Identity {
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            string[] users = new string[] { "kumar.ashwin@outlook.com", "katherine.pineault@gmail.com", "test@Discipline.net" };
+            string[] users = new string[] { "kumar.ashwin@outlook.com", "katherine.pineault@gmail.com"};
             foreach (string user in users) {
                 if (!(context.Users.Any(u => u.UserName == user))) {
                     var applicationUser = new ApplicationUser { UserName = user };
@@ -26,6 +26,10 @@ namespace Discipline.Domain.Migrations.Identity {
                     userManager.AddToRole(applicationUser.Id, "User");
                 }
             }
+
+            var admin = new ApplicationUser { UserName = "admin@discipline.com" };
+            userManager.Create(admin, "Password@123");
+            userManager.AddToRole(admin.Id, "Admin");
         }
     }
 }

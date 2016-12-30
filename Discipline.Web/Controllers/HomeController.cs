@@ -1,22 +1,27 @@
 ﻿using System;
-using System.Globalization;
 using System.Linq;
 using System.Web.Mvc;
 using Discipline.Domain.Abstract;
 using Discipline.Domain.Entities;
-using Discipline.Web.Models.ViewModels;
 
 namespace Discipline.Web.Controllers {
 
-    [Authorize(Roles = "User")]
+    [Authorize(Roles = "User, Admin")]
     public class HomeController : Controller {
         private IActivityRepository activityRepo;
 
         public HomeController(IActivityRepository activityRepo) {
             this.activityRepo = activityRepo;
+
         }
 
-        public ActionResult Index() => View(model: activityRepo.Activities());
+        public ActionResult Index() {
+            // If this is the users first time accessing the system,
+            // make a default activity and set it to current
+            if (activityRepo.Activities().Count() == 0)
+                return RedirectToAction("Initial");
+            return View(model: activityRepo.Activities());
+        }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -27,11 +32,19 @@ namespace Discipline.Web.Controllers {
             return PartialView("ActivityStatus", activityRepo.Activities());
         }
 
+        public ActionResult Initial() => View();
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Initial(string currentTime) {
+            activityRepo.CreateOrUpdate(new Activity { Name = "on the internet", Description = "Being productive?", Color = "#0066cc", Start = DateTime.Parse(currentTime) });
+            ModelState.Clear();
+            return RedirectToAction("Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(Activity activity) {
-            if (activity.UserName == null)
-                activity.UserName = User.Identity.Name;
             activityRepo.CreateOrUpdate(activity);
             ModelState.Clear();
             return PartialView("NextActivity", activityRepo.Activities(true));

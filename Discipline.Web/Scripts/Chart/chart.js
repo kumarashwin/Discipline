@@ -4,7 +4,7 @@
         this.setInitialValues();
     }
 
-    Chart.prototype.setInitialValues = function(){
+    Chart.prototype.setInitialValues = function () {
         //Edit these if needed:
         this.padding = 15;
         this.barWidth = 55;
@@ -13,7 +13,7 @@
         this.height = this.svg.height.baseVal.value;
         this.labels = document.getElementById("dates");
         this.svg.addEventListener("click", rectClickHandler);
-    }
+    };
 
     Chart.prototype.ready = function (days, activity, redrawLabels) {
         this.activity = activity;

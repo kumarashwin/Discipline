@@ -3,7 +3,7 @@
 
     switch(chart.mode) {
         case "calendar" :
-            if(event.target.nodeName == "rect"){
+            if(event.target.nodeName === "rect"){
                 chart.ready(null, event.target.getAttribute("data-activity-id"), false);
                 chart.mode = "budget";
                 break;
