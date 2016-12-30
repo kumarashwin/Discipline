@@ -21,6 +21,13 @@ namespace Discipline.Web.Controllers {
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager) {
             UserManager = userManager;
             SignInManager = signInManager;
+
+            // Check if there is an admin account, if not, initialize one with the default password
+            if (!userManager.Users.Any(u => u.UserName == "admin@discipline.com")) {
+                var admin = new ApplicationUser { UserName = "admin@discipline.com" };
+                userManager.Create(admin, "Password@123");
+                userManager.AddToRole(admin.Id, "Admin");
+            }
         }
 
         public ApplicationSignInManager SignInManager {
@@ -68,6 +75,10 @@ namespace Discipline.Web.Controllers {
                 return View(model);
             }
 
+            if (model.Email == "admin@discipline.com" && !UserManager.Users.Any(u => u.UserName == "admin@discipline.com")) {
+                return View("InitialAdmin");
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
@@ -83,6 +94,27 @@ namespace Discipline.Web.Controllers {
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> RegisterAdmin(RegisterViewModel model) {
+            if (ModelState.IsValid) {
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var result = await UserManager.CreateAsync(user, model.Password);
+                if (result.Succeeded) {
+                    result = await UserManager.AddToRoleAsync(user.Id, "Admin");
+                    if (result.Succeeded) {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                AddErrors(result);
+            }
+
+            // If we got this far, something failed, redisplay form
+            return View("InitialAdmin", model);
         }
 
         //

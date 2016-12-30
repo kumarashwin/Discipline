@@ -286,6 +286,7 @@
     <Content Include="Views\Home\ActivityStatus.cshtml" />
     <Content Include="Views\Home\ActivityForm.cshtml" />
     <Content Include="Views\Home\Initial.cshtml" />
+    <Content Include="Views\Account\InitialAdmin.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

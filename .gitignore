@@ -257,3 +257,4 @@ connectionStrings.config
 
 /Tache.Web/App_Start/Startup.Auth.cs
 /Tache.Web/Startup.cs
+/Discipline.Domain/identityConfigurationSecrets.config
