@@ -34,20 +34,24 @@
             if (this.redrawLabels) this.clearLabels();
 
             this.days.forEach(function (day, index) {
-                if (this.redrawLabels) this.drawLabel(day.date);
+                if (this.redrawLabels) this.drawLabel(new DateHelper(day.date));
                 var x = this.padding + ((this.barWidth + this.padding) * index);
                 day.draw(x, this.activity);
             }, this);
         } 
     };
 
-    Chart.prototype.drawLabel = function (label) {
+    Chart.prototype.drawLabel = function (helper) {
 
-        var span = document.createElement("span");
-        span.appendChild(document.createTextNode(label));
+        var dayOfTheWeek = document.createElement('p');
+        dayOfTheWeek.appendChild(document.createTextNode(helper.getDayOfTheWeek()));
 
-        var li = document.createElement("li");
-        li.appendChild(span);
+        var date = document.createElement('p');
+        date.appendChild(document.createTextNode(helper.dateString));
+
+        var li = document.createElement('li');
+        li.appendChild(dayOfTheWeek);
+        li.appendChild(date);
 
         this.labels.appendChild(li);
     };
