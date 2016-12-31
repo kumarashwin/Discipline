@@ -9,6 +9,9 @@ using Microsoft.Owin.Security;
 using Discipline.Web.Models.ViewModels;
 using Discipline.Domain.Entities;
 using Discipline.Domain.Abstract;
+using Discipline.Domain.Concrete;
+using System.Data.Entity.Migrations;
+using System.Collections.Generic;
 
 namespace Discipline.Web.Controllers {
     [Authorize]
@@ -75,8 +78,14 @@ namespace Discipline.Web.Controllers {
                 return View(model);
             }
 
+            // Will only work the first time the server is started and an admin account hasn't been created
             if (model.Email == "admin@discipline.com" && !UserManager.Users.Any(u => u.UserName == "admin@discipline.com")) {
                 return View("InitialAdmin");
+            }
+
+            if (model.Email == "test@discipline.com") {
+                // Ugly hack
+                SeedTestUserData(new ApplicationDbContext());
             }
 
             // This doesn't count login failures towards account lockout
@@ -215,6 +224,60 @@ namespace Discipline.Web.Controllers {
                 }
                 context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
             }
+        }
+
+        private Random random = new Random();
+        private int minuteRandomizer(out int lastMinute) => lastMinute = this.random.Next(0, 59);
+
+        private void SeedTestUserData(ApplicationDbContext context) {
+            // Purge
+            var activities = context.Activities.Where(a => a.UserName == "test@discipline.com").ToList();
+            var durationsToRemove = new List<Duration>();
+            foreach (var activity in activities)
+                durationsToRemove.AddRange(context.Durations.Where(d => d.ActivityId == activity.Id).ToList());
+
+            context.Durations.RemoveRange(durationsToRemove);
+            context.Activities.RemoveRange(activities);
+
+            // Populate
+            context.Activities.AddRange(new List<Activity> {
+                new Activity { UserName = "test@discipline.com", Name = "Sleeping", Description = "I love sleeping!", Color = "#0099ff" },
+                new Activity { UserName = "test@discipline.com", Name = "Eating", Description = "*chomp chomp mnggff!*", Color = "#009966" },
+                new Activity { UserName = "test@discipline.com", Name = "Coding", Description = "*klik klak klik klik*", Color = "#3300cc" },
+                new Activity { UserName = "test@discipline.com", Name = "Reading", Description = "*...page flip*", Color = "#333300" },
+                new Activity { UserName = "test@discipline.com", Name = "Gaming", Description = "*pew pew pew!*", Color = "#6600cc", BudgetHours = 3 }
+            });
+
+            context.SaveChanges();
+
+            var dictOfAllTestUserActivities = new Dictionary<string, int> {
+                { "Sleeping", context.Activities.Where(a => a.Name == "Sleeping" && a.UserName == "test@discipline.com").First().Id },
+                { "Coding", context.Activities.Where(a => a.Name == "Coding" && a.UserName == "test@discipline.com").First().Id },
+                { "Reading", context.Activities.Where(a => a.Name == "Reading" && a.UserName == "test@discipline.com").First().Id },
+                { "Eating", context.Activities.Where(a => a.Name == "Eating" && a.UserName == "test@discipline.com").First().Id },
+                { "Gaming", context.Activities.Where(a => a.Name == "Gaming" && a.UserName == "test@discipline.com").First().Id }
+            };
+
+            int lastMinute;
+            var result = new List<Duration>() { };
+            for (DateTime d = (DateTime.Today).AddDays(-30); d < DateTime.Today; d = d.AddDays(1)) {
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = new DateTime(d.Year, d.Month, d.Day, 0, 0, 0), To = new DateTime(d.Year, d.Month, d.Day, 8, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 8, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 10, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = new DateTime(d.Year, d.Month, d.Day, 10, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 11, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 11, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 15, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = new DateTime(d.Year, d.Month, d.Day, 15, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 17, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 17, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 19, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = new DateTime(d.Year, d.Month, d.Day, 19, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 20, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = new DateTime(d.Year, d.Month, d.Day, 20, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 22, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = new DateTime(d.Year, d.Month, d.Day, 22, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 23, minuteRandomizer(out lastMinute), 0) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = new DateTime(d.Year, d.Month, d.Day, 23, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 23, 59, 59) });
+            }
+
+            context.Durations.AddRange(result);
+            context.Activities.Find(dictOfAllTestUserActivities["Coding"]).Start = DateTime.Now.AddHours(-1);
+
+            context.SaveChanges();
+            context.Dispose();
         }
         #endregion
     }

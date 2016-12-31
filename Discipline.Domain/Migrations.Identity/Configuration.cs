@@ -20,11 +20,11 @@ namespace Discipline.Domain.Migrations.Identity {
             var userStore = new UserStore<ApplicationUser>(context);
             var userManager = new UserManager<ApplicationUser>(userStore);
 
-            string[] users = new string[] { "kumar.ashwin@outlook.com", "katherine.pineault@gmail.com" };
+            string[] users = new string[] { "kumar.ashwin@outlook.com", "katherine.pineault@gmail.com", "test@discipline.com" };
             foreach (string user in users) {
                 if (!(context.Users.Any(u => u.UserName == user))) {
                     var applicationUser = new ApplicationUser { UserName = user };
-                    userManager.Create(applicationUser, "Password@123");
+                    userManager.Create(applicationUser, "Password");
                     userManager.AddToRole(applicationUser.Id, "User");
                 }
             }
