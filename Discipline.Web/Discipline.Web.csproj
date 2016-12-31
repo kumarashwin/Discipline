@@ -225,6 +225,8 @@
     <Content Include="Content\Bootstrap\bootstrap-theme.css.map" />
     <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.css.map" />
     <Content Include="Content\Colorpicker\css\bootstrap-colorpicker.min.css.map" />
+    <None Include="Properties\PublishProfiles\ash-kumar-discipline - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ash-kumar-discipline - Web Deploy.pubxml" />
     <None Include="Scripts\jQuery\jquery-3.1.1.intellisense.js" />
     <None Include="Scripts\Validate\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\Validate\jquery.validate.js" />
