@@ -26,7 +26,7 @@ namespace Discipline.Web.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string newActivity, string clientRequestTime) {
-            var time = DateTime.Parse(clientRequestTime);
+            var time = DateTime.Parse(clientRequestTime).ToLocalTime();
             activityRepo.StartNew(int.Parse(newActivity), time.AddSeconds(1));
             ModelState.Clear();
             return PartialView("ActivityStatus", activityRepo.Activities());
@@ -37,7 +37,7 @@ namespace Discipline.Web.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Initial(string currentTime) {
-            activityRepo.CreateOrUpdate(new Activity { Name = "on the internet", Description = "Being productive?", Color = "#0066cc", Start = DateTime.Parse(currentTime) });
+            activityRepo.CreateOrUpdate(new Activity { Name = "on the internet", Description = "Being productive?", Color = "#0066cc", Start = DateTime.Parse(currentTime).ToLocalTime() });
             ModelState.Clear();
             return RedirectToAction("Index");
         }
