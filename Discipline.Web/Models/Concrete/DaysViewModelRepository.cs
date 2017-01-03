@@ -12,8 +12,8 @@ namespace Discipline.Web.Models.Concrete {
             this.activityViewModelRepo = activityViewModelRepo;
         }
 
-        public IDictionary<string, ICollection<ActivityViewModel>> Days(DateTime startDate, DateTime endDate) {
-            var days = new Dictionary<string, ICollection<ActivityViewModel>>();
+        public IDictionary<string, IEnumerable<ActivityViewModel>> Days(DateTime startDate, DateTime endDate) {
+            var days = new Dictionary<string, IEnumerable<ActivityViewModel>>();
 
             for (; startDate <= endDate; startDate = startDate.AddDays(1)) 
                 days.Add(

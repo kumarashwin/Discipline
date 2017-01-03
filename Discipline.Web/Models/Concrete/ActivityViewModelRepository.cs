@@ -1,36 +1,44 @@
 ﻿using System;
-using System.Data.Entity;
-using System.Data.Entity.SqlServer;
+using System.Web;
 using System.Linq;
+using System.Data.Entity;
+using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Discipline.Domain.Abstract;
 using Discipline.Web.Models.Abstract;
 using Discipline.Web.Models.ViewModels;
+using Discipline.Domain.Entities;
+using Discipline.Web.Infrastructure;
+using System.Globalization;
 
 namespace Discipline.Web.Models.Concrete {
     public class ActivityViewModelRepository : IActivityViewModelRepository {
         private IActivityRepository activityRepo;
         private IDurationRepository durationRepo;
+        private ApplicationUser user;
 
         public ActivityViewModelRepository(IActivityRepository activityRepository, IDurationRepository durationRepository) {
             this.activityRepo = activityRepository;
             this.durationRepo = durationRepository;
+            this.user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
         }
 
-        public IQueryable<ActivityViewModel> Activities(DateTime dayParam) =>
+        public IEnumerable<ActivityViewModel> Activities(DateTime dayParam) =>
             (from duration in durationRepo.Durations.Where(d => DbFunctions.TruncateTime(d.To) == dayParam.Date)
              join activity in activityRepo.Activities()
              on duration.ActivityId equals activity.Id
-             select new {
-                 Activity = activity,
-                 Duration = duration
-             }).OrderBy(vm => vm.Duration.To).Select(vm => new ActivityViewModel {
-                 Activity = vm.Activity.Id,
-                 Duration = vm.Duration.Id,
-                 Name = vm.Activity.Name,
-                 Description = vm.Activity.Description,
-                 From = (SqlFunctions.DateName("hh", vm.Duration.From) + ":" + SqlFunctions.DateName("mi", vm.Duration.From) + ":" + SqlFunctions.DateName("ss", vm.Duration.From)),
-                 To = (SqlFunctions.DateName("hh", vm.Duration.To) + ":" + SqlFunctions.DateName("mi", vm.Duration.To) + ":" + SqlFunctions.DateName("ss", vm.Duration.To)),
-                 Color = vm.Activity.Color
-             });
+             select new { Activity = activity, Duration = duration })
+            .ToList()
+            .OrderBy(vm => vm.Duration.From)
+            .Select(vm => new ActivityViewModel {
+                Activity = vm.Activity.Id,
+                Duration = vm.Duration.Id,
+                Name = vm.Activity.Name,
+                Description = vm.Activity.Description,
+                From = vm.Duration.From.ConvertToUserTimeZone().ToString("HH:mm:ss", CultureInfo.InvariantCulture),
+                To = vm.Duration.To.ConvertToUserTimeZone().ToString("HH:mm:ss"),
+                Color = vm.Activity.Color
+            });
     }
 }

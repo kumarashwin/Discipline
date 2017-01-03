@@ -11,7 +11,7 @@
     <title>Loading...</title>
     <script type="text/javascript">
         function getCurrentTime(event) {
-            document.getElementById('currentTime').value = new Date().toISOString();
+            document.getElementById('currentTime').value = new Date().getTime();
             document.getElementsByTagName('form')[0].submit();
         }
     </script>

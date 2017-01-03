@@ -129,6 +129,10 @@
     <Compile Include="Migrations.Identity\201612211724341_Initial Indentity Migration.Designer.cs">
       <DependentUpon>201612211724341_Initial Indentity Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations.Identity\201701022254268_Added TimeZone field to ApplicationUser.cs" />
+    <Compile Include="Migrations.Identity\201701022254268_Added TimeZone field to ApplicationUser.Designer.cs">
+      <DependentUpon>201701022254268_Added TimeZone field to ApplicationUser.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations.Identity\Configuration.cs" />
     <Compile Include="Migrations\201612281709535_Initial DB Scheme after rename to Discipline.cs" />
     <Compile Include="Migrations\201612281709535_Initial DB Scheme after rename to Discipline.Designer.cs">
@@ -143,6 +147,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations.Identity\201612211724341_Initial Indentity Migration.resx">
       <DependentUpon>201612211724341_Initial Indentity Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations.Identity\201701022254268_Added TimeZone field to ApplicationUser.resx">
+      <DependentUpon>201701022254268_Added TimeZone field to ApplicationUser.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201612281709535_Initial DB Scheme after rename to Discipline.resx">
       <DependentUpon>201612281709535_Initial DB Scheme after rename to Discipline.cs</DependentUpon>

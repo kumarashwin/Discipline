@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Linq;
 using Discipline.Web.Models.ViewModels;
+using System.Collections.Generic;
 
 namespace Discipline.Web.Models.Abstract {
     public interface IActivityViewModelRepository {
-        IQueryable<ActivityViewModel> Activities(DateTime dayParam);
+        IEnumerable<ActivityViewModel> Activities(DateTime dayParam);
     }
 }

@@ -23,7 +23,7 @@ namespace Discipline.Domain.Migrations.Identity {
             string[] users = new string[] { "test@discipline.com" };
             foreach (string user in users) {
                 if (!(context.Users.Any(u => u.UserName == user))) {
-                    var applicationUser = new ApplicationUser { UserName = user };
+                    var applicationUser = new ApplicationUser { UserName = user, TimeZone = "Eastern Standard Time"};
                     userManager.Create(applicationUser, "Password");
                     userManager.AddToRole(applicationUser.Id, "User");
                 }

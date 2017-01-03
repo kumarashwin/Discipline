@@ -80,7 +80,9 @@ namespace Discipline.Web.Models.ViewModels
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
-        public string CurrentTime { get; set; }
+        [Required]
+        [Display(Name = "Time zone")]
+        public string TimeZone { get; set; }
     }
 
     public class ResetPasswordViewModel

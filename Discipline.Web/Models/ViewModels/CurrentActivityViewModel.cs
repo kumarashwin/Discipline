@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Discipline.Domain.Entities;
+using Discipline.Web.Infrastructure;
 
 namespace Discipline.Web.Models.ViewModels {
     public class CurrentActivityViewModel {
@@ -14,7 +15,7 @@ namespace Discipline.Web.Models.ViewModels {
             Activity = activity;
 
             var serverCurrentTime = DateTime.UtcNow;
-            var clientStartTime = TimeZoneInfo.ConvertTimeToUtc(Activity.Start.Value);
+            var clientStartTime = Activity.Start.Value;
 
             if (serverCurrentTime > clientStartTime)
                 timeSpent = serverCurrentTime - clientStartTime;
@@ -36,7 +37,7 @@ namespace Discipline.Web.Models.ViewModels {
 
         public string StartDateTime {
             get {
-                var start = (DateTime)Activity.Start;
+                var start = Activity.Start.Value.ConvertToUserTimeZone();
                 return $"(Since <b>{start.ToShortTimeString()}</b> on <b>{start.ToLongDateString()}</b>.)";
             }
         }

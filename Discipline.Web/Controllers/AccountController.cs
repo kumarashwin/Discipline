@@ -110,7 +110,7 @@ namespace Discipline.Web.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> RegisterAdmin(RegisterViewModel model) {
             if (ModelState.IsValid) {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, TimeZone = model.TimeZone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     result = await UserManager.AddToRoleAsync(user.Id, "Admin");
@@ -140,7 +140,7 @@ namespace Discipline.Web.Controllers {
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model) {
             if (ModelState.IsValid) {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, TimeZone = model.TimeZone };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded) {
                     result = await UserManager.AddToRoleAsync(user.Id, "User");
@@ -260,17 +260,17 @@ namespace Discipline.Web.Controllers {
 
             int lastMinute;
             var result = new List<Duration>() { };
-            for (DateTime d = (DateTime.Today).AddDays(-30); d < DateTime.Today; d = d.AddDays(1)) {
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = new DateTime(d.Year, d.Month, d.Day, 0, 0, 0), To = new DateTime(d.Year, d.Month, d.Day, 8, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 8, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 10, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = new DateTime(d.Year, d.Month, d.Day, 10, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 11, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 11, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 15, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = new DateTime(d.Year, d.Month, d.Day, 15, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 17, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = new DateTime(d.Year, d.Month, d.Day, 17, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 19, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = new DateTime(d.Year, d.Month, d.Day, 19, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 20, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = new DateTime(d.Year, d.Month, d.Day, 20, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 22, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = new DateTime(d.Year, d.Month, d.Day, 22, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 23, minuteRandomizer(out lastMinute), 0) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = new DateTime(d.Year, d.Month, d.Day, 23, lastMinute, 1), To = new DateTime(d.Year, d.Month, d.Day, 23, 59, 59) });
+            for (DateTime d = DateTime.Today.AddDays(-30).ToUniversalTime(); d < DateTime.Today.ToUniversalTime(); d = d.AddDays(1)) {
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d, To = d.AddHours(8).AddMinutes(minuteRandomizer(out lastMinute)) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(8).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(10).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(10).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(11).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(11).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(15).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = d.AddHours(15).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(17).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(17).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(19).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(19).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(20).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = d.AddHours(20).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(22).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = d.AddHours(22).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(23).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d.AddHours(23).AddMinutes(lastMinute).AddSeconds(1), To = d.AddDays(1)});
             }
 
             context.Durations.AddRange(result);
