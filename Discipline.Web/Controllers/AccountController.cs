@@ -12,6 +12,7 @@ using Discipline.Domain.Abstract;
 using Discipline.Domain.Concrete;
 using System.Data.Entity.Migrations;
 using System.Collections.Generic;
+using Discipline.Web.Infrastructure;
 
 namespace Discipline.Web.Controllers {
     [Authorize]
@@ -260,7 +261,9 @@ namespace Discipline.Web.Controllers {
 
             int lastMinute;
             var result = new List<Duration>() { };
-            for (DateTime d = DateTime.Today.AddDays(-30).ToUniversalTime(); d < DateTime.Today.ToUniversalTime(); d = d.AddDays(1)) {
+            DateTime today = TimeZoneInfo.ConvertTimeToUtc(DateTime.Today, Extensions.GetUserTimeZone());
+            DateTime d = today.AddDays(-30);
+            for (; d < today; d = d.AddDays(1)) {
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d, To = d.AddHours(8).AddMinutes(minuteRandomizer(out lastMinute)) });
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(8).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(10).AddMinutes(minuteRandomizer(out lastMinute))});
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(10).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(11).AddMinutes(minuteRandomizer(out lastMinute))});
