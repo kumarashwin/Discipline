@@ -63,19 +63,25 @@ namespace Discipline.Domain.Concrete {
 
         public void StartNew(int activity, DateTime clientRequestTime, TimeZoneInfo userTimeZone) {
             // Find last midnight
-            DateTime midnight = TimeZoneInfo.ConvertTimeFromUtc(clientRequestTime, userTimeZone).Date;
             Activity currentActivity = context.Activities.Where(a => a.UserName == userName && a.Start != null).First();
+            DateTime start = currentActivity.Start.Value;
 
-            if(currentActivity.Start.Value < midnight.ToUniversalTime())
-                AddDurationsUptoMidnight(currentActivity.Start.Value, midnight.ToUniversalTime(), activity);
+            DateTime midnight = TimeZoneInfo.ConvertTimeFromUtc(clientRequestTime, userTimeZone).Date;
+            DateTime midnightUTC = midnight.ToUniversalTime();
+            if (start < midnightUTC) {
+                AddDurationsUptoMidnight(start, midnightUTC, currentActivity.Id);
+                start = midnightUTC;
+            }
 
-            context.Durations.Add(new Duration { ActivityId = currentActivity.Id, From = midnight.ToUniversalTime(), To = clientRequestTime });
+            // Adds either startTime to clientRequestTime, if same day
+            // or from midnightUTC to clientRequestTime if start was < midnightUTC
+            context.Durations.Add(new Duration { ActivityId = currentActivity.Id, From = start, To = clientRequestTime });
 
-            // Stops previous activity
+
+            // Stops previous activity and starts the new activity
             currentActivity.Start = null;
-
-            // Starts new activity
-            context.Activities.Where(a => a.Id == activity).First().Start = clientRequestTime;
+            Activity newActivity = context.Activities.Where(a => a.Id == activity).First();
+            newActivity.Start = clientRequestTime.AddSeconds(1);
             context.SaveChanges();
         }
 
