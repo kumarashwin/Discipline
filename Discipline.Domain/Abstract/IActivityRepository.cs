@@ -11,8 +11,8 @@ namespace Discipline.Domain.Abstract {
         IQueryable<Activity> Activities();
         IQueryable<Activity> Activities(bool onlyNonCurrentActivities);
         void CreateOrUpdate(Activity activity);
-        void StartNew(int activity, DateTime clientRequestTime);
-        void AddDurations(DateTime startTime, DateTime stopTime, int activityId);
-        void UpdateStartUptoCurrentDate(DateTime dateTime);
+        void StartNew(int activity, DateTime clientRequestTime, TimeZoneInfo userTimeZone);
+        void AddDurationsUptoMidnight(DateTime startTime, DateTime midnight, int activityId);
+        void UpdateStartUptoLastMidnight(DateTime clientMidnightInUtc);
     }
 }

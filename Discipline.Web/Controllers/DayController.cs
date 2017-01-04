@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web.Mvc;
 using Discipline.Domain.Abstract;
 using Discipline.Web.Models.Abstract;
+using Discipline.Web.Infrastructure;
 
 namespace Discipline.Web.Controllers {
 
@@ -16,6 +17,7 @@ namespace Discipline.Web.Controllers {
             this.daysViewModelRepository = daysViewModelRepository;
             this.activityRepo = activityRepo;
         }
+
         /// <summary>
         /// Validates the requested date, throws exceptions if the request is for the
         /// current day or in the future.
@@ -23,9 +25,11 @@ namespace Discipline.Web.Controllers {
         /// </summary>
         public ActionResult Index(int year, int month, int day) {
             DateTime startDate, endDate, dateParam;
-
             dateParam = new DateTime(year, month, day);
-            activityRepo.UpdateStartUptoCurrentDate(dateParam.AddDays(4));
+
+            // This should be done when activityRepo is initialized in Home Controller, not here:
+            DateTime userMidnightInUtc = TimeZoneInfo.ConvertTimeToUtc(dateParam, Extensions.GetUserTimeZone());
+            activityRepo.UpdateStartUptoLastMidnight(userMidnightInUtc.AddDays(4));
 
             // NOTE: No checking for dates!
             // Directly tries to retrieve 10 days before and after

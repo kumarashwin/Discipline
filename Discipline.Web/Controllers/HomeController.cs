@@ -27,9 +27,11 @@ namespace Discipline.Web.Controllers {
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(string newActivity, string clientRequestTime) {
+
             activityRepo.StartNew(
                 int.Parse(newActivity),
-                long.Parse(clientRequestTime).FromUnixTimeToUtc().AddSeconds(1));
+                long.Parse(clientRequestTime).FromUnixTimeToUtc().AddSeconds(1),
+                Extensions.GetUserTimeZone());
 
             ModelState.Clear();
             return PartialView("ActivityStatus", activityRepo.Activities());

@@ -6,15 +6,16 @@ using System.Web;
 
 namespace Discipline.Web.Infrastructure {
     public static class Extensions {
-        public static DateTime ConvertToUserTimeZone(this DateTime dateTime) {
 
-            ApplicationUser user = HttpContext.Current.GetOwinContext()
+        public static ApplicationUser GetUser() =>
+            HttpContext.Current.GetOwinContext()
                     .GetUserManager<ApplicationUserManager>()
                     .FindById(HttpContext.Current.User.Identity.GetUserId());
 
-            var test = TimeZoneInfo.ConvertTimeFromUtc(dateTime, TimeZoneInfo.FindSystemTimeZoneById(user.TimeZone));
-            return test;
-        }
+        public static TimeZoneInfo GetUserTimeZone() => TimeZoneInfo.FindSystemTimeZoneById(GetUser().TimeZone);
+
+        public static DateTime ConvertToUserTimeZone(this DateTime dateTime) =>
+            TimeZoneInfo.ConvertTimeFromUtc(dateTime, GetUserTimeZone());
 
         public static DateTime FromUnixTimeToUtc(this long ticks) =>
             new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc).AddMilliseconds(ticks);

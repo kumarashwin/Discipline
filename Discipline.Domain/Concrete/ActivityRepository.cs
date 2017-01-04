@@ -26,7 +26,7 @@ namespace Discipline.Domain.Concrete {
             return context.Activities.Where(a => a.UserName == userName && a.Hide == false);
         }
 
-        public Activity Retrieve(int id) => context.Activities.Find(id); 
+        public Activity Retrieve(int id) => context.Activities.Find(id);
 
         public void CreateOrUpdate(Activity activity) {
             if (activity.UserName == null)
@@ -59,13 +59,19 @@ namespace Discipline.Domain.Concrete {
                 context.SaveChanges();
             }
             return dbEntry;
- 
         }
 
-        public void StartNew(int activity, DateTime clientRequestTime) {
-            // Stops previous activity
+        public void StartNew(int activity, DateTime clientRequestTime, TimeZoneInfo userTimeZone) {
+            // Find last midnight
+            DateTime midnight = TimeZoneInfo.ConvertTimeFromUtc(clientRequestTime, userTimeZone).Date;
             Activity currentActivity = context.Activities.Where(a => a.UserName == userName && a.Start != null).First();
-            AddDurations((DateTime)currentActivity.Start, clientRequestTime, currentActivity.Id);
+
+            if(currentActivity.Start.Value < midnight.ToUniversalTime())
+                AddDurationsUptoMidnight(currentActivity.Start.Value, midnight.ToUniversalTime(), activity);
+
+            context.Durations.Add(new Duration { ActivityId = currentActivity.Id, From = midnight.ToUniversalTime(), To = clientRequestTime });
+
+            // Stops previous activity
             currentActivity.Start = null;
 
             // Starts new activity
@@ -73,13 +79,24 @@ namespace Discipline.Domain.Concrete {
             context.SaveChanges();
         }
 
-        public void AddDurations(DateTime startTime, DateTime stopTime, int activityId) {
-            DateTime midnight = startTime.Date.AddDays(1);              // Gives us 00:00, the next day
-            if (stopTime >= midnight) {                                 // stopTime happens the next day
-                AddDurations(midnight, stopTime, activityId);           // Call recursively until stopTime is in the same day
-                stopTime = midnight.AddSeconds(-1);
+        public void AddDurations(DateTime startTime, DateTime midnight, DateTime endTime, int activityId) {
+
+        }
+
+        /// <summary></summary>
+        /// <param name="startTime">Utc</param>
+        /// <param name="midnight">Utc version of 00:00:00</param>
+        /// <param name="activityId"></param>
+        public void AddDurationsUptoMidnight(DateTime startTime, DateTime midnight, int activityId) {
+            DateTime lastMidnight = midnight.AddDays(-1);
+
+            if (startTime < lastMidnight) {
+                AddDurationsUptoMidnight(startTime, lastMidnight, activityId);
+                startTime = lastMidnight;
             }
-            context.Durations.Add(new Duration { ActivityId = activityId, From = startTime, To = stopTime });
+
+            // e.g. from '00:00:00' to '23:59:59', but both in UTC
+            context.Durations.Add(new Duration { ActivityId = activityId, From = startTime, To = midnight.AddSeconds(-1) });
         }
 
         /// <summary>
@@ -89,16 +106,18 @@ namespace Discipline.Domain.Concrete {
         /// That activity's Start value will be accordingly updated to 
         /// midnight of the client's current day.
         /// </summary>
-        /// <param name="dateTime"></param>
-        public void UpdateStartUptoCurrentDate(DateTime clientCurrentDay) {
+        /// <param name="clientMidnightInUtc">00:00 for client time zone for their current day, but expressed in UTC</param>
+        public void UpdateStartUptoLastMidnight(DateTime clientMidnightInUtc) {
             Activity lastStartedActivity = context.Activities.Where(a => a.UserName == userName && a.Start != null).First();
-            DateTime lastStartedActivityStart = lastStartedActivity.Start.GetValueOrDefault();
-            DateTime midnight = clientCurrentDay.AddSeconds(-1);
-            if (lastStartedActivityStart.Date < clientCurrentDay) {
-                this.AddDurations(lastStartedActivityStart, midnight, lastStartedActivity.Id);
 
-                lastStartedActivity.Start = clientCurrentDay;
-                this.CreateOrUpdate(lastStartedActivity);
+            // Activity was started prior to client's current day
+            if (lastStartedActivity.Start.Value < clientMidnightInUtc) {
+                AddDurationsUptoMidnight(lastStartedActivity.Start.Value, clientMidnightInUtc, lastStartedActivity.Id);
+
+                // Update that activity's Start field in Db
+                lastStartedActivity.Start = clientMidnightInUtc;
+                context.Activities.Attach(lastStartedActivity);
+                context.Entry(lastStartedActivity).State = EntityState.Modified;
                 context.SaveChanges();
             }
         }
