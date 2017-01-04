@@ -15,7 +15,6 @@ namespace Discipline.Web {
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include("~/Scripts/Bootstrap/bootstrap.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/colorpicker").Include("~/Scripts/Colorpicker/bootstrap-colorpicker.js"));
-            //bundles.Add(new ScriptBundle("~/bundles/farbtastic").Include("~/Scripts/Farbtastic/farbtastic.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/activities").Include("~/Scripts/Activities/*.js"));
 
