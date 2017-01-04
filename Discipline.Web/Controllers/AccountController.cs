@@ -261,19 +261,23 @@ namespace Discipline.Web.Controllers {
 
             int lastMinute;
             var result = new List<Duration>() { };
-            DateTime today = TimeZoneInfo.ConvertTimeToUtc(DateTime.Today, Extensions.GetUserTimeZone());
-            DateTime current = today.AddDays(-30);
-            for (; current < today; current = current.AddDays(1)) {
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = current, To = current.AddHours(8).AddMinutes(minuteRandomizer(out lastMinute)) });
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = current.AddHours(8).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(10).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = current.AddHours(10).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(11).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = current.AddHours(11).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(15).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = current.AddHours(15).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(17).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = current.AddHours(17).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(19).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = current.AddHours(19).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(20).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = current.AddHours(20).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(22).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = current.AddHours(22).AddMinutes(lastMinute).AddSeconds(1), To = current.AddHours(23).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = current.AddHours(23).AddMinutes(lastMinute).AddSeconds(1), To = current.AddDays(1).AddSeconds(-1)});
+
+            TimeZoneInfo EST = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+            var currEST = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, EST);
+            var midnight = currEST.Date;
+            var last = TimeZoneInfo.ConvertTimeToUtc(midnight, EST); 
+
+            for (DateTime d = last.AddDays(-30); d < last; d = d.AddDays(1)) {
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d, To = d.AddHours(8).AddMinutes(minuteRandomizer(out lastMinute)) });
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(8).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(10).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(10).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(11).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(11).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(15).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = d.AddHours(15).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(17).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Coding"], From = d.AddHours(17).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(19).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(19).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(20).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = d.AddHours(20).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(22).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = d.AddHours(22).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(23).AddMinutes(minuteRandomizer(out lastMinute))});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d.AddHours(23).AddMinutes(lastMinute).AddSeconds(1), To = d.AddDays(1).AddSeconds(-1)});
             }
 
             context.Durations.AddRange(result);
