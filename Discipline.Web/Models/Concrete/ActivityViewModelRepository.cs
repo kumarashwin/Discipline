@@ -24,12 +24,13 @@ namespace Discipline.Web.Models.Concrete {
             this.user = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(HttpContext.Current.User.Identity.GetUserId());
         }
 
-        public IEnumerable<ActivityViewModel> Activities(DateTime dayParam) =>
-            (from duration in durationRepo.Durations.Where(d => DbFunctions.TruncateTime(d.To) == dayParam.Date)
+        public IEnumerable<ActivityViewModel> Activities(DateTime from, DateTime to) =>
+            (from duration in durationRepo.Durations
              join activity in activityRepo.Activities()
              on duration.ActivityId equals activity.Id
              select new { Activity = activity, Duration = duration })
             .ToList()
+            .Where(vm => vm.Duration.From >= from && vm.Duration.To <= to)
             .OrderBy(vm => vm.Duration.From)
             .Select(vm => new ActivityViewModel {
                 Activity = vm.Activity.Id,

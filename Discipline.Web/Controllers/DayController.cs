@@ -24,8 +24,7 @@ namespace Discipline.Web.Controllers {
         /// Returns ContentResult i.e. a Json string, for at most, current date less four.
         /// </summary>
         public ActionResult Index(int year, int month, int day) {
-            DateTime startDate, endDate, dateParam;
-            dateParam = new DateTime(year, month, day);
+            DateTime dateParam = new DateTime(year, month, day);
 
             // This should be done when activityRepo is initialized in Home Controller, not here:
             DateTime userMidnightInUtc = TimeZoneInfo.ConvertTimeToUtc(dateParam, Extensions.GetUserTimeZone());
@@ -34,8 +33,8 @@ namespace Discipline.Web.Controllers {
             // NOTE: No checking for dates!
             // Directly tries to retrieve 10 days before and after
             // The checking needs to be done at the client-side;
-            startDate = dateParam.AddDays(-10);
-            endDate = dateParam.AddDays(10);
+            DateTime startDate = userMidnightInUtc.AddDays(-10);
+            DateTime endDate = userMidnightInUtc.AddDays(10);
             var activities = daysViewModelRepository.Days(startDate, endDate);
 
             string contentJson = JsonConvert.SerializeObject( new {

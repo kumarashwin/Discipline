@@ -270,11 +270,11 @@ namespace Discipline.Web.Controllers {
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Eating"], From = d.AddHours(19).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(20).AddMinutes(minuteRandomizer(out lastMinute))});
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Gaming"], From = d.AddHours(20).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(22).AddMinutes(minuteRandomizer(out lastMinute))});
                 result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Reading"], From = d.AddHours(22).AddMinutes(lastMinute).AddSeconds(1), To = d.AddHours(23).AddMinutes(minuteRandomizer(out lastMinute))});
-                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d.AddHours(23).AddMinutes(lastMinute).AddSeconds(1), To = d.AddDays(1)});
+                result.Add(new Duration { ActivityId = dictOfAllTestUserActivities["Sleeping"], From = d.AddHours(23).AddMinutes(lastMinute).AddSeconds(1), To = d.AddDays(1).AddSeconds(-1)});
             }
 
             context.Durations.AddRange(result);
-            context.Activities.Find(dictOfAllTestUserActivities["Coding"]).Start = DateTime.Now.AddHours(-1);
+            context.Activities.Find(dictOfAllTestUserActivities["Coding"]).Start = DateTime.Now.ToUniversalTime().AddHours(-1);
 
             context.SaveChanges();
             context.Dispose();

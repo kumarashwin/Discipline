@@ -14,12 +14,13 @@ namespace Discipline.Web.Models.Concrete {
 
         public IDictionary<string, IEnumerable<ActivityViewModel>> Days(DateTime startDate, DateTime endDate) {
             var days = new Dictionary<string, IEnumerable<ActivityViewModel>>();
+            while (startDate <= endDate) {
+                DateTime startDatePlusOne = startDate.AddDays(1);
+                var activities = activityViewModelRepo.Activities(startDate, startDatePlusOne);
+                days.Add(startDate.ToShortDateString(), activities);
+                startDate = startDatePlusOne;
+            }
 
-            for (; startDate <= endDate; startDate = startDate.AddDays(1)) 
-                days.Add(
-                    startDate.ToShortDateString(),
-                    activityViewModelRepo.Activities(startDate).ToList());
-            
             return days;
         }
     }

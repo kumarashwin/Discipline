@@ -4,6 +4,6 @@ using System.Collections.Generic;
 
 namespace Discipline.Web.Models.Abstract {
     public interface IActivityViewModelRepository {
-        IEnumerable<ActivityViewModel> Activities(DateTime dayParam);
+        IEnumerable<ActivityViewModel> Activities(DateTime from, DateTime to);
     }
 }
