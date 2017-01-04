@@ -17,7 +17,7 @@ namespace Discipline.Web.Models.Concrete {
             while (startDate <= endDate) {
                 DateTime startDatePlusOne = startDate.AddDays(1);
                 var activities = activityViewModelRepo.Activities(startDate, startDatePlusOne);
-                days.Add(startDate.ToShortDateString(), activities);
+                days.Add(startDate.ToString("yyyy-MM-dd"), activities);
                 startDate = startDatePlusOne;
             }
 
